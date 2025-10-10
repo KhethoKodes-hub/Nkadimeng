@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Products - Nkadimeng Agri</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2d5016;
+            --secondary: #4a7c2c;
+            --accent: #8bc34a;
+            --light: #f4f7f0;
+            --dark: #1a3008;
+            --text: #333;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(45, 80, 22, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            color: var(--accent);
+        }
+
+        .tagline {
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-top: 70px;
+            height: 40vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="2" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            from { transform: translateY(0); }
+            to { transform: translateY(-100px); }
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+        }
+
+        /* Products Showcase */
+        .products-showcase {
+            background: var(--light);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(45, 80, 22, 0.2);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            z-index: 2;
+        }
+
+        .product-image {
+            height: 250px;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 5rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-content {
+            padding: 2rem;
+        }
+
+        .product-content h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .product-description {
+            margin-bottom: 1.5rem;
+            color: #666;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-features li {
+            padding: 0.3rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .product-features li i {
+            color: var(--accent);
+        }
+
+        .product-price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            flex: 1;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Farming Practices */
+        .farming-practices {
+            background: white;
+        }
+
+        .practices-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .practice-card {
+            background: var(--light);
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .practice-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--accent);
+        }
+
+        .practice-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(45, 80, 22, 0.15);
+        }
+
+        .practice-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .practice-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Ordering Process */
+        .ordering-process {
+            background: var(--light);
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            counter-reset: step-counter;
+        }
+
+        .process-step {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .process-step::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .process-step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(45, 80, 22, 0.15);
+        }
+
+        .step-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .process-step h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background: white;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--light);
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            background: rgba(139, 195, 74, 0.1);
+        }
+
+        .faq-question i {
+            transition: var(--transition);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 500px;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+            padding: 4rem 5%;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--accent);
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(139, 195, 74, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(139, 195, 74, 0.5);
+        }
+
+        .cta-button.secondary:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-tagline {
+            color: var(--accent);
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--secondary);
+            transform: translateY(-5px);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1001;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .modal h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .order-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .order-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+            font-weight: 500;
+        }
+
+        .order-form .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .order-form .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(139, 195, 74, 0.2);
+        }
+
+        .order-summary {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .order-summary h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .total {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--secondary);
+            border-top: 1px solid #ddd;
+            padding-top: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--primary);
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                transform: translateY(-100%);
+                transition: var(--transition);
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .product-actions {
+                flex-direction: column;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-button {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+
+            section {
+                padding: 3rem 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div>
+                <div class="logo">
+                    <i class="fas fa-feather-alt logo-icon"></i>
+                    <a href="index.html">Nkadimeng Agri</a>
+                </div>
+                <div class="tagline">Simply Farming</div>
+            </div>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="products.html" class="active">Products</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <h1>Our Products</h1>
+            <p>Premium organic poultry, raised with care and delivered fresh from our farm</p>
+        </div>
+    </section>
+
+    <!-- Products Showcase -->
+    <section class="products-showcase">
+        <h2 class="section-title">Our Organic Poultry</h2>
+        <div class="products-grid">
+            <!-- Live Chickens Product -->
+            <div class="product-card">
+                <div class="product-badge">Most Popular</div>
+                <div class="product-image">
+                    <i class="fas fa-kiwi-bird"></i>
+                </div>
+                <div class="product-content">
+                    <h3>Live Organic Chickens</h3>
+                    <p class="product-description">Healthy, naturally raised chickens available for direct purchase. Perfect for those who prefer to process their own poultry.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> Raised without antibiotics</li>
+                        <li><i class="fas fa-check"></i> Free-range environment</li>
+                        <li><i class="fas fa-check"></i> Organic feed diet</li>
+                        <li><i class="fas fa-check"></i> 12-14 weeks growth cycle</li>
+                    </ul>
+                    <div class="product-price">From R95 per bird</div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary order-btn" data-product="Live Organic Chickens" data-price="95">
+                            <i class="fas fa-shopping-cart"></i> Order Now
+                        </button>
+                        <button class="btn btn-outline info-btn" data-product="live">
+                            <i class="fas fa-info-circle"></i> Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Freshly Slaughtered Product -->
+            <div class="product-card">
+                <div class="product-badge">Ready to Cook</div>
+                <div class="product-image">
+                    <i class="fas fa-drumstick-bite"></i>
+                </div>
+                <div class="product-content">
+                    <h3>Freshly Slaughtered & Cleaned</h3>
+                    <p class="product-description">Hygienically processed chickens, ready for immediate consumption or resale. Perfect for busy households and restaurants.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> Same-day processing</li>
+                        <li><i class="fas fa-check"></i> Hygienic standards</li>
+                        <li><i class="fas fa-check"></i> Vacuum-packed options</li>
+                        <li><i class="fas fa-check"></i> Custom cutting available</li>
+                    </ul>
+                    <div class="product-price">From R115 per bird</div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary order-btn" data-product="Freshly Slaughtered Chickens" data-price="115">
+                            <i class="fas fa-shopping-cart"></i> Order Now
+                        </button>
+                        <button class="btn btn-outline info-btn" data-product="slaughtered">
+                            <i class="fas fa-info-circle"></i> Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bulk Orders Product -->
+            <div class="product-card">
+                <div class="product-badge">Wholesale</div>
+                <div class="product-image">
+                    <i class="fas fa-pallet"></i>
+                </div>
+                <div class="product-content">
+                    <h3>Bulk Orders</h3>
+                    <p class="product-description">Special pricing for restaurants, retailers, and large families. Custom orders available to meet your specific needs.</p>
+                    <ul class="product-features">
+                        <li><i class="fas fa-check"></i> Competitive wholesale pricing</li>
+                        <li><i class="fas fa-check"></i> Regular delivery schedules</li>
+                        <li><i class="fas fa-check"></i> Custom processing</li>
+                        <li><i class="fas fa-check"></i> Volume discounts</li>
+                    </ul>
+                    <div class="product-price">Contact for pricing</div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary" onclick="location.href='contact.html'">
+                            <i class="fas fa-phone"></i> Inquire
+                        </button>
+                        <button class="btn btn-outline info-btn" data-product="bulk">
+                            <i class="fas fa-info-circle"></i> Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Farming Practices -->
+    <section class="farming-practices">
+        <h2 class="section-title">Our Farming Practices</h2>
+        <div class="practices-container">
+            <div class="practice-card">
+                <div class="practice-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h3>Organic Feed</h3>
+                <p>Our chickens are fed a 100% organic diet free from GMOs, antibiotics, and growth hormones.</p>
+            </div>
+            <div class="practice-card">
+                <div class="practice-icon">
+                    <i class="fas fa-sun"></i>
+                </div>
+                <h3>Free-Range Environment</h3>
+                <p>Birds have access to outdoor spaces with plenty of sunlight, fresh air, and room to roam.</p>
+            </div>
+            <div class="practice-card">
+                <div class="practice-icon">
+                    <i class="fas fa-hand-holding-heart"></i>
+                </div>
+                <h3>Animal Welfare</h3>
+                <p>We maintain low stocking densities and ensure humane treatment throughout their lifecycle.</p>
+            </div>
+            <div class="practice-card">
+                <div class="practice-icon">
+                    <i class="fas fa-recycle"></i>
+                </div>
+                <h3>Sustainability</h3>
+                <p>We implement waste management systems and conserve resources to minimize environmental impact.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ordering Process -->
+    <section class="ordering-process">
+        <h2 class="section-title">How to Order</h2>
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-icon">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <h3>Contact Us</h3>
+                <p>Call, email, or visit our farm to discuss your needs and check availability.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-icon">
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
+                <h3>Place Order</h3>
+                <p>Specify quantity, product type, and any special processing requirements.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-icon">
+                    <i class="fas fa-truck"></i>
+                </div>
+                <h3>Collection/Delivery</h3>
+                <p>Pick up from our farm or arrange for delivery within Emalahleni area.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <h3>Enjoy</h3>
+                <p>Experience the superior taste and quality of our organic poultry.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What's the difference between live and freshly slaughtered chickens?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Live chickens are sold as is for those who prefer to process their own poultry. Freshly slaughtered chickens are humanely processed, cleaned, and prepared for immediate cooking or freezing.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How do I store the chickens?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Freshly slaughtered chickens should be refrigerated and consumed within 2-3 days, or frozen for up to 6 months. Live chickens should be processed within 24 hours of purchase.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Do you offer delivery?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, we offer delivery within the Emalahleni area for orders above a certain quantity. Delivery fees may apply. Contact us for specific delivery options and pricing.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Can I visit the farm before purchasing?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Absolutely! We welcome visitors to our farm during business hours. It's a great opportunity to see our sustainable farming practices firsthand.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What payment methods do you accept?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>We accept cash, EFT, and mobile payments. Payment is required at the time of order confirmation for scheduled pickups or deliveries.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Ready to Taste the Difference?</h2>
+        <p>Experience the superior quality and flavor of our organic, ethically raised poultry.</p>
+        <div class="cta-buttons">
+            <a href="contact.html" class="cta-button">
+                <i class="fas fa-shopping-cart"></i> Place Your Order
+            </a>
+            <a href="tel:0606110490" class="cta-button secondary">
+                <i class="fas fa-phone"></i> Call to Order
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Nkadimeng Agri. All rights reserved.</p>
+        <p class="footer-tagline">Simply Farming, Simply Better.</p>
+    </footer>
+
+    <!-- Order Modal -->
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <h2>Place Your Order</h2>
+            <form class="order-form" id="orderForm">
+                <div class="order-summary">
+                    <h3>Order Summary</h3>
+                    <div class="summary-item">
+                        <span id="summary-product">Product</span>
+                        <span id="summary-price">R0.00</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Quantity</span>
+                        <span id="summary-quantity">1</span>
+                    </div>
+                    <div class="summary-item total">
+                        <span>Total</span>
+                        <span id="summary-total">R0.00</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="product">Product</label>
+                    <select id="product" class="form-control" required>
+                        <option value="">Select a product</option>
+                        <option value="Live Organic Chickens">Live Organic Chickens</option>
+                        <option value="Freshly Slaughtered Chickens">Freshly Slaughtered Chickens</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="quantity">Quantity</label>
+                    <input type="number" id="quantity" class="form-control" min="1" value="1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" class="form-control" placeholder="Your Name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" class="form-control" placeholder="Your Phone Number" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" class="form-control" placeholder="Your Email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="notes">Special Instructions</label>
+                    <textarea id="notes" class="form-control" placeholder="Any special requests or instructions"></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-paper-plane"></i> Submit Order
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenu.querySelector('i').classList.toggle('fa-bars');
+            mobileMenu.querySelector('i').classList.toggle('fa-times');
+        });
+
+        // Back to Top Button
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('active');
+            } else {
+                backToTopButton.classList.remove('active');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        mobileMenu.querySelector('i').classList.remove('fa-times');
+                        mobileMenu.querySelector('i').classList.add('fa-bars');
+                    }
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                document.querySelector('nav').style.background = 'rgba(45, 80, 22, 0.98)';
+            } else {
+                document.querySelector('nav').style.background = 'rgba(45, 80, 22, 0.95)';
+            }
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentNode;
+                item.classList.toggle('active');
+            });
+        });
+
+        // Order Modal
+        const orderModal = document.getElementById('orderModal');
+        const orderButtons = document.querySelectorAll('.order-btn');
+        const closeModal = document.querySelector('.close-modal');
+        const productSelect = document.getElementById('product');
+        const quantityInput = document.getElementById('quantity');
+        
+        // Product details for modal
+        const productDetails = {
+            'Live Organic Chickens': { price: 95 },
+            'Freshly Slaughtered Chickens': { price: 115 }
+        };
+        
+        // Open modal when order button is clicked
+        orderButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const product = button.getAttribute('data-product');
+                const price = button.getAttribute('data-price');
+                
+                // Set product and price in modal
+                productSelect.value = product;
+                document.getElementById('summary-product').textContent = product;
+                document.getElementById('summary-price').textContent = `R${price}`;
+                updateOrderSummary();
+                
+                // Show modal
+                orderModal.style.display = 'flex';
+            });
+        });
+        
+        // Close modal
+        closeModal.addEventListener('click', () => {
+            orderModal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === orderModal) {
+                orderModal.style.display = 'none';
+            }
+        });
+        
+        // Update order summary when quantity changes
+        quantityInput.addEventListener('input', updateOrderSummary);
+        productSelect.addEventListener('change', updateOrderSummary);
+        
+        function updateOrderSummary() {
+            const product = productSelect.value;
+            const quantity = parseInt(quantityInput.value) || 1;
+            const price = productDetails[product] ? productDetails[product].price : 0;
+            const total = price * quantity;
+            
+            document.getElementById('summary-product').textContent = product;
+            document.getElementById('summary-price').textContent = `R${price}`;
+            document.getElementById('summary-quantity').textContent = quantity;
+            document.getElementById('summary-total').textContent = `R${total}`;
+        }
+        
+        // Form submission
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const product = productSelect.value;
+            const quantity = quantityInput.value;
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            
+            // In a real application, you would send this data to a server
+            // For this example, we'll just show an alert
+            alert(`Thank you, ${name}! Your order for ${quantity} ${product} has been received. We'll contact you at ${phone} to confirm your order.`);
+            
+            // Reset the form and close modal
+            this.reset();
+            orderModal.style.display = 'none';
+            
+            // Reset summary
+            updateOrderSummary();
+        });
+
+        // Product info buttons
+        document.querySelectorAll('.info-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const productType = button.getAttribute('data-product');
+                let message = '';
+                
+                switch(productType) {
+                    case 'live':
+                        message = 'Our live organic chickens are raised in free-range environments with access to outdoor spaces. They are fed an organic diet free from antibiotics and growth hormones. Perfect for those who prefer to process their own poultry.';
+                        break;
+                    case 'slaughtered':
+                        message = 'Our freshly slaughtered chickens are processed following the highest hygiene standards. They are cleaned, prepared, and ready for cooking or freezing. We offer custom cutting options upon request.';
+                        break;
+                    case 'bulk':
+                        message = 'We offer competitive wholesale pricing for restaurants, retailers, and large orders. Contact us directly to discuss your specific needs, volume requirements, and delivery options.';
+                        break;
+                }
+                
+                alert(message);
+            });
+        });
+    </script>
+</body>
+</html>

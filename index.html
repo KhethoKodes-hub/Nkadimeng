@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nkadimeng Agri - Simply Farming</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2d5016;
+            --secondary: #4a7c2c;
+            --accent: #8bc34a;
+            --light: #f4f7f0;
+            --dark: #1a3008;
+            --text: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(45, 80, 22, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .tagline {
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 70px;
+            height: 90vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="2" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            from { transform: translateY(0); }
+            to { transform: translateY(-100px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero .slogan {
+            font-size: 2rem;
+            color: var(--accent);
+            font-style: italic;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.4s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--accent);
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.6s backwards;
+            box-shadow: 0 4px 15px rgba(139, 195, 74, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(139, 195, 74, 0.5);
+            background: #a4d96c;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+        }
+
+        /* About Section */
+        .about {
+            background: var(--light);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .about-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(45, 80, 22, 0.15);
+        }
+
+        .about-card h3 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Values Section */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .value-card {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.6s ease;
+        }
+
+        .value-card:hover::before {
+            transform: scale(1);
+        }
+
+        .value-card:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 15px 40px rgba(45, 80, 22, 0.3);
+        }
+
+        .value-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Products Section */
+        .products {
+            background: var(--light);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(45, 80, 22, 0.2);
+        }
+
+        .product-image {
+            height: 250px;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            transition: all 0.4s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+
+        .product-content {
+            padding: 2rem;
+        }
+
+        .product-content h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Why Choose Section */
+        .why-choose {
+            background: var(--primary);
+            color: white;
+        }
+
+        .why-choose .section-title {
+            color: white;
+        }
+
+        .why-choose .section-title::after {
+            background: var(--accent);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .feature-item:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .feature-item h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--light);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(45, 80, 22, 0.15);
+            background: var(--primary);
+            color: white;
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-card:hover .contact-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .contact-card h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .contact-card:hover h3 {
+            color: var(--accent);
+        }
+
+        .contact-card a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-card:hover a {
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-tagline {
+            color: var(--accent);
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .slogan {
+                font-size: 1.5rem;
+            }
+
+            section {
+                padding: 3rem 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div>
+                <div class="logo">Nkadimeng Agri</div>
+                <div class="tagline">Simply Farming</div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#values">Values</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#why">Why Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Nkadimeng Agri</h1>
+            <p class="slogan">Simply Farming</p>
+            <p>Proudly South African organic poultry from the heart of Lynnville, Emalahleni. Delivering fresh, healthy chickens to support sustainable local food systems.</p>
+            <a href="#contact" class="cta-button">Get In Touch</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2 class="section-title">About Us</h2>
+        <div class="about-content">
+            <div class="about-card">
+                <h3>Our Story</h3>
+                <p>Founded on a passion for farming and community upliftment, Nkadimeng Agri has been operating informally since 2021 and officially registered as a company in 2024. Rooted in Lynnville, Emalahleni, we are committed to producing high-quality, organic chicken for our local community.</p>
+            </div>
+            <div class="about-card">
+                <h3>Our Vision</h3>
+                <p>To become a leading provider of organic poultry products in Mpumalanga and beyond, empowering communities through food security and sustainable farming practices.</p>
+            </div>
+            <div class="about-card">
+                <h3>Our Mission</h3>
+                <p>To produce and supply premium-quality organic chickens that meet the nutritional needs of our community, promote sustainable and ethical farming methods, and foster strong relationships with local customers.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section id="values">
+        <h2 class="section-title">Our Values</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <h3>🌱 Sustainability</h3>
+                <p>We champion farming methods that protect natural resources for future generations.</p>
+            </div>
+            <div class="value-card">
+                <h3>🤝 Community</h3>
+                <p>We exist to serve and uplift the people of Emalahleni and surrounding areas.</p>
+            </div>
+            <div class="value-card">
+                <h3>⭐ Quality</h3>
+                <p>Our commitment is to consistently provide products that are fresh, healthy, and ethically sourced.</p>
+            </div>
+            <div class="value-card">
+                <h3>💚 Integrity</h3>
+                <p>We operate with honesty, transparency, and a customer-first attitude.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <h2 class="section-title">Our Products</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image">🐓</div>
+                <div class="product-content">
+                    <h3>Live Organic Chickens</h3>
+                    <p>Healthy, naturally raised chickens available for direct purchase. Our birds are raised with care, without harmful chemicals or antibiotics.</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">🍗</div>
+                <div class="product-content">
+                    <h3>Freshly Slaughtered & Cleaned</h3>
+                    <p>Hygienically processed to the highest standards for immediate consumption or resale. Fresh from our farm to your table.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Section -->
+    <section id="why" class="why-choose">
+        <h2 class="section-title">Why Choose Nkadimeng Agri?</h2>
+        <div class="features-grid">
+            <div class="feature-item">
+                <h3>🏡</h3>
+                <h3>Local & Fresh</h3>
+                <p>We source directly from our farm to your table with minimal handling time.</p>
+            </div>
+            <div class="feature-item">
+                <h3>🌿</h3>
+                <h3>Organic Practices</h3>
+                <p>No harmful chemicals or antibiotics—just natural, healthy poultry.</p>
+            </div>
+            <div class="feature-item">
+                <h3>❤️</h3>
+                <h3>Community Focused</h3>
+                <p>Your support helps strengthen food security and local economic growth.</p>
+            </div>
+            <div class="feature-item">
+                <h3>💰</h3>
+                <h3>Affordable Pricing</h3>
+                <p>High-quality poultry products at competitive prices, accessible to all households.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="contact-grid">
+            <div class="contact-card">
+                <div class="contact-icon">📍</div>
+                <h3>Location</h3>
+                <p>26 Lynnville, Emalahleni<br>Mpumalanga, South Africa</p>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">📞</div>
+                <h3>Phone</h3>
+                <p><a href="tel:0606110490">060 611 0490</a></p>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">✉️</div>
+                <h3>Email</h3>
+                <p><a href="mailto:Nkadimeng.agri@gmail.com">Nkadimeng.agri@gmail.com</a></p>
+            </div>
+            <div class="contact-card">
+                <div class="contact-icon">📱</div>
+                <h3>Social Media</h3>
+                <p><a href="https://www.facebook.com/profile.php?id=61573951484671" target="_blank">Follow us on Facebook</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Nkadimeng Agri. All rights reserved.</p>
+        <p class="footer-tagline">Simply Farming, Simply Better.</p>
+    </footer>
+</body>
+</html>
