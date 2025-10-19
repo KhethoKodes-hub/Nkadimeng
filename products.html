@@ -16,11 +16,15 @@
             --primary: #2d5016;
             --secondary: #4a7c2c;
             --accent: #8bc34a;
+            --accent-light: #c5e1a5;
             --light: #f4f7f0;
             --dark: #1a3008;
             --text: #333;
+            --text-light: #5a6c5d;
             --shadow: 0 5px 15px rgba(0,0,0,0.1);
+            --shadow-hover: 0 15px 30px rgba(45, 80, 22, 0.15);
             --transition: all 0.3s ease;
+            --border-radius: 16px;
         }
 
         body {
@@ -29,6 +33,7 @@
             color: var(--text);
             overflow-x: hidden;
             scroll-behavior: smooth;
+            background-color: #f9faf7;
         }
 
         /* Navigation */
@@ -52,41 +57,58 @@
             align-items: center;
         }
 
-        .logo {
-            color: white;
-            font-size: 1.8rem;
-            font-weight: bold;
-            letter-spacing: 1px;
+        .logo-section {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 1rem;
         }
 
-        .logo a {
+        .logo-placeholder {
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
-            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.5rem;
         }
 
-        .logo-icon {
-            color: var(--accent);
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-name {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: white;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
         }
 
         .tagline {
+            font-size: 0.85rem;
             color: var(--accent);
-            font-size: 0.9rem;
+            font-weight: 500;
             font-style: italic;
+            letter-spacing: 1px;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             list-style: none;
+            align-items: center;
         }
 
         .nav-links a {
             color: white;
             text-decoration: none;
             font-weight: 500;
+            font-size: 0.95rem;
             position: relative;
             transition: var(--transition);
         }
@@ -95,7 +117,8 @@
             content: '';
             position: absolute;
             bottom: -5px;
-            left: 0;
+            left: 50%;
+            transform: translateX(-50%);
             width: 0;
             height: 2px;
             background: var(--accent);
@@ -120,7 +143,7 @@
         /* Page Header */
         .page-header {
             margin-top: 70px;
-            height: 40vh;
+            height: 50vh;
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             display: flex;
             align-items: center;
@@ -138,13 +161,15 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="2" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
-            animation: float 20s linear infinite;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(139, 195, 74, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
         }
 
-        @keyframes float {
-            from { transform: translateY(0); }
-            to { transform: translateY(-100px); }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
         }
 
         .page-header-content {
@@ -164,6 +189,7 @@
         .page-header p {
             font-size: 1.2rem;
             animation: fadeInUp 1s ease 0.2s backwards;
+            opacity: 0.9;
         }
 
         @keyframes fadeInUp {
@@ -179,29 +205,39 @@
 
         /* Section Styles */
         section {
-            padding: 5rem 5%;
+            padding: 6rem 5%;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        .section-title {
-            font-size: 2.5rem;
+        .section-header {
             text-align: center;
-            margin-bottom: 3rem;
-            color: var(--primary);
-            position: relative;
-            padding-bottom: 1rem;
+            max-width: 700px;
+            margin: 0 auto 5rem;
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: var(--accent);
+        .section-tag {
+            display: inline-block;
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            line-height: 1.8;
         }
 
         /* Products Showcase */
@@ -212,21 +248,23 @@
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2.5rem;
+            gap: 3rem;
         }
 
         .product-card {
             background: white;
-            border-radius: 20px;
+            border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: var(--transition);
             position: relative;
+            border: 1px solid rgba(45, 80, 22, 0.1);
         }
 
         .product-card:hover {
             transform: translateY(-15px);
-            box-shadow: 0 20px 40px rgba(45, 80, 22, 0.2);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--accent);
         }
 
         .product-badge {
@@ -235,15 +273,16 @@
             right: 20px;
             background: var(--accent);
             color: var(--dark);
-            padding: 0.5rem 1rem;
+            padding: 0.6rem 1.2rem;
             border-radius: 30px;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             z-index: 2;
+            box-shadow: 0 4px 10px rgba(139, 195, 74, 0.3);
         }
 
         .product-image {
-            height: 250px;
+            height: 280px;
             background: linear-gradient(135deg, var(--accent), var(--secondary));
             display: flex;
             align-items: center;
@@ -255,23 +294,35 @@
             overflow: hidden;
         }
 
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), transparent);
+        }
+
         .product-card:hover .product-image {
             transform: scale(1.05);
         }
 
         .product-content {
-            padding: 2rem;
+            padding: 2.5rem;
         }
 
         .product-content h3 {
             color: var(--primary);
             margin-bottom: 1rem;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
+            font-weight: 700;
         }
 
         .product-description {
             margin-bottom: 1.5rem;
-            color: #666;
+            color: var(--text-light);
+            line-height: 1.7;
         }
 
         .product-features {
@@ -280,7 +331,7 @@
         }
 
         .product-features li {
-            padding: 0.3rem 0;
+            padding: 0.5rem 0;
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -303,7 +354,7 @@
         }
 
         .btn {
-            padding: 0.8rem 1.5rem;
+            padding: 1rem 1.5rem;
             border: none;
             border-radius: 8px;
             font-weight: 600;
@@ -314,16 +365,19 @@
             justify-content: center;
             gap: 0.5rem;
             flex: 1;
+            font-size: 0.95rem;
         }
 
         .btn-primary {
             background: var(--primary);
             color: white;
+            box-shadow: 0 4px 10px rgba(45, 80, 22, 0.2);
         }
 
         .btn-primary:hover {
             background: var(--secondary);
             transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(45, 80, 22, 0.3);
         }
 
         .btn-outline {
@@ -346,18 +400,19 @@
         .practices-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
         .practice-card {
             background: var(--light);
-            padding: 2.5rem 2rem;
-            border-radius: 15px;
+            padding: 3rem 2rem;
+            border-radius: var(--border-radius);
             text-align: center;
             box-shadow: var(--shadow);
             transition: var(--transition);
             position: relative;
             overflow: hidden;
+            border: 1px solid rgba(45, 80, 22, 0.1);
         }
 
         .practice-card::before {
@@ -368,15 +423,22 @@
             width: 100%;
             height: 5px;
             background: var(--accent);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .practice-card:hover::before {
+            transform: scaleX(1);
         }
 
         .practice-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(45, 80, 22, 0.15);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--accent);
         }
 
         .practice-icon {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: var(--secondary);
             margin-bottom: 1.5rem;
         }
@@ -387,6 +449,11 @@
             font-size: 1.5rem;
         }
 
+        .practice-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
         /* Ordering Process */
         .ordering-process {
             background: var(--light);
@@ -395,18 +462,19 @@
         .process-steps {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            gap: 2.5rem;
             counter-reset: step-counter;
         }
 
         .process-step {
             background: white;
-            padding: 2.5rem 2rem;
-            border-radius: 15px;
+            padding: 3rem 2rem;
+            border-radius: var(--border-radius);
             text-align: center;
             box-shadow: var(--shadow);
             transition: var(--transition);
             position: relative;
+            border: 1px solid rgba(45, 80, 22, 0.1);
         }
 
         .process-step::before {
@@ -426,11 +494,13 @@
             justify-content: center;
             font-weight: bold;
             font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(45, 80, 22, 0.2);
         }
 
         .process-step:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(45, 80, 22, 0.15);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--accent);
         }
 
         .step-icon {
@@ -445,6 +515,11 @@
             font-size: 1.3rem;
         }
 
+        .process-step p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
         /* FAQ Section */
         .faq-section {
             background: white;
@@ -457,14 +532,20 @@
 
         .faq-item {
             background: var(--light);
-            margin-bottom: 1rem;
-            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: var(--shadow);
+            border: 1px solid rgba(45, 80, 22, 0.1);
+            transition: var(--transition);
+        }
+
+        .faq-item:hover {
+            box-shadow: var(--shadow-hover);
         }
 
         .faq-question {
-            padding: 1.5rem;
+            padding: 1.8rem;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
@@ -483,14 +564,16 @@
         }
 
         .faq-answer {
-            padding: 0 1.5rem;
+            padding: 0 1.8rem;
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease;
+            color: var(--text-light);
+            line-height: 1.7;
         }
 
         .faq-item.active .faq-answer {
-            padding: 0 1.5rem 1.5rem;
+            padding: 0 1.8rem 1.8rem;
             max-height: 500px;
         }
 
@@ -503,32 +586,54 @@
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
             text-align: center;
-            padding: 4rem 5%;
+            padding: 5rem 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(139, 195, 74, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .cta-section h2 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 1.5rem;
         }
 
         .cta-section p {
             font-size: 1.2rem;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            opacity: 0.9;
         }
 
         .cta-buttons {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             justify-content: center;
             flex-wrap: wrap;
         }
 
         .cta-button {
             display: inline-block;
-            padding: 1rem 2rem;
+            padding: 1.2rem 2.5rem;
             background: var(--accent);
             color: var(--dark);
             text-decoration: none;
@@ -538,6 +643,7 @@
             box-shadow: 0 4px 15px rgba(139, 195, 74, 0.3);
             text-transform: uppercase;
             letter-spacing: 1px;
+            font-size: 1rem;
         }
 
         .cta-button.secondary {
@@ -561,17 +667,36 @@
             background: var(--dark);
             color: white;
             text-align: center;
-            padding: 2rem;
+            padding: 3rem 2rem 2rem;
         }
 
-        footer p {
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 800;
             margin-bottom: 0.5rem;
         }
 
         .footer-tagline {
-            color: var(--accent);
+            color: var(--accent-light);
             font-style: italic;
             font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 2rem 0;
+        }
+
+        .footer-bottom {
+            font-size: 0.9rem;
+            opacity: 0.8;
         }
 
         /* Back to Top Button */
@@ -617,17 +742,20 @@
             z-index: 1001;
             align-items: center;
             justify-content: center;
+            padding: 1rem;
         }
 
         .modal-content {
             background: white;
-            border-radius: 15px;
+            border-radius: var(--border-radius);
             padding: 2.5rem;
             max-width: 500px;
             width: 90%;
             max-height: 90vh;
             overflow-y: auto;
             position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border: 1px solid rgba(45, 80, 22, 0.1);
         }
 
         .close-modal {
@@ -639,12 +767,19 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: #666;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
+            transform: rotate(90deg);
         }
 
         .modal h2 {
             color: var(--primary);
             margin-bottom: 1.5rem;
             text-align: center;
+            font-size: 2rem;
         }
 
         .order-form .form-group {
@@ -679,6 +814,7 @@
             padding: 1.5rem;
             border-radius: 10px;
             margin-bottom: 1.5rem;
+            border: 1px solid rgba(45, 80, 22, 0.1);
         }
 
         .order-summary h3 {
@@ -702,6 +838,20 @@
         }
 
         /* Responsive */
+        @media (max-width: 968px) {
+            .page-header h1 {
+                font-size: 2.8rem;
+            }
+
+            .section-title {
+                font-size: 2.3rem;
+            }
+
+            .cta-section h2 {
+                font-size: 2.3rem;
+            }
+        }
+
         @media (max-width: 768px) {
             .nav-links {
                 position: fixed;
@@ -725,8 +875,20 @@
                 display: block;
             }
 
+            .page-header {
+                height: 40vh;
+            }
+
             .page-header h1 {
-                font-size: 2.5rem;
+                font-size: 2.3rem;
+            }
+
+            section {
+                padding: 4rem 5%;
+            }
+
+            .section-title {
+                font-size: 2rem;
             }
 
             .product-actions {
@@ -744,8 +906,8 @@
                 text-align: center;
             }
 
-            section {
-                padding: 3rem 5%;
+            .cta-section h2 {
+                font-size: 2rem;
             }
         }
     </style>
@@ -754,12 +916,12 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <div>
-                <div class="logo">
-                    <i class="fas fa-feather-alt logo-icon"></i>
-                <div class="logo"><a><img src="assets/NkadimengLogo.png" height="80" width="80"></a></div>
+            <div class="logo-section">
+                <div class="logo-placeholder">NA</div>
+                <div class="logo-text">
+                    <span class="brand-name">Nkadimeng Agri</span>
+                    <span class="tagline">Simply Farming</span>
                 </div>
-                <div class="tagline">Simply Farming</div>
             </div>
             <div class="mobile-menu">
                 <i class="fas fa-bars"></i>
@@ -783,7 +945,11 @@
 
     <!-- Products Showcase -->
     <section class="products-showcase">
-        <h2 class="section-title">Our Organic Poultry</h2>
+        <div class="section-header">
+            <div class="section-tag">Our Products</div>
+            <h2 class="section-title">Premium Organic Poultry</h2>
+            <p class="section-description">Discover our range of carefully raised, certified organic poultry products that deliver exceptional taste and quality.</p>
+        </div>
         <div class="products-grid">
             <!-- Live Chickens Product -->
             <div class="product-card">
@@ -870,7 +1036,11 @@
 
     <!-- Farming Practices -->
     <section class="farming-practices">
-        <h2 class="section-title">Our Farming Practices</h2>
+        <div class="section-header">
+            <div class="section-tag">Our Approach</div>
+            <h2 class="section-title">Sustainable Farming Practices</h2>
+            <p class="section-description">Our commitment to excellence extends to every aspect of how we raise and deliver our products.</p>
+        </div>
         <div class="practices-container">
             <div class="practice-card">
                 <div class="practice-icon">
@@ -905,7 +1075,11 @@
 
     <!-- Ordering Process -->
     <section class="ordering-process">
-        <h2 class="section-title">How to Order</h2>
+        <div class="section-header">
+            <div class="section-tag">How to Order</div>
+            <h2 class="section-title">Simple Ordering Process</h2>
+            <p class="section-description">Getting our premium organic poultry to your table is quick and easy with our streamlined ordering process.</p>
+        </div>
         <div class="process-steps">
             <div class="process-step">
                 <div class="step-icon">
@@ -940,7 +1114,11 @@
 
     <!-- FAQ Section -->
     <section class="faq-section">
-        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="section-header">
+            <div class="section-tag">FAQ</div>
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-description">Find answers to common questions about our products and ordering process.</p>
+        </div>
         <div class="faq-container">
             <div class="faq-item">
                 <div class="faq-question">
@@ -996,22 +1174,31 @@
 
     <!-- CTA Section -->
     <section class="cta-section">
-        <h2>Ready to Taste the Difference?</h2>
-        <p>Experience the superior quality and flavor of our organic, ethically raised poultry.</p>
-        <div class="cta-buttons">
-            <a href="contact.html" class="cta-button">
-                <i class="fas fa-shopping-cart"></i> Place Your Order
-            </a>
-            <a href="tel:0606110490" class="cta-button secondary">
-                <i class="fas fa-phone"></i> Call to Order
-            </a>
+        <div class="cta-content">
+            <h2>Ready to Taste the Difference?</h2>
+            <p>Experience the superior quality and flavor of our organic, ethically raised poultry.</p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="cta-button">
+                    <i class="fas fa-shopping-cart"></i> Place Your Order
+                </a>
+                <a href="tel:0606110490" class="cta-button secondary">
+                    <i class="fas fa-phone"></i> Call to Order
+                </a>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2024 Nkadimeng Agri. All rights reserved.</p>
-        <p class="footer-tagline">Simply Farming, Simply Better.</p>
+        <div class="footer-content">
+            <div class="footer-logo">Nkadimeng Agri</div>
+            <div class="footer-tagline">Simply Farming, Simply Better.</div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Nkadimeng Agri. All rights reserved.</p>
+                <p>Proudly serving the Emalahleni community and beyond.</p>
+            </div>
+        </div>
     </footer>
 
     <!-- Order Modal -->
@@ -1246,6 +1433,35 @@
                 
                 alert(message);
             });
+        });
+
+        // Animation on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.product-card, .practice-card, .process-step');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.style.opacity = "1";
+                    element.style.transform = "translateY(0)";
+                }
+            });
+        }
+
+        // Set initial state for animated elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.product-card, .practice-card, .process-step');
+            elements.forEach(element => {
+                element.style.opacity = "0";
+                element.style.transform = "translateY(20px)";
+                element.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+            });
+            
+            window.addEventListener('scroll', animateOnScroll);
+            // Trigger once on load
+            animateOnScroll();
         });
     </script>
 </body>

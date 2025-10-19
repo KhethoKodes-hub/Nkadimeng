@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nkadimeng Agri - Simply Farming</title>
+    <title>Nkadimeng Agri - Organic Poultry Excellence</title>
     <style>
         * {
             margin: 0;
@@ -13,18 +13,24 @@
 
         :root {
             --primary: #2d5016;
+            --primary-dark: #1a3008;
             --secondary: #4a7c2c;
             --accent: #8bc34a;
-            --light: #f4f7f0;
-            --dark: #1a3008;
-            --text: #333;
+            --accent-light: #c5e1a5;
+            --earth: #8d6e63;
+            --sky: #87ceeb;
+            --light: #f9faf7;
+            --white: #ffffff;
+            --text: #2c3e2f;
+            --text-light: #5a6c5d;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
             color: var(--text);
             overflow-x: hidden;
+            background: var(--white);
         }
 
         /* Navigation */
@@ -32,11 +38,17 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(45, 80, 22, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 5%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            padding: 1rem 8%;
             z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(45, 80, 22, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 0.7rem 8%;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
         }
 
         .nav-container {
@@ -47,38 +59,55 @@
             align-items: center;
         }
 
-        .logo {
-            color: white;
-            font-size: 1.8rem;
-            font-weight: bold;
-            letter-spacing: 1px;
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-name {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+            line-height: 1.2;
         }
 
         .tagline {
+            font-size: 0.85rem;
             color: var(--accent);
-            font-size: 0.9rem;
+            font-weight: 500;
             font-style: italic;
+            letter-spacing: 1px;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             list-style: none;
+            align-items: center;
         }
 
         .nav-links a {
-            color: white;
+            color: var(--text);
             text-decoration: none;
             font-weight: 500;
+            font-size: 0.95rem;
             position: relative;
-            transition: color 0.3s;
+            transition: color 0.3s ease;
         }
 
         .nav-links a::after {
             content: '';
             position: absolute;
             bottom: -5px;
-            left: 0;
+            left: 50%;
+            transform: translateX(-50%);
             width: 0;
             height: 2px;
             background: var(--accent);
@@ -86,7 +115,7 @@
         }
 
         .nav-links a:hover {
-            color: var(--accent);
+            color: var(--primary);
         }
 
         .nav-links a:hover::after {
@@ -95,14 +124,13 @@
 
         /* Hero Section */
         .hero {
-            margin-top: 70px;
-            height: 90vh;
+            margin-top: 80px;
+            min-height: 95vh;
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            color: white;
+            padding: 4rem 8%;
             position: relative;
             overflow: hidden;
         }
@@ -114,40 +142,103 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="2" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
-            animation: float 20s linear infinite;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(139, 195, 74, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
         }
 
-        @keyframes float {
-            from { transform: translateY(0); }
-            to { transform: translateY(-100px); }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .floating-leaves {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .leaf {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.15;
+            animation: float-leaf 20s infinite ease-in-out;
+        }
+
+        .leaf:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .leaf:nth-child(2) { left: 30%; animation-delay: 4s; }
+        .leaf:nth-child(3) { left: 50%; animation-delay: 8s; }
+        .leaf:nth-child(4) { left: 70%; animation-delay: 12s; }
+        .leaf:nth-child(5) { left: 90%; animation-delay: 16s; }
+
+        @keyframes float-leaf {
+            0% { 
+                transform: translateY(120vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 0.15; }
+            90% { opacity: 0.15; }
+            100% { 
+                transform: translateY(-20vh) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         .hero-content {
             position: relative;
             z-index: 1;
-            max-width: 800px;
-            padding: 2rem;
+            max-width: 900px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.6rem 1.8rem;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            color: var(--accent-light);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
         }
 
         .hero h1 {
-            font-size: 4rem;
+            font-size: 5rem;
+            font-weight: 900;
             margin-bottom: 1rem;
-            animation: fadeInUp 1s ease;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            animation: fadeInUp 0.8s ease;
         }
 
         .hero .slogan {
             font-size: 2rem;
-            color: var(--accent);
+            color: var(--accent-light);
             font-style: italic;
+            font-weight: 300;
             margin-bottom: 2rem;
-            animation: fadeInUp 1s ease 0.2s backwards;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
         }
 
-        .hero p {
+        .hero-description {
             font-size: 1.2rem;
-            margin-bottom: 2rem;
-            animation: fadeInUp 1s ease 0.4s backwards;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
         }
 
         @keyframes fadeInUp {
@@ -161,50 +252,117 @@
             }
         }
 
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: var(--accent);
-            color: var(--dark);
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            animation: fadeInUp 1s ease 0.6s backwards;
-            box-shadow: 0 4px 15px rgba(139, 195, 74, 0.3);
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.6s backwards;
         }
 
-        .cta-button:hover {
+        .cta-button {
+            padding: 1.1rem 2.5rem;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cta-primary {
+            background: var(--accent);
+            color: var(--primary-dark);
+            box-shadow: 0 10px 30px rgba(139, 195, 74, 0.3);
+        }
+
+        .cta-primary:hover {
+            background: var(--accent-light);
             transform: translateY(-3px);
-            box-shadow: 0 6px 25px rgba(139, 195, 74, 0.5);
-            background: #a4d96c;
+            box-shadow: 0 15px 40px rgba(139, 195, 74, 0.4);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-secondary:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 4rem 8%;
+            background: white;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         /* Section Styles */
         section {
-            padding: 5rem 5%;
-            max-width: 1400px;
-            margin: 0 auto;
+            padding: 8rem 8%;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 5rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
         }
 
         .section-title {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 3rem;
+            font-size: 3rem;
+            font-weight: 800;
             color: var(--primary);
-            position: relative;
-            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: var(--accent);
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            line-height: 1.8;
         }
 
         /* About Section */
@@ -212,49 +370,88 @@
             background: var(--light);
         }
 
-        .about-content {
+        .about-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .about-card {
             background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
+            padding: 3rem;
+            border-radius: 16px;
+            border: 1px solid rgba(45, 80, 22, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .about-card:hover::before {
+            transform: scaleX(1);
         }
 
         .about-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(45, 80, 22, 0.15);
+            box-shadow: 0 20px 60px rgba(45, 80, 22, 0.12);
+            border-color: var(--accent);
+        }
+
+        .about-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
         }
 
         .about-card h3 {
-            color: var(--secondary);
+            color: var(--primary);
+            font-size: 1.6rem;
+            font-weight: 700;
             margin-bottom: 1rem;
-            font-size: 1.5rem;
+        }
+
+        .about-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+            font-size: 0.95rem;
         }
 
         /* Values Section */
+        .values {
+            background: white;
+        }
+
         .values-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .value-card {
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
-            padding: 2.5rem 2rem;
-            border-radius: 15px;
+            padding: 3rem 2rem;
+            border-radius: 16px;
             text-align: center;
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            border: 2px solid transparent;
         }
 
         .value-card::before {
@@ -264,7 +461,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
             transform: scale(0);
             transition: transform 0.6s ease;
         }
@@ -274,105 +471,273 @@
         }
 
         .value-card:hover {
-            transform: scale(1.05) rotate(2deg);
-            box-shadow: 0 15px 40px rgba(45, 80, 22, 0.3);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(45, 80, 22, 0.3);
+            border-color: var(--accent);
+        }
+
+        .value-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
         }
 
         .value-card h3 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
+            font-weight: 700;
             margin-bottom: 1rem;
+        }
+
+        .value-card p {
+            line-height: 1.7;
+            opacity: 0.95;
+            font-size: 0.95rem;
         }
 
         /* Products Section */
         .products {
-            background: var(--light);
+            background: linear-gradient(180deg, var(--light) 0%, white 100%);
         }
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .product-card {
             background: white;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
             transition: all 0.4s ease;
+            border: 1px solid rgba(45, 80, 22, 0.1);
         }
 
         .product-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 20px 50px rgba(45, 80, 22, 0.2);
+            transform: translateY(-15px);
+            box-shadow: 0 25px 70px rgba(45, 80, 22, 0.15);
+            border-color: var(--accent);
         }
 
         .product-image {
-            height: 250px;
-            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            height: 280px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
-            transition: all 0.4s ease;
+            font-size: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), transparent);
         }
 
         .product-card:hover .product-image {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
         .product-content {
-            padding: 2rem;
+            padding: 2.5rem;
+        }
+
+        .product-tag {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: var(--accent-light);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
         }
 
         .product-content h3 {
             color: var(--primary);
+            font-size: 1.6rem;
+            font-weight: 700;
             margin-bottom: 1rem;
-            font-size: 1.5rem;
         }
 
-        /* Why Choose Section */
-        .why-choose {
+        .product-content p {
+            color: var(--text-light);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        /* Features Section */
+        .features {
             background: var(--primary);
             color: white;
+            position: relative;
+            overflow: hidden;
         }
 
-        .why-choose .section-title {
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(139, 195, 74, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+        }
+
+        .features .section-header {
+            position: relative;
+            z-index: 1;
+        }
+
+        .features .section-tag {
+            color: var(--accent-light);
+        }
+
+        .features .section-title {
             color: white;
         }
 
-        .why-choose .section-title::after {
-            background: var(--accent);
+        .features .section-description {
+            color: rgba(255, 255, 255, 0.9);
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
-        .feature-item {
-            text-align: center;
-            padding: 2rem;
-            background: rgba(255,255,255,0.1);
-            border-radius: 15px;
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            transition: all 0.4s ease;
         }
 
-        .feature-item:hover {
-            background: rgba(255,255,255,0.15);
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.15);
             border-color: var(--accent);
-            transform: scale(1.05);
+            transform: translateY(-8px);
         }
 
-        .feature-item h3 {
-            font-size: 1.8rem;
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
             margin-bottom: 1rem;
-            color: var(--accent);
+            color: var(--accent-light);
+        }
+
+        .feature-card p {
+            line-height: 1.8;
+            opacity: 0.95;
+            font-size: 0.95rem;
+        }
+
+        /* Process Section */
+        .process {
+            background: white;
+        }
+
+        .process-timeline {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--accent), var(--secondary));
+            transform: translateX(-50%);
+        }
+
+        .process-step {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .process-step:nth-child(even) .process-content {
+            order: 2;
+        }
+
+        .process-number {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+            box-shadow: 0 5px 20px rgba(139, 195, 74, 0.4);
+            z-index: 2;
+        }
+
+        .process-content {
+            background: var(--light);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(45, 80, 22, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .process-content:hover {
+            transform: translateX(-10px);
+            box-shadow: 0 15px 40px rgba(45, 80, 22, 0.1);
+        }
+
+        .process-step:nth-child(even) .process-content:hover {
+            transform: translateX(10px);
+        }
+
+        .process-content h3 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+        }
+
+        .process-content p {
+            color: var(--text-light);
+            line-height: 1.7;
+            font-size: 0.95rem;
         }
 
         /* Contact Section */
@@ -384,76 +749,147 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .contact-card {
             background: white;
-            padding: 2rem;
-            border-radius: 15px;
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(45, 80, 22, 0.1);
             text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .contact-card:hover::before {
+            transform: scaleX(1);
         }
 
         .contact-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(45, 80, 22, 0.15);
-            background: var(--primary);
-            color: white;
+            box-shadow: 0 20px 50px rgba(45, 80, 22, 0.12);
+            border-color: var(--accent);
         }
 
         .contact-icon {
             font-size: 2.5rem;
-            margin-bottom: 1rem;
-            transition: transform 0.3s ease;
-        }
-
-        .contact-card:hover .contact-icon {
-            transform: scale(1.2) rotate(5deg);
+            margin-bottom: 1.5rem;
+            display: block;
         }
 
         .contact-card h3 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: 700;
             margin-bottom: 1rem;
-            color: var(--secondary);
         }
 
-        .contact-card:hover h3 {
-            color: var(--accent);
-        }
-
-        .contact-card a {
-            color: var(--text);
+        .contact-card p, .contact-card a {
+            color: var(--text-light);
+            line-height: 1.7;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: color 0.3s ease;
         }
 
-        .contact-card:hover a {
-            color: white;
+        .contact-card a:hover {
+            color: var(--accent);
         }
 
         /* Footer */
         footer {
-            background: var(--dark);
+            background: var(--primary-dark);
             color: white;
-            text-align: center;
-            padding: 2rem;
+            padding: 4rem 8% 2rem;
         }
 
-        footer p {
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 800;
             margin-bottom: 0.5rem;
         }
 
         .footer-tagline {
-            color: var(--accent);
+            color: var(--accent-light);
             font-style: italic;
             font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 2rem 0;
+        }
+
+        .footer-bottom {
+            font-size: 0.9rem;
+            opacity: 0.8;
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 968px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .process-timeline::before {
+                left: 30px;
+            }
+
+            .process-step {
+                grid-template-columns: 1fr;
+            }
+
+            .process-number {
+                left: 30px;
+            }
+
+            .process-content {
+                margin-left: 90px;
+            }
+
+            .process-step:nth-child(even) .process-content {
+                order: 1;
+            }
+        }
+
+        @media (max-width: 640px) {
+            nav {
+                padding: 1rem 5%;
+            }
+
             .nav-links {
                 display: none;
+            }
+
+            .hero {
+                margin-top: 70px;
+                padding: 3rem 5%;
             }
 
             .hero h1 {
@@ -465,160 +901,345 @@
             }
 
             section {
-                padding: 3rem 5%;
+                padding: 5rem 5%;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
+    <nav id="navbar">
         <div class="nav-container">
-            <div>
-                <div class="logo"><a><img src="assets/NkadimengLogo.png" height="80" width="80"></a></div>
-                <div class="tagline">Simply Farming</div>
+            <div class="logo-section">
+                <div class="logo-placeholder" style="width: 60px; height: 60px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">NA</div>
+                <div class="logo-text">
+                    <span class="brand-name">Nkadimeng Agri</span>
+                    <span class="tagline">Simply Farming</span>
+                </div>
             </div>
             <ul class="nav-links">
                 <li><a href="about.html">About</a></li>
-                <li><a href="products.html">Services</a></li>
-                <!--<li><a href="#products">Products</a></li>-->
-                <!--<li><a href="#why">Why Us</a></li>-->
+                <!--<li><a href="#values">Values</a></li>-->
+                <li><a href="products.html">Products</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section class="hero">
+        <div class="floating-leaves">
+            <div class="leaf">🌿</div>
+            <div class="leaf">🌾</div>
+            <div class="leaf">🌿</div>
+            <div class="leaf">🍃</div>
+            <div class="leaf">🌿</div>
+        </div>
         <div class="hero-content">
-            <h1>Nkadimeng Agri</h1>
+            <div class="hero-badge">Certified Organic Poultry</div>
+            <h1>Farm Fresh Excellence</h1>
             <p class="slogan">Simply Farming</p>
-            <p>Proudly South African organic poultry from the heart of Lynnville, Emalahleni. Delivering fresh, healthy chickens to support sustainable local food systems.</p>
-            <a href="#contact" class="cta-button">Get In Touch</a>
+            <p class="hero-description">Proudly South African organic poultry from the heart of Lynnville, Emalahleni. Delivering premium, ethically-raised chickens that support sustainable local food systems and community prosperity.</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="cta-button cta-primary">
+                    <span>Get In Touch</span>
+                    <span>→</span>
+                </a>
+                <a href="#products" class="cta-button cta-secondary">
+                    <span>Our Products</span>
+                </a>
+            </div>
         </div>
     </section>
 
-    <!-- About Section -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">2021</div>
+                <div class="stat-label">Established</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Organic</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">Local</div>
+                <div class="stat-label">Sourced & Supplied</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Antibiotics</div>
+            </div>
+        </div>
+    </section>
+
     <section id="about" class="about">
-        <h2 class="section-title">About Us</h2>
-        <div class="about-content">
+        <div class="section-header">
+            <div class="section-tag">Who We Are</div>
+            <h2 class="section-title">Rooted in Community, Growing with Purpose</h2>
+            <p class="section-description">From humble beginnings to certified excellence, we're committed to sustainable farming practices that nourish our community.</p>
+        </div>
+        <div class="about-grid">
             <div class="about-card">
+                <span class="about-icon">📖</span>
                 <h3>Our Story</h3>
-                <p>Founded on a passion for farming and community upliftment, Nkadimeng Agri has been operating informally since 2021 and officially registered as a company in 2024. Rooted in Lynnville, Emalahleni, we are committed to producing high-quality, organic chicken for our local community.</p>
+                <p>Founded on a passion for farming and community empowerment, Nkadimeng Agri began operations in 2021 and achieved official company registration in 2024. Rooted in Lynnville, Emalahleni, we're dedicated to producing premium organic poultry while creating sustainable opportunities for our community.</p>
             </div>
             <div class="about-card">
-                <h3>Our Vision</h3>
-                <p>To become a leading provider of organic poultry products in Mpumalanga and beyond, empowering communities through food security and sustainable farming practices.</p>
-            </div>
-            <div class="about-card">
+                <span class="about-icon">🎯</span>
                 <h3>Our Mission</h3>
-                <p>To produce and supply premium-quality organic chickens that meet the nutritional needs of our community, promote sustainable and ethical farming methods, and foster strong relationships with local customers.</p>
+                <p>To provide the highest quality organic poultry products while promoting sustainable agriculture, supporting local economies, and maintaining the highest standards of animal welfare and environmental stewardship.</p>
+            </div>
+            <div class="about-card">
+                <span class="about-icon">👁️</span>
+                <h3>Our Vision</h3>
+                <p>To become South Africa's leading provider of organic poultry, setting new standards for quality, sustainability, and community impact while inspiring a new generation of farmers.</p>
             </div>
         </div>
     </section>
 
-    <!-- Values Section -->
-    <section id="values">
-        <h2 class="section-title">Our Values</h2>
+    <section id="values" class="values">
+        <div class="section-header">
+            <div class="section-tag">Our Values</div>
+            <h2 class="section-title">What Guides Our Work</h2>
+            <p class="section-description">Our commitment to excellence is built on a foundation of core values that shape every aspect of our operations.</p>
+        </div>
         <div class="values-grid">
             <div class="value-card">
-                <h3>🌱 Sustainability</h3>
-                <p>We champion farming methods that protect natural resources for future generations.</p>
+                <span class="value-icon">🌱</span>
+                <h3>Sustainability</h3>
+                <p>We practice regenerative farming methods that enrich our land, protect natural resources, and ensure long-term viability for future generations.</p>
             </div>
             <div class="value-card">
-                <h3>🤝 Community</h3>
-                <p>We exist to serve and uplift the people of Emalahleni and surrounding areas.</p>
+                <span class="value-icon">🤝</span>
+                <h3>Community</h3>
+                <p>We believe in empowering local communities through job creation, skills development, and supporting local businesses and suppliers.</p>
             </div>
             <div class="value-card">
-                <h3>⭐ Quality</h3>
-                <p>Our commitment is to consistently provide products that are fresh, healthy, and ethically sourced.</p>
+                <span class="value-icon">🐔</span>
+                <h3>Animal Welfare</h3>
+                <p>Our chickens are raised with care, provided ample space to roam, and never given antibiotics or growth hormones.</p>
             </div>
             <div class="value-card">
-                <h3>💚 Integrity</h3>
-                <p>We operate with honesty, transparency, and a customer-first attitude.</p>
+                <span class="value-icon">⭐</span>
+                <h3>Quality</h3>
+                <p>From farm to table, we maintain the highest standards to deliver poultry products that are nutritious, delicious, and responsibly produced.</p>
             </div>
         </div>
     </section>
 
-    <!-- Products Section -->
     <section id="products" class="products">
-        <h2 class="section-title">Our Products</h2>
+        <div class="section-header">
+            <div class="section-tag">Our Products</div>
+            <h2 class="section-title">Premium Organic Poultry</h2>
+            <p class="section-description">Discover our range of carefully raised, certified organic poultry products that deliver exceptional taste and quality.</p>
+        </div>
         <div class="products-grid">
             <div class="product-card">
-                <div class="product-image">🐓</div>
+                <div class="product-image">
+                    <span>🍗</span>
+                </div>
                 <div class="product-content">
-                    <h3>Live Organic Chickens</h3>
-                    <p>Healthy, naturally raised chickens available for direct purchase. Our birds are raised with care, without harmful chemicals or antibiotics.</p>
+                    <span class="product-tag">Most Popular</span>
+                    <h3>Whole Chickens</h3>
+                    <p>Our signature free-range, organic whole chickens are raised with care and processed to the highest standards. Perfect for family meals and special occasions.</p>
                 </div>
             </div>
             <div class="product-card">
-                <div class="product-image">🍗</div>
+                <div class="product-image">
+                    <span>🍖</span>
+                </div>
                 <div class="product-content">
-                    <h3>Freshly Slaughtered & Cleaned</h3>
-                    <p>Hygienically processed to the highest standards for immediate consumption or resale. Fresh from our farm to your table.</p>
+                    <span class="product-tag">Value Pack</span>
+                    <h3>Chicken Portions</h3>
+                    <p>Conveniently portioned cuts including breasts, thighs, wings, and drumsticks. All from our organically raised chickens with no additives or preservatives.</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <span>🥚</span>
+                </div>
+                <div class="product-content">
+                    <span class="product-tag">Coming Soon</span>
+                    <h3>Organic Eggs</h3>
+                    <p>Fresh, nutrient-rich eggs from our free-range hens. Raised on organic feed with access to pasture for natural foraging behaviors.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Why Choose Section -->
-    <section id="why" class="why-choose">
-        <h2 class="section-title">Why Choose Nkadimeng Agri?</h2>
+    <section class="features">
+        <div class="section-header">
+            <div class="section-tag">Why Choose Us</div>
+            <h2 class="section-title">The Nkadimeng Difference</h2>
+            <p class="section-description">Our commitment to excellence sets us apart in every aspect of our operations.</p>
+        </div>
         <div class="features-grid">
-            <div class="feature-item">
-                <h3>🏡</h3>
-                <h3>Local & Fresh</h3>
-                <p>We source directly from our farm to your table with minimal handling time.</p>
+            <div class="feature-card">
+                <span class="feature-icon">🏆</span>
+                <h3>Certified Organic</h3>
+                <p>All our products meet strict organic certification standards, ensuring you receive the highest quality poultry.</p>
             </div>
-            <div class="feature-item">
-                <h3>🌿</h3>
-                <h3>Organic Practices</h3>
-                <p>No harmful chemicals or antibiotics—just natural, healthy poultry.</p>
+            <div class="feature-card">
+                <span class="feature-icon">🌍</span>
+                <h3>Local & Sustainable</h3>
+                <p>We support the local economy and practice sustainable farming methods that protect our environment.</p>
             </div>
-            <div class="feature-item">
-                <h3>❤️</h3>
-                <h3>Community Focused</h3>
-                <p>Your support helps strengthen food security and local economic growth.</p>
+            <div class="feature-card">
+                <span class="feature-icon">❤️</span>
+                <h3>Ethically Raised</h3>
+                <p>Our chickens enjoy a natural lifestyle with ample space, fresh air, and a diet free from antibiotics and hormones.</p>
             </div>
-            <div class="feature-item">
-                <h3>💰</h3>
-                <h3>Affordable Pricing</h3>
-                <p>High-quality poultry products at competitive prices, accessible to all households.</p>
+            <div class="feature-card">
+                <span class="feature-icon">🚚</span>
+                <h3>Fresh Delivery</h3>
+                <p>We ensure prompt delivery of fresh products to maintain quality and flavor from our farm to your table.</p>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <section class="process">
+        <div class="section-header">
+            <div class="section-tag">Our Process</div>
+            <h2 class="section-title">From Farm to Table</h2>
+            <p class="section-description">Transparency in our farming practices ensures you know exactly where your food comes from and how it's produced.</p>
+        </div>
+        <div class="process-timeline">
+            <div class="process-step">
+                <div class="process-number">1</div>
+                <div class="process-content">
+                    <h3>Organic Breeding</h3>
+                    <p>We start with carefully selected breeds raised in natural environments with access to pasture and organic feed.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="process-number">2</div>
+                <div class="process-content">
+                    <h3>Natural Growth</h3>
+                    <p>Our chickens grow at their natural pace with no antibiotics or growth hormones, ensuring healthy development.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="process-number">3</div>
+                <div class="process-content">
+                    <h3>Ethical Processing</h3>
+                    <p>We follow humane processing methods in our certified facilities, maintaining the highest standards of food safety.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="process-number">4</div>
+                <div class="process-content">
+                    <h3>Quality Delivery</h3>
+                    <p>Fresh products are carefully packaged and delivered promptly to ensure optimal quality and flavor.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="contact" class="contact">
-        <h2 class="section-title">Contact Us</h2>
+        <div class="section-header">
+            <div class="section-tag">Get In Touch</div>
+            <h2 class="section-title">Connect With Us</h2>
+            <p class="section-description">We'd love to hear from you. Reach out to learn more about our products or discuss partnership opportunities.</p>
+        </div>
         <div class="contact-grid">
             <div class="contact-card">
-                <div class="contact-icon">📍</div>
-                <h3>Location</h3>
-                <p>26 Lynnville, Emalahleni<br>Mpumalanga, South Africa</p>
+                <span class="contact-icon">📍</span>
+                <h3>Visit Us</h3>
+                <p>Lynnville, Emalahleni<br>Mpumalanga, South Africa</p>
             </div>
             <div class="contact-card">
-                <div class="contact-icon">📞</div>
-                <h3>Phone</h3>
-                <p><a href="tel:0606110490">060 611 0490</a></p>
+                <span class="contact-icon">📞</span>
+                <h3>Call Us</h3>
+                <p><a href="tel:+27123456789">+27 12 345 6789</a><br>Mon-Fri: 8am-5pm</p>
             </div>
             <div class="contact-card">
-                <div class="contact-icon">✉️</div>
-                <h3>Email</h3>
-                <p><a href="mailto:Nkadimeng.agri@gmail.com">Nkadimeng.agri@gmail.com</a></p>
+                <span class="contact-icon">✉️</span>
+                <h3>Email Us</h3>
+                <p><a href="mailto:info@nkadimengagri.co.za">info@nkadimengagri.co.za</a><br>We respond within 24 hours</p>
             </div>
             <div class="contact-card">
-                <div class="contact-icon">📱</div>
-                <h3>Social Media</h3>
-                <p><a href="https://www.facebook.com/profile.php?id=61573951484671" target="_blank">Follow us on Facebook</a></p>
+                <span class="contact-icon">🔄</span>
+                <h3>Follow Us</h3>
+                <p>Stay updated on our latest products and farming practices through our social media channels.</p>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
-        <p>&copy; 2024 Nkadimeng Agri. All rights reserved.</p>
-        <p class="footer-tagline">Simply Farming, Simply Better.</p>
+        <div class="footer-content">
+            <div class="footer-logo">Nkadimeng Agri</div>
+            <div class="footer-tagline">Simply Farming</div>
+            <p>Proudly South African organic poultry from the heart of Lynnville, Emalahleni.</p>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Nkadimeng Agri. All rights reserved. | Proudly serving the Emalahleni community and beyond.</p>
+            </div>
+        </div>
     </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Animation on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.about-card, .value-card, .product-card, .feature-card, .process-content');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.style.opacity = "1";
+                    element.style.transform = "translateY(0)";
+                }
+            });
+        }
+
+        // Set initial state for animated elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.about-card, .value-card, .product-card, .feature-card, .process-content');
+            elements.forEach(element => {
+                element.style.opacity = "0";
+                element.style.transform = "translateY(20px)";
+                element.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+            });
+            
+            window.addEventListener('scroll', animateOnScroll);
+            // Trigger once on load
+            animateOnScroll();
+        });
+    </script>
 </body>
 </html>
