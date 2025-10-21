@@ -63,6 +63,13 @@
             gap: 1rem;
         }
 
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+        }
+
         .logo-placeholder {
             width: 60px;
             height: 60px;
@@ -144,7 +151,7 @@
         .page-header {
             margin-top: 70px;
             height: 50vh;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background:  url('https://images.unsplash.com/photo-1596733430284-f7437764b1a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -264,14 +271,9 @@
         }
 
         .story-image {
-            background: linear-gradient(135deg, var(--accent), var(--secondary));
             height: 450px;
             border-radius: var(--border-radius);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 8rem;
+            background: linear-gradient(135deg, rgba(139, 195, 74, 0.9) 0%, rgba(74, 124, 44, 0.9) 100%), url('https://images.unsplash.com/photo-1592925119128-c1bfc0b1020a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
             box-shadow: var(--shadow);
             position: relative;
             overflow: hidden;
@@ -535,12 +537,8 @@
 
         .team-image {
             height: 220px;
-            background: linear-gradient(135deg, var(--accent), var(--secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 4rem;
+            background-size: cover;
+            background-position: center;
             position: relative;
             overflow: hidden;
         }
@@ -579,7 +577,7 @@
 
         /* CTA Section */
         .cta-section {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(135deg, rgba(45, 80, 22, 0.9) 0%, rgba(74, 124, 44, 0.9) 100%), url('https://images.unsplash.com/photo-1556909114-4d0d853e5e25?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
             color: white;
             text-align: center;
             padding: 5rem 5%;
@@ -794,11 +792,15 @@
     <nav>
         <div class="nav-container">
             <div class="logo-section">
-                <div class="logo-placeholder" style="width: 60px; height: 60px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;"><a><img src="assets/NkadimengLogo.png" height="80" width="80"></a></div>
-                <div class="logo-text">
-                    <span class="brand-name">Nkadimeng Agri</span>
-                    <span class="tagline">Simply Farming</span>
-                </div>
+                <a href="index.html" class="logo-container">
+                    <div class="logo-placeholder">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <div class="logo-text">
+                        <span class="brand-name">Nkadimeng Agri</span>
+                        <span class="tagline">Simply Farming</span>
+                    </div>
+                </a>
             </div>
             <div class="mobile-menu">
                 <i class="fas fa-bars"></i>
@@ -813,7 +815,7 @@
     </nav>
 
     <!-- Page Header -->
-    <section class="page-header" >
+    <section class="page-header">
         <div class="page-header-content">
             <h1>About Nkadimeng Agri</h1>
             <p>Learn about our journey, mission, and commitment to sustainable farming</p>
@@ -835,7 +837,7 @@
                 <p>Our journey reflects our values: starting small, thinking locally, and always prioritizing the well-being of our community and environment. Every chicken we raise represents our commitment to ethical practices, quality products, and the people we serve.</p>
             </div>
             <div class="story-image">
-                <i class="fas fa-tractor"></i>
+                <!-- Background image shows black farmers in agriculture setting -->
             </div>
         </div>
     </section>
@@ -954,8 +956,8 @@
         </div>
         <div class="team-grid">
             <div class="team-card">
-                <div class="team-image">
-                    <i class="fas fa-seedling"></i>
+                <div class="team-image" style="background-image: url('https://images.unsplash.com/photo-1596733430284-f7437764b1a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
+                    <!-- Background image shows black farmers working -->
                 </div>
                 <div class="team-content">
                     <h3>Organic Practices</h3>
@@ -964,8 +966,8 @@
                 </div>
             </div>
             <div class="team-card">
-                <div class="team-image">
-                    <i class="fas fa-hand-holding-heart"></i>
+                <div class="team-image" style="background-image: url('https://images.unsplash.com/photo-1592921870784-2bddd9f4f3e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
+                    <!-- Background image shows black farmers working -->
                 </div>
                 <div class="team-content">
                     <h3>Animal Welfare</h3>
@@ -974,8 +976,8 @@
                 </div>
             </div>
             <div class="team-card">
-                <div class="team-image">
-                    <i class="fas fa-truck"></i>
+                <div class="team-image" style="background-image: url('https://images.unsplash.com/photo-1604503468506-a8da13d82791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
+                    <!-- Background image shows black farmers working -->
                 </div>
                 <div class="team-content">
                     <h3>Farm to Table</h3>
