@@ -151,7 +151,7 @@
         .page-header {
             margin-top: 70px;
             height: 50vh;
-            background:  url('https://images.unsplash.com/photo-1596733430284-f7437764b1a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+            background:  url('./assets/Nkadimeng7.jpeg') no-repeat center center/cover;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -270,24 +270,18 @@
             color: var(--text-light);
         }
 
-        .story-image {
-            height: 450px;
-            border-radius: var(--border-radius);
-            background: linear-gradient(135deg, rgba(139, 195, 74, 0.9) 0%, rgba(74, 124, 44, 0.9) 100%), url('https://images.unsplash.com/photo-1592925119128-c1bfc0b1020a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
-            box-shadow: var(--shadow);
-            position: relative;
-            overflow: hidden;
-        }
+       .story-image {
+    width: 100%; /* or specific width */
+    height: auto; /* or specific height */
+    overflow: hidden; /* prevents image from overflowing */
+}
 
-        .story-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), transparent);
-        }
+.story-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* or 'cover' based on your needs */
+    display: block;
+}
 
         /* Mission & Vision Section */
         .mission-vision {
@@ -822,7 +816,7 @@
         </div>
     </section>
 
-    <!-- Our Story Section -->
+    Our Story Section 
     <section id="story" class="our-story">
         <div class="section-header">
             <div class="section-tag">Our Story</div>
@@ -836,8 +830,8 @@
                 <p>Based in the heart of Lynnville, Emalahleni, we recognized the pressing need for reliable, high-quality food sources in our community. With food security challenges affecting many households, we positioned ourselves not just as suppliers, but as active contributors to building sustainable local food systems.</p>
                 <p>Our journey reflects our values: starting small, thinking locally, and always prioritizing the well-being of our community and environment. Every chicken we raise represents our commitment to ethical practices, quality products, and the people we serve.</p>
             </div>
-            <div class="story-image">
-                <!-- Background image shows black farmers in agriculture setting -->
+            <div class="story-image"><img src="./assets/agriabout.jpeg" alt="Nkadimeng Agri Farm Image" height="auto" width="auto"></div>
+                 
             </div>
         </div>
     </section>
@@ -956,7 +950,7 @@
         </div>
         <div class="team-grid">
             <div class="team-card">
-                <div class="team-image" style="background-image: url('https://images.unsplash.com/photo-1596733430284-f7437764b1a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
+                <div class="team-image" style="background-image: url('./assets/Nkadimeng1.jpeg');">
                     <!-- Background image shows black farmers working -->
                 </div>
                 <div class="team-content">
@@ -966,7 +960,7 @@
                 </div>
             </div>
             <div class="team-card">
-                <div class="team-image" style="background-image: url('https://images.unsplash.com/photo-1592921870784-2bddd9f4f3e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
+                <div class="team-image" style="background-image: url('./assets/raise.jpeg');">
                     <!-- Background image shows black farmers working -->
                 </div>
                 <div class="team-content">
@@ -976,7 +970,7 @@
                 </div>
             </div>
             <div class="team-card">
-                <div class="team-image" style="background-image: url('https://images.unsplash.com/photo-1604503468506-a8da13d82791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');">
+                <div class="team-image" style="background-image: url('./assets/Nkadimeng3.jpeg');">
                     <!-- Background image shows black farmers working -->
                 </div>
                 <div class="team-content">
