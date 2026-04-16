@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nkadimeng Agri — Admin Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --forest: #1a3008;
+            --green: #2d5016;
+            --mid: #4a7c2c;
+            --lime: #8bc34a;
+            --pale: #c5e1a5;
+            --cream: #f4f7f0;
+            --white: #ffffff;
+            --ink: #1c2b1e;
+            --muted: #5a6c5d;
+            --border: rgba(45,80,22,0.12);
+            --shadow: 0 4px 24px rgba(26,48,8,0.10);
+            --shadow-lg: 0 12px 48px rgba(26,48,8,0.16);
+            --danger: #c0392b;
+            --warn: #e67e22;
+            --info: #2980b9;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── TOPBAR ── */
+        .topbar {
+            background: var(--forest);
+            padding: 0 2rem;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+        }
+
+        .topbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .topbar-logo {
+            width: 36px;
+            height: 36px;
+            background: var(--lime);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .topbar-name {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.25rem;
+            color: white;
+            line-height: 1;
+        }
+
+        .topbar-name span {
+            display: block;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.7rem;
+            color: var(--pale);
+            font-style: italic;
+            letter-spacing: 1px;
+            margin-top: 1px;
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .badge-pill {
+            background: var(--lime);
+            color: var(--forest);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .topbar-user {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--pale);
+            font-size: 0.875rem;
+        }
+
+        .topbar-user i { color: var(--lime); }
+
+        /* ── LAYOUT ── */
+        .layout {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            flex: 1;
+            min-height: calc(100vh - 64px);
+        }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            background: var(--green);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 64px;
+            height: calc(100vh - 64px);
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
+            padding: 0.5rem 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .sidebar-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--pale);
+            opacity: 0.6;
+            padding: 0 0.75rem;
+            margin-bottom: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.7rem 0.75rem;
+            border-radius: 10px;
+            color: rgba(255,255,255,0.75);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .sidebar-link i { width: 18px; text-align: center; }
+
+        .sidebar-link:hover, .sidebar-link.active {
+            background: rgba(255,255,255,0.12);
+            color: white;
+        }
+
+        .sidebar-link.active {
+            background: rgba(139,195,74,0.22);
+            color: var(--lime);
+        }
+
+        .sidebar-link .count {
+            margin-left: auto;
+            background: rgba(255,255,255,0.15);
+            color: var(--pale);
+            font-size: 0.7rem;
+            padding: 0.1rem 0.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        /* ── MAIN ── */
+        .main {
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        /* ── TABS ── */
+        .tab-pane { display: none; }
+        .tab-pane.active { display: block; }
+
+        /* ── PAGE HEADER ── */
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2rem;
+            color: var(--green);
+            line-height: 1.2;
+        }
+
+        .page-header p {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        /* ── STAT CARDS ── */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 14px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .stat-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .stat-icon.green { background: rgba(139,195,74,0.15); color: var(--mid); }
+        .stat-icon.forest { background: rgba(45,80,22,0.1); color: var(--green); }
+        .stat-icon.warn { background: rgba(230,126,34,0.12); color: var(--warn); }
+        .stat-icon.info { background: rgba(41,128,185,0.12); color: var(--info); }
+
+        .stat-body { flex: 1; }
+        .stat-value { font-size: 1.75rem; font-weight: 700; color: var(--ink); line-height: 1; }
+        .stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 0.25rem; }
+
+        /* ── CARD ── */
+        .card {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .card-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.1rem;
+            color: var(--green);
+        }
+
+        .card-body { padding: 1.5rem; }
+
+        /* ── FORM ELEMENTS ── */
+        .form-group { margin-bottom: 1.25rem; }
+
+        label {
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--green);
+            margin-bottom: 0.4rem;
+            letter-spacing: 0.3px;
+        }
+
+        input[type="text"], input[type="url"], input[type="number"],
+        input[type="password"], textarea, select {
+            width: 100%;
+            padding: 0.65rem 0.9rem;
+            border: 1.5px solid var(--border);
+            border-radius: 9px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            color: var(--ink);
+            background: var(--cream);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--lime);
+            box-shadow: 0 0 0 3px rgba(139,195,74,0.18);
+            background: white;
+        }
+
+        textarea { resize: vertical; min-height: 90px; }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-hint {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-top: 0.3rem;
+        }
+
+        /* ── BUTTONS ── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 9px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--green);
+            color: white;
+            box-shadow: 0 2px 8px rgba(45,80,22,0.25);
+        }
+        .btn-primary:hover { background: var(--forest); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(45,80,22,0.3); }
+
+        .btn-accent {
+            background: var(--lime);
+            color: var(--forest);
+            box-shadow: 0 2px 8px rgba(139,195,74,0.3);
+        }
+        .btn-accent:hover { background: var(--pale); transform: translateY(-1px); }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--muted);
+            border: 1.5px solid var(--border);
+        }
+        .btn-ghost:hover { background: var(--cream); color: var(--ink); }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+        .btn-danger:hover { background: #a93226; }
+
+        .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+        .btn-lg { padding: 0.85rem 1.75rem; font-size: 0.95rem; }
+        .btn-full { width: 100%; justify-content: center; }
+
+        /* ── UPLOAD ZONE ── */
+        .upload-zone {
+            border: 2px dashed var(--lime);
+            border-radius: 14px;
+            padding: 2.5rem;
+            text-align: center;
+            background: rgba(139,195,74,0.04);
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .upload-zone:hover, .upload-zone.drag-over {
+            background: rgba(139,195,74,0.10);
+            border-color: var(--mid);
+        }
+
+        .upload-zone input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+        }
+
+        .upload-zone i { font-size: 2.5rem; color: var(--lime); margin-bottom: 0.75rem; display: block; }
+        .upload-zone h4 { color: var(--green); font-size: 1rem; margin-bottom: 0.25rem; }
+        .upload-zone p { color: var(--muted); font-size: 0.8rem; }
+
+        /* ── IMAGE GRID ── */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .image-item {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1.5px solid var(--border);
+            background: var(--cream);
+            position: relative;
+            aspect-ratio: 1;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .image-item:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+
+        .image-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-item .img-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(26,48,8,0.85) 0%, transparent 55%);
+            opacity: 0;
+            transition: opacity 0.2s;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding: 0.6rem;
+        }
+
+        .image-item:hover .img-overlay { opacity: 1; }
+
+        .img-actions { display: flex; gap: 0.4rem; }
+
+        .img-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .img-btn.delete { background: var(--danger); color: white; }
+        .img-btn.delete:hover { background: #a93226; }
+
+        .img-label-tag {
+            background: var(--lime);
+            color: var(--forest);
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            max-width: 90px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* ── PRODUCT SELECTOR ── */
+        .product-selector {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .product-chip {
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1.5px solid var(--border);
+            background: var(--cream);
+            color: var(--muted);
+            transition: all 0.2s;
+        }
+
+        .product-chip.selected {
+            background: var(--green);
+            color: white;
+            border-color: var(--green);
+        }
+
+        /* ── ANNOUNCEMENT CARDS ── */
+        .announce-list { display: flex; flex-direction: column; gap: 1rem; }
+
+        .announce-item {
+            background: var(--cream);
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .announce-item:hover {
+            border-color: var(--lime);
+            box-shadow: var(--shadow);
+        }
+
+        .announce-item.pinned {
+            border-color: var(--lime);
+            background: rgba(139,195,74,0.06);
+        }
+
+        .announce-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .announce-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--ink);
+        }
+
+        .announce-body {
+            font-size: 0.875rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .announce-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .tag-green { background: rgba(139,195,74,0.2); color: var(--mid); }
+        .tag-warn { background: rgba(230,126,34,0.15); color: var(--warn); }
+        .tag-info { background: rgba(41,128,185,0.12); color: var(--info); }
+        .tag-red { background: rgba(192,57,43,0.1); color: var(--danger); }
+
+        .announce-date {
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        .pin-badge {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--mid);
+            background: rgba(139,195,74,0.2);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+        }
+
+        /* ── TOGGLE ── */
+        .toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .toggle-row:last-child { border-bottom: none; }
+
+        .toggle-label { font-size: 0.875rem; font-weight: 500; color: var(--ink); }
+        .toggle-sublabel { font-size: 0.75rem; color: var(--muted); margin-top: 0.1rem; }
+
+        .toggle {
+            position: relative;
+            width: 42px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .toggle input { opacity: 0; width: 0; height: 0; }
+
+        .toggle-slider {
+            position: absolute;
+            inset: 0;
+            background: #ccc;
+            border-radius: 24px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: white;
+            left: 3px;
+            top: 3px;
+            transition: 0.3s;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        }
+
+        .toggle input:checked + .toggle-slider { background: var(--lime); }
+        .toggle input:checked + .toggle-slider::before { transform: translateX(18px); }
+
+        /* ── TABLE ── */
+        .table { width: 100%; border-collapse: collapse; }
+
+        .table th {
+            text-align: left;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--muted);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 0.75rem 1rem;
+            border-bottom: 1.5px solid var(--border);
+        }
+
+        .table td {
+            padding: 0.85rem 1rem;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.875rem;
+            color: var(--ink);
+            vertical-align: middle;
+        }
+
+        .table tr:last-child td { border-bottom: none; }
+        .table tr:hover td { background: var(--cream); }
+
+        /* ── PREVIEW SNIPPET ── */
+        .preview-box {
+            background: var(--forest);
+            border-radius: 12px;
+            padding: 1.5rem;
+            color: white;
+            font-size: 0.85rem;
+            line-height: 1.7;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preview-box::before {
+            content: 'PREVIEW';
+            position: absolute;
+            top: 0.6rem;
+            right: 0.8rem;
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            color: var(--pale);
+            opacity: 0.6;
+        }
+
+        /* ── LOGIN SCREEN ── */
+        .login-screen {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--forest);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-screen.show { display: flex; }
+
+        .login-box {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            width: 380px;
+            text-align: center;
+            box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+        }
+
+        .login-logo {
+            width: 64px;
+            height: 64px;
+            background: var(--lime);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 1.25rem;
+        }
+
+        .login-box h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.75rem;
+            color: var(--green);
+            margin-bottom: 0.25rem;
+        }
+
+        .login-box p { color: var(--muted); font-size: 0.875rem; margin-bottom: 2rem; }
+
+        .login-error {
+            background: rgba(192,57,43,0.1);
+            color: var(--danger);
+            border-radius: 8px;
+            padding: 0.6rem 1rem;
+            font-size: 0.825rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        /* ── TOAST ── */
+        #toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--forest);
+            color: white;
+            padding: 0.85rem 1.5rem;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        #toast.show { transform: translateY(0); opacity: 1; }
+        #toast.success i { color: var(--lime); }
+        #toast.error i { color: #e74c3c; }
+
+        /* ── EMPTY STATE ── */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--muted);
+        }
+
+        .empty-state i { font-size: 3rem; color: var(--border); margin-bottom: 1rem; display: block; }
+        .empty-state h4 { color: var(--ink); margin-bottom: 0.25rem; }
+        .empty-state p { font-size: 0.85rem; }
+
+        /* ── DIVIDER ── */
+        .divider { height: 1px; background: var(--border); margin: 1.5rem 0; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            .layout { grid-template-columns: 1fr; }
+            .sidebar { display: none; }
+            .form-row { grid-template-columns: 1fr; }
+            .stats-row { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-screen show" id="loginScreen">
+    <div class="login-box">
+        <div class="login-logo">🌿</div>
+        <h2>Admin Portal</h2>
+        <p>Nkadimeng Agri — Secure Access</p>
+        <div class="login-error" id="loginError">Incorrect password. Please try again.</div>
+        <div class="form-group" style="text-align:left">
+            <label>Password</label>
+            <input type="password" id="loginPassword" placeholder="Enter admin password" style="background:white;">
+        </div>
+        <button class="btn btn-primary btn-full btn-lg" onclick="doLogin()">
+            <i class="fas fa-lock-open"></i> Sign In
+        </button>
+        <p style="margin-top:1rem; font-size:0.75rem; color:var(--muted);">Default password: <strong>nkadimeng2024</strong></p>
+    </div>
+</div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+    <div class="topbar-brand">
+        <div class="topbar-logo">🌿</div>
+        <div class="topbar-name">
+            Nkadimeng Agri
+            <span>Admin Portal</span>
+        </div>
+    </div>
+    <div class="topbar-actions">
+        <span class="badge-pill">ADMIN</span>
+        <a href="index.html" class="btn btn-ghost btn-sm">
+            <i class="fas fa-external-link-alt"></i> View Site
+        </a>
+        <div class="topbar-user">
+            <i class="fas fa-user-circle"></i>
+            <span>Admin</span>
+        </div>
+    </div>
+</div>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div style="padding: 0 1rem;">
+            <div class="sidebar-label" style="margin-top:0.5rem;">Dashboard</div>
+            <div class="sidebar-section">
+                <button class="sidebar-link active" onclick="showTab('dashboard', this)">
+                    <i class="fas fa-chart-pie"></i> Overview
+                </button>
+            </div>
+
+            <div class="sidebar-label">Content</div>
+            <div class="sidebar-section">
+                <button class="sidebar-link" onclick="showTab('images', this)">
+                    <i class="fas fa-images"></i> Product Images
+                    <span class="count" id="imgCount">0</span>
+                </button>
+                <button class="sidebar-link" onclick="showTab('announcements', this)">
+                    <i class="fas fa-bullhorn"></i> Announcements
+                    <span class="count" id="annCount">0</span>
+                </button>
+            </div>
+
+            <div class="sidebar-label">Settings</div>
+            <div class="sidebar-section">
+                <button class="sidebar-link" onclick="showTab('settings', this)">
+                    <i class="fas fa-cog"></i> Site Settings
+                </button>
+                <button class="sidebar-link" onclick="showTab('preview', this)">
+                    <i class="fas fa-eye"></i> Content Preview
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <!-- DASHBOARD -->
+        <div id="tab-dashboard" class="tab-pane active">
+            <div class="page-header">
+                <h1>Good morning 🌾</h1>
+                <p>Here's what's happening on your Nkadimeng Agri site today.</p>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-icon green"><i class="fas fa-images"></i></div>
+                    <div class="stat-body">
+                        <div class="stat-value" id="stat-images">0</div>
+                        <div class="stat-label">Product Images</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon forest"><i class="fas fa-bullhorn"></i></div>
+                    <div class="stat-body">
+                        <div class="stat-value" id="stat-ann">0</div>
+                        <div class="stat-label">Announcements</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon warn"><i class="fas fa-thumbtack"></i></div>
+                    <div class="stat-body">
+                        <div class="stat-value" id="stat-pinned">0</div>
+                        <div class="stat-label">Pinned Posts</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon info"><i class="fas fa-layer-group"></i></div>
+                    <div class="stat-body">
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">Product Categories</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Quick Actions</span>
+                </div>
+                <div class="card-body" style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+                    <button class="btn btn-accent" onclick="showTab('images', document.querySelector('[onclick*=images]'))">
+                        <i class="fas fa-plus"></i> Add Product Image
+                    </button>
+                    <button class="btn btn-primary" onclick="showTab('announcements', document.querySelector('[onclick*=announcements]'))">
+                        <i class="fas fa-bullhorn"></i> New Announcement
+                    </button>
+                    <button class="btn btn-ghost" onclick="exportData()">
+                        <i class="fas fa-download"></i> Export Data
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Recent Announcements</span>
+                    <button class="btn btn-ghost btn-sm" onclick="showTab('announcements', document.querySelector('[onclick*=announcements]'))">View All</button>
+                </div>
+                <div id="dash-announcements" class="card-body">
+                    <div class="empty-state">
+                        <i class="fas fa-bullhorn"></i>
+                        <h4>No announcements yet</h4>
+                        <p>Add your first announcement to keep customers informed.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- IMAGES TAB -->
+        <div id="tab-images" class="tab-pane">
+            <div class="page-header">
+                <h1>Product Images</h1>
+                <p>Manage photos displayed on the Products page of your website.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Upload New Image</span>
+                </div>
+                <div class="card-body">
+                    <div class="form-row" style="margin-bottom:1rem;">
+                        <div class="form-group" style="margin:0">
+                            <label>Image Label / Caption</label>
+                            <input type="text" id="imgLabel" placeholder="e.g. Free-range chickens in field">
+                        </div>
+                        <div class="form-group" style="margin:0">
+                            <label>Assign to Product</label>
+                            <select id="imgProduct">
+                                <option value="All Products">All Products</option>
+                                <option value="Whole Chickens">Whole Chickens</option>
+                                <option value="Chicken Portions">Chicken Portions</option>
+                                <option value="Organic Eggs">Organic Eggs</option>
+                                <option value="Bulk Orders">Bulk Orders</option>
+                                <option value="Farm & Lifestyle">Farm & Lifestyle</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="upload-zone" id="uploadZone">
+                        <input type="file" id="fileInput" accept="image/*" multiple onchange="handleFileSelect(this)">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h4>Drop images here or click to browse</h4>
+                        <p>Supports JPG, PNG, WEBP — multiple files allowed</p>
+                    </div>
+
+                    <div style="margin-top:1rem; display:flex; gap:0.75rem; align-items:center;">
+                        <div class="form-group" style="margin:0; flex:1">
+                            <label>Or paste an image URL</label>
+                            <input type="url" id="imgUrl" placeholder="https://example.com/chicken-photo.jpg">
+                        </div>
+                        <div style="padding-top:1.5rem;">
+                            <button class="btn btn-accent" onclick="addImageFromUrl()">
+                                <i class="fas fa-link"></i> Add URL
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Image Library</span>
+                    <div style="display:flex; gap:0.5rem; align-items:center;">
+                        <select id="filterProduct" onchange="renderImages()" style="width:auto; padding:0.4rem 0.7rem; font-size:0.8rem;">
+                            <option value="all">All Categories</option>
+                            <option value="Whole Chickens">Whole Chickens</option>
+                            <option value="Chicken Portions">Chicken Portions</option>
+                            <option value="Organic Eggs">Organic Eggs</option>
+                            <option value="Bulk Orders">Bulk Orders</option>
+                            <option value="Farm & Lifestyle">Farm & Lifestyle</option>
+                        </select>
+                        <button class="btn btn-ghost btn-sm" onclick="clearAllImages()" style="color:var(--danger);">
+                            <i class="fas fa-trash"></i> Clear All
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div id="imageGrid" class="image-grid"></div>
+                    <div id="imageEmpty" class="empty-state">
+                        <i class="fas fa-images"></i>
+                        <h4>No images yet</h4>
+                        <p>Upload your first product photo above.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ANNOUNCEMENTS TAB -->
+        <div id="tab-announcements" class="tab-pane">
+            <div class="page-header">
+                <h1>Announcements</h1>
+                <p>Post updates, promotions, and news for your customers.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Create Announcement</span>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" id="annTitle" placeholder="e.g. Christmas Bulk Order Special">
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea id="annBody" placeholder="Write your announcement here..."></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="annCategory">
+                                <option value="General">General</option>
+                                <option value="Promotion">Promotion / Sale</option>
+                                <option value="New Product">New Product</option>
+                                <option value="Farm Update">Farm Update</option>
+                                <option value="Delivery">Delivery Notice</option>
+                                <option value="Urgent">Urgent</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Expiry Date (optional)</label>
+                            <input type="text" id="annExpiry" placeholder="e.g. 31 December 2025">
+                        </div>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:1rem;">
+                        <label class="toggle" style="margin:0;">
+                            <input type="checkbox" id="annPinned">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <div>
+                            <div class="toggle-label">Pin this announcement</div>
+                            <div class="toggle-sublabel">Pinned posts appear at the top</div>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <button class="btn btn-primary btn-lg" onclick="addAnnouncement()">
+                        <i class="fas fa-paper-plane"></i> Post Announcement
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">All Announcements</span>
+                    <button class="btn btn-danger btn-sm" onclick="clearAllAnnouncements()">
+                        <i class="fas fa-trash"></i> Clear All
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div id="announceList" class="announce-list"></div>
+                    <div id="announceEmpty" class="empty-state">
+                        <i class="fas fa-bullhorn"></i>
+                        <h4>No announcements yet</h4>
+                        <p>Create your first announcement above.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SETTINGS TAB -->
+        <div id="tab-settings" class="tab-pane">
+            <div class="page-header">
+                <h1>Site Settings</h1>
+                <p>Configure site-wide options and preferences.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><span class="card-title">Display Options</span></div>
+                <div class="card-body">
+                    <div class="toggle-row">
+                        <div>
+                            <div class="toggle-label">Show Announcements Banner</div>
+                            <div class="toggle-sublabel">Display announcement banner on the homepage</div>
+                        </div>
+                        <label class="toggle">
+                            <input type="checkbox" id="set-banner" checked onchange="saveSetting('banner', this.checked)">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-row">
+                        <div>
+                            <div class="toggle-label">Show "Coming Soon" Badge on Eggs</div>
+                            <div class="toggle-sublabel">Hides the badge when eggs are available</div>
+                        </div>
+                        <label class="toggle">
+                            <input type="checkbox" id="set-eggs" checked onchange="saveSetting('eggsBadge', this.checked)">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-row">
+                        <div>
+                            <div class="toggle-label">Enable Online Order Form</div>
+                            <div class="toggle-sublabel">Shows the order modal on the Products page</div>
+                        </div>
+                        <label class="toggle">
+                            <input type="checkbox" id="set-orders" checked onchange="saveSetting('orderForm', this.checked)">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-row">
+                        <div>
+                            <div class="toggle-label">Farm Open for Visitors</div>
+                            <div class="toggle-sublabel">Show or hide the "visit our farm" section</div>
+                        </div>
+                        <label class="toggle">
+                            <input type="checkbox" id="set-visits" checked onchange="saveSetting('farmVisits', this.checked)">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><span class="card-title">Contact Details</span></div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="text" id="set-phone" value="060 611 0490" onchange="saveSetting('phone', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="text" id="set-email" value="Nkadimeng.agri@gmail.com" onchange="saveSetting('email', this.value)">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Physical Address</label>
+                        <input type="text" id="set-address" value="26 Lynnville, Emalahleni, Mpumalanga" onchange="saveSetting('address', this.value)">
+                    </div>
+                    <button class="btn btn-primary" onclick="toast('Settings saved!', 'success')">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><span class="card-title">Security</span></div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" id="newPass" placeholder="Enter new password">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" id="confPass" placeholder="Repeat new password">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="changePassword()">
+                        <i class="fas fa-key"></i> Update Password
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PREVIEW TAB -->
+        <div id="tab-preview" class="tab-pane">
+            <div class="page-header">
+                <h1>Content Preview</h1>
+                <p>See how your content will appear on the live site.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><span class="card-title">Announcement Banner Preview</span></div>
+                <div class="card-body">
+                    <div id="preview-banner" class="preview-box">
+                        <em style="opacity:0.5;">No announcements to preview. Create one in the Announcements tab.</em>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><span class="card-title">Product Images Preview</span></div>
+                <div class="card-body">
+                    <div id="preview-images" class="image-grid" style="grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));"></div>
+                    <div id="preview-images-empty" class="empty-state">
+                        <i class="fas fa-images"></i>
+                        <h4>No images uploaded yet</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header"><span class="card-title">Embed Code for Your Site</span></div>
+                <div class="card-body">
+                    <p style="font-size:0.875rem; color:var(--muted); margin-bottom:1rem;">Copy this script tag and paste it into your <code>index.html</code> and <code>products.html</code> before the closing <code>&lt;/body&gt;</code> tag to load dynamic content.</p>
+                    <div class="preview-box" style="font-size:0.78rem; font-family:monospace; word-break:break-all; user-select:all;" id="embedCode">
+                        <!-- Embed code will be generated here -->
+                    </div>
+                    <button class="btn btn-accent" style="margin-top:1rem;" onclick="copyEmbed()">
+                        <i class="fas fa-copy"></i> Copy Code
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<!-- TOAST -->
+<div id="toast"><i class="fas fa-check-circle"></i> <span id="toast-msg"></span></div>
+
+<script>
+// ─── STATE ───────────────────────────────────────────────────────
+const PASS_KEY = 'nka_admin_pass';
+const IMG_KEY  = 'nka_images';
+const ANN_KEY  = 'nka_announcements';
+const SET_KEY  = 'nka_settings';
+
+let images = [];
+let announcements = [];
+let settings = {};
+
+// ─── LOGIN ───────────────────────────────────────────────────────
+function doLogin() {
+    const pw = document.getElementById('loginPassword').value;
+    const savedPw = localStorage.getItem(PASS_KEY) || 'nkadimeng2024';
+    if (pw === savedPw) {
+        document.getElementById('loginScreen').classList.remove('show');
+        init();
+    } else {
+        document.getElementById('loginError').style.display = 'block';
+    }
+}
+
+document.getElementById('loginPassword').addEventListener('keydown', e => {
+    if (e.key === 'Enter') doLogin();
+});
+
+function changePassword() {
+    const np = document.getElementById('newPass').value;
+    const cp = document.getElementById('confPass').value;
+    if (!np) return toast('Enter a new password.', 'error');
+    if (np !== cp) return toast('Passwords do not match.', 'error');
+    localStorage.setItem(PASS_KEY, np);
+    document.getElementById('newPass').value = '';
+    document.getElementById('confPass').value = '';
+    toast('Password updated!', 'success');
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────
+function init() {
+    images = JSON.parse(localStorage.getItem(IMG_KEY) || '[]');
+    announcements = JSON.parse(localStorage.getItem(ANN_KEY) || '[]');
+    settings = JSON.parse(localStorage.getItem(SET_KEY) || '{}');
+    renderAll();
+    loadSettings();
+}
+
+function renderAll() {
+    renderImages();
+    renderAnnouncements();
+    updateStats();
+    updatePreview();
+    updateEmbedCode();
+}
+
+// ─── PERSIST ──────────────────────────────────────────────────────
+function saveImages() {
+    localStorage.setItem(IMG_KEY, JSON.stringify(images));
+    renderAll();
+}
+
+function saveAnnouncements() {
+    localStorage.setItem(ANN_KEY, JSON.stringify(announcements));
+    renderAll();
+}
+
+function saveSetting(key, val) {
+    settings[key] = val;
+    localStorage.setItem(SET_KEY, JSON.stringify(settings));
+    toast('Setting saved.', 'success');
+}
+
+function loadSettings() {
+    if (settings.phone) document.getElementById('set-phone').value = settings.phone;
+    if (settings.email) document.getElementById('set-email').value = settings.email;
+    if (settings.address) document.getElementById('set-address').value = settings.address;
+    if (settings.banner !== undefined) document.getElementById('set-banner').checked = settings.banner;
+    if (settings.eggsBadge !== undefined) document.getElementById('set-eggs').checked = settings.eggsBadge;
+    if (settings.orderForm !== undefined) document.getElementById('set-orders').checked = settings.orderForm;
+    if (settings.farmVisits !== undefined) document.getElementById('set-visits').checked = settings.farmVisits;
+}
+
+// ─── STATS ────────────────────────────────────────────────────────
+function updateStats() {
+    const pinned = announcements.filter(a => a.pinned).length;
+    document.getElementById('stat-images').textContent = images.length;
+    document.getElementById('stat-ann').textContent = announcements.length;
+    document.getElementById('stat-pinned').textContent = pinned;
+    document.getElementById('imgCount').textContent = images.length;
+    document.getElementById('annCount').textContent = announcements.length;
+}
+
+// ─── IMAGES ──────────────────────────────────────────────────────
+function handleFileSelect(input) {
+    const files = Array.from(input.files);
+    const label = document.getElementById('imgLabel').value || 'Farm Photo';
+    const product = document.getElementById('imgProduct').value;
+
+    files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = e => {
+            images.push({
+                id: Date.now() + Math.random(),
+                src: e.target.result,
+                label,
+                product,
+                addedAt: new Date().toLocaleDateString('en-ZA')
+            });
+            saveImages();
+            toast('Image uploaded!', 'success');
+        };
+        reader.readAsDataURL(file);
+    });
+
+    input.value = '';
+    document.getElementById('imgLabel').value = '';
+}
+
+function addImageFromUrl() {
+    const url = document.getElementById('imgUrl').value.trim();
+    const label = document.getElementById('imgLabel').value || 'Farm Photo';
+    const product = document.getElementById('imgProduct').value;
+    if (!url) return toast('Please enter an image URL.', 'error');
+    images.push({
+        id: Date.now(),
+        src: url,
+        label,
+        product,
+        addedAt: new Date().toLocaleDateString('en-ZA')
+    });
+    document.getElementById('imgUrl').value = '';
+    document.getElementById('imgLabel').value = '';
+    saveImages();
+    toast('Image added!', 'success');
+}
+
+function deleteImage(id) {
+    images = images.filter(i => i.id != id);
+    saveImages();
+    toast('Image removed.', 'success');
+}
+
+function clearAllImages() {
+    if (!confirm('Delete ALL images? This cannot be undone.')) return;
+    images = [];
+    saveImages();
+    toast('All images cleared.', 'success');
+}
+
+function renderImages() {
+    const grid = document.getElementById('imageGrid');
+    const empty = document.getElementById('imageEmpty');
+    const filter = document.getElementById('filterProduct').value;
+
+    const filtered = filter === 'all' ? images : images.filter(i => i.product === filter);
+
+    if (filtered.length === 0) {
+        grid.style.display = 'none';
+        empty.style.display = 'block';
+    } else {
+        grid.style.display = 'grid';
+        empty.style.display = 'none';
+        grid.innerHTML = filtered.map(img => `
+            <div class="image-item">
+                <img src="${img.src}" alt="${img.label}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22><rect fill=%22%23c5e1a5%22 width=%22200%22 height=%22200%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%232d5016%22 font-size=%2240%22>🐔</text></svg>'">
+                <div class="img-overlay">
+                    <span class="img-label-tag">${img.label}</span>
+                    <div class="img-actions">
+                        <button class="img-btn delete" onclick="deleteImage(${img.id})" title="Delete"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+}
+
+// ─── ANNOUNCEMENTS ───────────────────────────────────────────────
+const categoryColors = {
+    'Promotion': 'tag-warn',
+    'New Product': 'tag-green',
+    'Farm Update': 'tag-info',
+    'Urgent': 'tag-red',
+    'General': 'tag-green',
+    'Delivery': 'tag-info'
+};
+
+function addAnnouncement() {
+    const title = document.getElementById('annTitle').value.trim();
+    const body = document.getElementById('annBody').value.trim();
+    const category = document.getElementById('annCategory').value;
+    const expiry = document.getElementById('annExpiry').value.trim();
+    const pinned = document.getElementById('annPinned').checked;
+
+    if (!title) return toast('Please add a title.', 'error');
+    if (!body) return toast('Please add a message.', 'error');
+
+    announcements.unshift({
+        id: Date.now(),
+        title, body, category, expiry, pinned,
+        date: new Date().toLocaleDateString('en-ZA', { day: 'numeric', month: 'short', year: 'numeric' })
+    });
+
+    document.getElementById('annTitle').value = '';
+    document.getElementById('annBody').value = '';
+    document.getElementById('annExpiry').value = '';
+    document.getElementById('annPinned').checked = false;
+
+    saveAnnouncements();
+    toast('Announcement posted!', 'success');
+}
+
+function deleteAnnouncement(id) {
+    announcements = announcements.filter(a => a.id != id);
+    saveAnnouncements();
+    toast('Announcement deleted.', 'success');
+}
+
+function togglePin(id) {
+    const a = announcements.find(a => a.id == id);
+    if (a) a.pinned = !a.pinned;
+    saveAnnouncements();
+}
+
+function clearAllAnnouncements() {
+    if (!confirm('Delete ALL announcements?')) return;
+    announcements = [];
+    saveAnnouncements();
+    toast('All announcements cleared.', 'success');
+}
+
+function renderAnnouncements() {
+    const list = document.getElementById('announceList');
+    const empty = document.getElementById('announceEmpty');
+    const dash = document.getElementById('dash-announcements');
+
+    const sorted = [...announcements].sort((a,b) => b.pinned - a.pinned);
+
+    if (sorted.length === 0) {
+        list.style.display = 'none';
+        empty.style.display = 'block';
+        dash.innerHTML = `<div class="empty-state" style="padding:1.5rem;"><i class="fas fa-bullhorn" style="font-size:1.5rem; margin-bottom:0.5rem;"></i><p style="font-size:0.85rem;">No announcements yet.</p></div>`;
+    } else {
+        list.style.display = 'flex';
+        empty.style.display = 'none';
+        list.innerHTML = sorted.map(a => `
+            <div class="announce-item ${a.pinned ? 'pinned' : ''}">
+                <div class="announce-header">
+                    <div class="announce-title">${a.title}</div>
+                    <div style="display:flex; gap:0.5rem; flex-shrink:0;">
+                        <button class="btn btn-ghost btn-sm" onclick="togglePin(${a.id})" title="${a.pinned ? 'Unpin' : 'Pin'}">
+                            <i class="fas fa-thumbtack" style="color:${a.pinned ? 'var(--lime)' : 'var(--muted)'}"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteAnnouncement(${a.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="announce-body">${a.body}</div>
+                <div class="announce-meta">
+                    <span class="tag ${categoryColors[a.category] || 'tag-green'}">${a.category}</span>
+                    ${a.pinned ? '<span class="pin-badge">📌 Pinned</span>' : ''}
+                    ${a.expiry ? `<span class="announce-date"><i class="fas fa-calendar" style="margin-right:3px;"></i>Expires: ${a.expiry}</span>` : ''}
+                    <span class="announce-date">${a.date}</span>
+                </div>
+            </div>
+        `).join('');
+
+        // Dashboard preview (last 3)
+        dash.innerHTML = sorted.slice(0,3).map(a => `
+            <div style="padding:0.75rem 0; border-bottom:1px solid var(--border); display:flex; align-items:start; gap:0.75rem;">
+                <span class="tag ${categoryColors[a.category] || 'tag-green'}" style="flex-shrink:0;">${a.category}</span>
+                <div>
+                    <div style="font-weight:600; font-size:0.875rem;">${a.title}</div>
+                    <div style="font-size:0.8rem; color:var(--muted); margin-top:0.2rem;">${a.body.substring(0, 80)}${a.body.length > 80 ? '…' : ''}</div>
+                </div>
+            </div>
+        `).join('');
+    }
+}
+
+// ─── PREVIEW ──────────────────────────────────────────────────────
+function updatePreview() {
+    // Banner
+    const bannerEl = document.getElementById('preview-banner');
+    const pinnedAnn = announcements.find(a => a.pinned) || announcements[0];
+    if (pinnedAnn) {
+        bannerEl.innerHTML = `
+            <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.5rem;">
+                <span style="background:var(--lime); color:var(--forest); font-size:0.7rem; font-weight:700; padding:0.2rem 0.6rem; border-radius:6px;">${pinnedAnn.category}</span>
+                <span style="font-weight:700; color:var(--pale);">${pinnedAnn.title}</span>
+            </div>
+            <div style="opacity:0.85;">${pinnedAnn.body}</div>
+            ${pinnedAnn.expiry ? `<div style="opacity:0.5; font-size:0.75rem; margin-top:0.5rem;">📅 Expires: ${pinnedAnn.expiry}</div>` : ''}
+        `;
+    } else {
+        bannerEl.innerHTML = '<em style="opacity:0.5;">No announcements to preview. Create one in the Announcements tab.</em>';
+    }
+
+    // Images
+    const prevImgs = document.getElementById('preview-images');
+    const prevEmpty = document.getElementById('preview-images-empty');
+    if (images.length > 0) {
+        prevImgs.style.display = 'grid';
+        prevEmpty.style.display = 'none';
+        prevImgs.innerHTML = images.slice(0,8).map(img => `
+            <div class="image-item" style="cursor:default;">
+                <img src="${img.src}" alt="${img.label}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22><rect fill=%22%23c5e1a5%22 width=%22200%22 height=%22200%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%232d5016%22 font-size=%2240%22>🐔</text></svg>'">
+            </div>
+        `).join('');
+    } else {
+        prevImgs.style.display = 'none';
+        prevEmpty.style.display = 'block';
+    }
+}
+
+// ─── EMBED CODE ──────────────────────────────────────────────────
+function updateEmbedCode() {
+    const code = `<script src="https://cdn.jsdelivr.net/npm/nkadimeng-admin-loader@latest/loader.min.js" data-storage-key="nka" async><\/script>
+<!-- Or manually paste this tag anywhere in your HTML: -->
+<div id="nka-announcements"></div>
+<div id="nka-product-images" data-product="all"></div>`;
+    document.getElementById('embedCode').textContent = code;
+}
+
+function copyEmbed() {
+    const code = document.getElementById('embedCode').textContent;
+    navigator.clipboard.writeText(code).then(() => toast('Embed code copied!', 'success'));
+}
+
+// ─── EXPORT ──────────────────────────────────────────────────────
+function exportData() {
+    const data = {
+        images,
+        announcements,
+        settings,
+        exportedAt: new Date().toISOString()
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `nkadimeng-admin-export-${Date.now()}.json`;
+    a.click();
+    toast('Data exported!', 'success');
+}
+
+// ─── TABS ─────────────────────────────────────────────────────────
+function showTab(name, btn) {
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+    document.getElementById(`tab-${name}`).classList.add('active');
+    if (btn) btn.classList.add('active');
+    if (name === 'preview') updatePreview();
+}
+
+// ─── TOAST ───────────────────────────────────────────────────────
+let toastTimer;
+function toast(msg, type = 'success') {
+    const el = document.getElementById('toast');
+    const icon = el.querySelector('i');
+    document.getElementById('toast-msg').textContent = msg;
+    el.className = `show ${type}`;
+    icon.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+// ─── DRAG & DROP ─────────────────────────────────────────────────
+const zone = document.getElementById('uploadZone');
+zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+zone.addEventListener('drop', e => {
+    e.preventDefault();
+    zone.classList.remove('drag-over');
+    const files = e.dataTransfer.files;
+    const input = document.getElementById('fileInput');
+    // Simulate file input
+    const label = document.getElementById('imgLabel').value || 'Farm Photo';
+    const product = document.getElementById('imgProduct').value;
+    Array.from(files).forEach(file => {
+        if (!file.type.startsWith('image/')) return;
+        const reader = new FileReader();
+        reader.onload = ev => {
+            images.push({ id: Date.now() + Math.random(), src: ev.target.result, label, product, addedAt: new Date().toLocaleDateString('en-ZA') });
+            saveImages();
+            toast('Image uploaded!', 'success');
+        };
+        reader.readAsDataURL(file);
+    });
+});
+</script>
+</body>
+</html>
