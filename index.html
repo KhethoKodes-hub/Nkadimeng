@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Nkadimeng Agri - Organic Poultry Excellence</title>
     <style>
         * {
@@ -57,6 +57,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
 
         .logo-section {
@@ -86,6 +87,7 @@
             letter-spacing: 1px;
         }
 
+        /* Desktop Navigation */
         .nav-links {
             display: flex;
             gap: 2.5rem;
@@ -120,6 +122,91 @@
 
         .nav-links a:hover::after {
             width: 100%;
+        }
+
+        /* Hamburger Menu (Mobile) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 1002;
+            background: transparent;
+            border: none;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 320px;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+            padding: 6rem 2rem 2rem;
+            transition: right 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid rgba(45, 80, 22, 0.1);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .mobile-menu-links li a {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease, transform 0.2s ease;
+            border-bottom: 1px solid rgba(45, 80, 22, 0.1);
+        }
+
+        .mobile-menu-links li a:hover {
+            color: var(--accent);
+            transform: translateX(8px);
+        }
+
+        /* Overlay background when menu is open */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none;
+            backdrop-filter: blur(2px);
+        }
+
+        .menu-overlay.active {
+            display: block;
         }
 
         /* Hero Section */
@@ -847,7 +934,7 @@
             opacity: 0.8;
         }
 
-        /* Responsive */
+        /* Responsive - MOBILE FIRST HAMBURGER */
         @media (max-width: 968px) {
             .hero h1 {
                 font-size: 3.5rem;
@@ -883,8 +970,13 @@
                 padding: 1rem 5%;
             }
 
+            /* Hide desktop nav links on mobile, show hamburger */
             .nav-links {
                 display: none;
+            }
+
+            .hamburger {
+                display: flex;
             }
 
             .hero {
@@ -911,6 +1003,29 @@
             .products-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .about-card {
+                padding: 2rem;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .brand-name {
+                font-size: 1.3rem;
+            }
+            .tagline {
+                font-size: 0.7rem;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .stat-number {
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
@@ -918,22 +1033,38 @@
     <nav id="navbar">
         <div class="nav-container">
             <div class="logo-section">
-                <div class="logo-placeholder"><img src="assets/Nkadimeng Agri Final.png" height="100" width="100"></a></div>
+                <div class="logo-placeholder"><img src="assets/Nkadimeng Agri Final.png" height="100" width="100" alt="Nkadimeng Agri Logo"></div>
                 <div class="logo-text">
                     <span class="brand-name">Nkadimeng</span>
                     <span class="tagline">Simply Farming</span>
                 </div>
             </div>
+            <!-- Desktop Navigation -->
             <ul class="nav-links">
                 <li><a href="about.html">About</a></li>
-                <!--<li><a href="#values">Values</a></li>-->
                 <li><a href="products.html">Products</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
+            <!-- Hamburger Button (Mobile) -->
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
 
-    <section class="hero"style="background-image: url('./assets/hero2.png'); background-size: cover; background-position: center;">
+    <!-- Mobile Menu Overlay & Panel -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <ul class="mobile-menu-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </div>
+
+    <section class="hero" style="background-image: url('./assets/hero2.png'); background-size: cover; background-position: center;">
         <div class="floating-leaves">
             <div class="leaf">🌿</div>
             <div class="leaf">🌾</div>
@@ -1043,7 +1174,7 @@
         <div class="products-grid">
             <div class="product-card">
                 <div class="product-image">
-                    <img src="assets/wholechick.jpeg" alt="Whole Chickens"  style="width:100%; height:auto; display:block;">
+                    <img src="assets/wholechick.jpeg" alt="Whole Chickens" style="width:100%; height:100%; object-fit:cover; display:block;">
                 </div>
                 <div class="product-content">
                     <span class="product-tag">Most Popular</span>
@@ -1053,7 +1184,7 @@
             </div>
             <div class="product-card">
                 <div class="product-image">
-                    <img src="assets/Nkadimeng3.jpeg" alt="Chicken Portions" style="width:100%; height:auto; display:block;">
+                    <img src="assets/Nkadimeng3.jpeg" alt="Chicken Portions" style="width:100%; height:100%; object-fit:cover; display:block;">
                 </div>
                 <div class="product-content">
                     <span class="product-tag">Value Pack</span>
@@ -1063,7 +1194,7 @@
             </div>
             <div class="product-card">
                 <div class="product-image">
-<img src="assets/eggs.jpeg" alt="Chicken Sausages" style="width:100%; height:auto; display:block;">
+                    <img src="assets/eggs.jpeg" alt="Organic Eggs" style="width:100%; height:100%; object-fit:cover; display:block;">
                 </div>
                 <div class="product-content">
                     <span class="product-tag">Coming Soon</span>
@@ -1111,34 +1242,10 @@
             <p class="section-description">Transparency in our farming practices ensures you know exactly where your food comes from and how it's produced.</p>
         </div>
         <div class="process-timeline">
-            <div class="process-step">
-                <div class="process-number">1</div>
-                <div class="process-content">
-                    <h3>Organic Breeding</h3>
-                    <p>We start with carefully selected breeds raised in natural environments with access to pasture and organic feed.</p>
-                </div>
-            </div>
-            <div class="process-step">
-                <div class="process-number">2</div>
-                <div class="process-content">
-                    <h3>Natural Growth</h3>
-                    <p>Our chickens grow at their natural pace with no antibiotics or growth hormones, ensuring healthy development.</p>
-                </div>
-            </div>
-            <div class="process-step">
-                <div class="process-number">3</div>
-                <div class="process-content">
-                    <h3>Ethical Processing</h3>
-                    <p>We follow humane processing methods in our certified facilities, maintaining the highest standards of food safety.</p>
-                </div>
-            </div>
-            <div class="process-step">
-                <div class="process-number">4</div>
-                <div class="process-content">
-                    <h3>Quality Delivery</h3>
-                    <p>Fresh products are carefully packaged and delivered promptly to ensure optimal quality and flavor.</p>
-                </div>
-            </div>
+            <div class="process-step"><div class="process-number">1</div><div class="process-content"><h3>Organic Breeding</h3><p>We start with carefully selected breeds raised in natural environments with access to pasture and organic feed.</p></div></div>
+            <div class="process-step"><div class="process-number">2</div><div class="process-content"><h3>Natural Growth</h3><p>Our chickens grow at their natural pace with no antibiotics or growth hormones, ensuring healthy development.</p></div></div>
+            <div class="process-step"><div class="process-number">3</div><div class="process-content"><h3>Ethical Processing</h3><p>We follow humane processing methods in our certified facilities, maintaining the highest standards of food safety.</p></div></div>
+            <div class="process-step"><div class="process-number">4</div><div class="process-content"><h3>Quality Delivery</h3><p>Fresh products are carefully packaged and delivered promptly to ensure optimal quality and flavor.</p></div></div>
         </div>
     </section>
 
@@ -1149,26 +1256,10 @@
             <p class="section-description">We'd love to hear from you. Reach out to learn more about our products or discuss partnership opportunities.</p>
         </div>
         <div class="contact-grid">
-            <div class="contact-card">
-                <span class="contact-icon">📍</span>
-                <h3>Visit Us</h3>
-                <p>Lynnville, Emalahleni<br>Mpumalanga, South Africa</p>
-            </div>
-            <div class="contact-card">
-                <span class="contact-icon">📞</span>
-                <h3>Call Us</h3>
-                <p><a href="tel:+27123456789">+27 12 345 6789</a><br>Mon-Fri: 8am-5pm</p>
-            </div>
-            <div class="contact-card">
-                <span class="contact-icon">✉️</span>
-                <h3>Email Us</h3>
-                <p><a href="mailto:nkadimenagri@gmail.com">nkadimenagri@gmail.com</a><br>We respond within 24 hours</p>
-            </div>
-            <div class="contact-card">
-                <span class="contact-icon">🔄</span>
-                <h3>Follow Us</h3>
-                <p>Stay updated on our latest products and farming practices through our social media channels.</p>
-            </div>
+            <div class="contact-card"><span class="contact-icon">📍</span><h3>Visit Us</h3><p>Lynnville, Emalahleni<br>Mpumalanga, South Africa</p></div>
+            <div class="contact-card"><span class="contact-icon">📞</span><h3>Call Us</h3><p><a href="tel:+27123456789">+27 12 345 6789</a><br>Mon-Fri: 8am-5pm</p></div>
+            <div class="contact-card"><span class="contact-icon">✉️</span><h3>Email Us</h3><p><a href="mailto:nkadimenagri@gmail.com">nkadimenagri@gmail.com</a><br>We respond within 24 hours</p></div>
+            <div class="contact-card"><span class="contact-icon">🔄</span><h3>Follow Us</h3><p>Stay updated on our latest products and farming practices through our social media channels.</p></div>
         </div>
     </section>
 
@@ -1178,9 +1269,7 @@
             <div class="footer-tagline">Simply Farming</div>
             <p>Proudly South African organic poultry from the heart of Lynnville, Emalahleni.</p>
             <div class="footer-divider"></div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Nkadimeng Agri. All rights reserved. | Proudly serving the Emalahleni community and beyond.</p>
-            </div>
+            <div class="footer-bottom"><p>&copy; 2024 Nkadimeng Agri. All rights reserved. | Proudly serving the Emalahleni community and beyond.</p></div>
         </div>
     </footer>
 
@@ -1195,31 +1284,66 @@
             }
         });
 
-        // Smooth scrolling for anchor links
+        // Hamburger Menu Logic
+        const hamburger = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const overlay = document.getElementById('menuOverlay');
+
+        function closeMenu() {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function openMenu() {
+            mobileMenu.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        hamburger.addEventListener('click', () => {
+            if (mobileMenu.classList.contains('active')) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
+
+        overlay.addEventListener('click', closeMenu);
+
+        // Close menu when a link is clicked (smooth navigation)
+        const mobileLinks = document.querySelectorAll('.mobile-menu-links a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                closeMenu();
+            });
+        });
+
+        // Smooth scrolling for anchor links (existing)
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
+                if (targetId && targetId.startsWith('#')) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        closeMenu(); // close mobile menu if open
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
                 }
             });
         });
 
-        // Animation on scroll
+        // Scroll animations (unchanged but ensure menu close on anchor)
         function animateOnScroll() {
             const elements = document.querySelectorAll('.about-card, .value-card, .product-card, .feature-card, .process-content');
-            
             elements.forEach(element => {
                 const elementTop = element.getBoundingClientRect().top;
                 const elementVisible = 150;
-                
                 if (elementTop < window.innerHeight - elementVisible) {
                     element.style.opacity = "1";
                     element.style.transform = "translateY(0)";
@@ -1227,7 +1351,6 @@
             });
         }
 
-        // Set initial state for animated elements
         document.addEventListener('DOMContentLoaded', function() {
             const elements = document.querySelectorAll('.about-card, .value-card, .product-card, .feature-card, .process-content');
             elements.forEach(element => {
@@ -1235,9 +1358,7 @@
                 element.style.transform = "translateY(20px)";
                 element.style.transition = "opacity 0.6s ease, transform 0.6s ease";
             });
-            
             window.addEventListener('scroll', animateOnScroll);
-            // Trigger once on load
             animateOnScroll();
         });
     </script>

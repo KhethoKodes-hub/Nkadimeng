@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Contact Us - Nkadimeng Agri</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -55,25 +55,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
 
         .logo-section {
             display: flex;
             align-items: center;
             gap: 1rem;
-        }
-
-        .logo-placeholder {
-            width: 60px;
-            height: 60px;
-            background: var(--accent);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 1.5rem;
         }
 
         .logo-text {
@@ -97,6 +85,7 @@
             letter-spacing: 1px;
         }
 
+        /* Desktop Navigation */
         .nav-links {
             display: flex;
             gap: 2.5rem;
@@ -133,11 +122,89 @@
             width: 100%;
         }
 
-        .mobile-menu {
+        /* Hamburger Menu (Mobile) */
+        .hamburger {
             display: none;
-            color: white;
-            font-size: 1.5rem;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
             cursor: pointer;
+            background: transparent;
+            border: none;
+            z-index: 1002;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: white;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        /* Mobile Menu Panel */
+        .mobile-menu-panel {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 320px;
+            height: 100vh;
+            background: rgba(45, 80, 22, 0.98);
+            backdrop-filter: blur(20px);
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            padding: 6rem 2rem 2rem;
+            transition: right 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid rgba(139, 195, 74, 0.3);
+        }
+
+        .mobile-menu-panel.active {
+            right: 0;
+        }
+
+        .mobile-menu-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .mobile-menu-links li a {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease, transform 0.2s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .mobile-menu-links li a:hover {
+            color: var(--accent);
+            transform: translateX(8px);
+        }
+
+        /* Overlay */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none;
+            backdrop-filter: blur(2px);
+        }
+
+        .menu-overlay.active {
+            display: block;
         }
 
         /* Page Header */
@@ -196,14 +263,8 @@
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Section Styles */
@@ -503,7 +564,7 @@
             overflow: hidden;
             box-shadow: var(--shadow);
             height: 450px;
-            background: linear-gradient(135deg, rgba(139, 195, 74, 0.9) 0%, rgba(74, 124, 44, 0.9) 100%), url('https://images.unsplash.com/photo-1596733430284-f7437764b1a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background: linear-gradient(135deg, rgba(139, 195, 74, 0.9) 0%, rgba(74, 124, 44, 0.9) 100%), url('https://images.unsplash.com/photo-1596733430284-f7437764b1a9?auto=format&fit=crop&w=2070&q=80');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -516,16 +577,6 @@
             position: relative;
             overflow: hidden;
             border: 1px solid rgba(45, 80, 22, 0.1);
-        }
-
-        .map-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), transparent);
         }
 
         .map-placeholder {
@@ -570,10 +621,6 @@
             transition: var(--transition);
         }
 
-        .faq-item:hover {
-            box-shadow: var(--shadow-hover);
-        }
-
         .faq-question {
             padding: 1.8rem;
             cursor: pointer;
@@ -582,7 +629,6 @@
             align-items: center;
             font-weight: 600;
             color: var(--primary);
-            transition: var(--transition);
         }
 
         .faq-question:hover {
@@ -599,7 +645,6 @@
             overflow: hidden;
             transition: max-height 0.3s ease;
             color: var(--text-light);
-            line-height: 1.7;
         }
 
         .faq-item.active .faq-answer {
@@ -613,34 +658,13 @@
 
         /* CTA Section */
         .cta-section {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%), url('https://images.unsplash.com/photo-1592925119128-c1bfc0b1020a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%), url('https://images.unsplash.com/photo-1592925119128-c1bfc0b1020a?auto=format&fit=crop&w=2070&q=80');
             background-size: cover;
             background-position: center;
             background-blend-mode: overlay;
             color: white;
             text-align: center;
             padding: 5rem 5%;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                radial-gradient(circle at 20% 50%, rgba(139, 195, 74, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
-        }
-
-        .cta-content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-            margin: 0 auto;
         }
 
         .cta-section h2 {
@@ -673,10 +697,6 @@
             border-radius: 50px;
             font-weight: bold;
             transition: var(--transition);
-            box-shadow: 0 4px 15px rgba(139, 195, 74, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 1rem;
         }
 
         .cta-button.secondary {
@@ -687,7 +707,7 @@
 
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 25px rgba(139, 195, 74, 0.5);
+            background: var(--accent-light);
         }
 
         .cta-button.secondary:hover {
@@ -701,11 +721,6 @@
             color: white;
             text-align: center;
             padding: 3rem 2rem 2rem;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
         }
 
         .footer-logo {
@@ -727,12 +742,7 @@
             margin: 2rem 0;
         }
 
-        .footer-bottom {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        /* Back to Top Button */
+        /* Back to Top */
         .back-to-top {
             position: fixed;
             bottom: 30px;
@@ -746,11 +756,10 @@
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
             z-index: 999;
             opacity: 0;
             visibility: hidden;
+            transition: var(--transition);
         }
 
         .back-to-top.active {
@@ -765,76 +774,30 @@
 
         /* Responsive */
         @media (max-width: 968px) {
-            .page-header h1 {
-                font-size: 2.8rem;
-            }
-
-            .section-title {
-                font-size: 2.3rem;
-            }
-
-            .cta-section h2 {
-                font-size: 2.3rem;
-            }
+            .page-header h1 { font-size: 2.8rem; }
+            .section-title { font-size: 2.3rem; }
+            .cta-section h2 { font-size: 2.3rem; }
         }
 
         @media (max-width: 768px) {
-            .nav-links {
-                position: fixed;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: var(--primary);
-                flex-direction: column;
-                align-items: center;
-                padding: 2rem 0;
-                transform: translateY(-100%);
-                transition: var(--transition);
-                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .page-header { height: 40vh; }
+            .page-header h1 { font-size: 2.3rem; }
+            section { padding: 4rem 5%; }
+            .section-title { font-size: 2rem; }
+            .contact-container { grid-template-columns: 1fr; gap: 2rem; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .cta-button { width: 100%; max-width: 300px; text-align: center; }
+        }
 
-            .nav-links.active {
-                transform: translateY(0);
-            }
-
-            .mobile-menu {
-                display: block;
-            }
-
-            .page-header {
-                height: 40vh;
-            }
-
-            .page-header h1 {
-                font-size: 2.3rem;
-            }
-
-            section {
-                padding: 4rem 5%;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .contact-container {
-                grid-template-columns: 1fr;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .cta-button {
-                width: 100%;
-                max-width: 300px;
-                text-align: center;
-            }
-
-            .cta-section h2 {
-                font-size: 2rem;
-            }
+        @media (max-width: 480px) {
+            .brand-name { font-size: 1.3rem; }
+            .tagline { font-size: 0.7rem; }
+            .page-header h1 { font-size: 1.8rem; }
+            .info-card { flex-direction: column; align-items: center; text-align: center; }
+            .contact-form-container { padding: 2rem 1.5rem; }
+            .hours-list li { flex-direction: column; align-items: center; gap: 0.3rem; }
         }
     </style>
 </head>
@@ -843,20 +806,39 @@
     <nav>
         <div class="nav-container">
             <div class="logo-section">
-               
+                <div class="logo-text">
+                                        <span class="brand-name"><img src="./assets/Nkadimeng Agri Final.png" style="width: 100px; height:100px" alt="Nkadimeng Agri Logo"></span>
+
+                    <span class="brand-name">Nkadimeng</span>
+                    <span class="tagline">Simply Farming</span>
+                </div>
             </div>
-            <div class="mobile-menu">
-                <i class="fas fa-bars"></i>
-            </div>
+            <!-- Desktop Navigation -->
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="products.html">Products</a></li>
-                <li><a href="contact.html" class="active">Contact</a></li>
-                <li><a href="admin.html">Admin</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
+            <!-- Hamburger Button -->
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
+
+    <!-- Mobile Menu Panel & Overlay -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="mobile-menu-panel" id="mobileMenu">
+        <ul class="mobile-menu-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </div>
 
     <!-- Page Header -->
     <section class="page-header">
@@ -877,90 +859,42 @@
             <!-- Contact Information -->
             <div class="contact-info">
                 <div class="info-card">
-                    <div class="info-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <div class="info-content">
-                        <h3>Our Location</h3>
-                        <p>26 Lynnville, Emalahleni<br>Mpumalanga, South Africa</p>
-                    </div>
+                    <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="info-content"><h3>Our Location</h3><p>26 Lynnville, Emalahleni<br>Mpumalanga, South Africa</p></div>
                 </div>
-                
                 <div class="info-card">
-                    <div class="info-icon">
-                        <i class="fas fa-phone-alt"></i>
-                    </div>
-                    <div class="info-content">
-                        <h3>Phone Number</h3>
-                        <p><a href="tel:0606110490">060 611 0490</a></p>
-                    </div>
+                    <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+                    <div class="info-content"><h3>Phone Number</h3><p><a href="tel:0606110490">060 611 0490</a></p></div>
                 </div>
-                
                 <div class="info-card">
-                    <div class="info-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <div class="info-content">
-                        <h3>Email Address</h3>
-                        <p><a href="mailto:Nkadimeng.agri@gmail.com">nkadimenagri@gmail.com</a></p>
-                    </div>
+                    <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="info-content"><h3>Email Address</h3><p><a href="mailto:nkadimenagri@gmail.com">nkadimenagri@gmail.com</a></p></div>
                 </div>
-                
                 <div class="info-card">
-                    <div class="info-icon">
-                        <i class="fab fa-facebook"></i>
-                    </div>
-                    <div class="info-content">
-                        <h3>Social Media</h3>
-                        <p><a href="https://www.facebook.com/profile.php?id=61573951484671" target="_blank">Follow us on Facebook</a></p>
-                    </div>
+                    <div class="info-icon"><i class="fab fa-facebook"></i></div>
+                    <div class="info-content"><h3>Social Media</h3><p><a href="https://www.facebook.com/profile.php?id=61573951484671" target="_blank">Follow us on Facebook</a></p></div>
                 </div>
-                
                 <div class="hours-card">
                     <h3>Business Hours</h3>
                     <ul class="hours-list">
-                        <li>
-                            <span class="day">Monday - Friday</span>
-                            <span class="time">8:00 AM - 6:00 PM</span>
-                        </li>
-                        <li>
-                            <span class="day">Saturday</span>
-                            <span class="time">8:00 AM - 2:00 PM</span>
-                        </li>
-                        <li>
-                            <span class="day">Sunday</span>
-                            <span class="time">Closed</span>
-                        </li>
+                        <li><span class="day">Monday - Friday</span><span class="time">8:00 AM - 6:00 PM</span></li>
+                        <li><span class="day">Saturday</span><span class="time">8:00 AM - 2:00 PM</span></li>
+                        <li><span class="day">Sunday</span><span class="time">Closed</span></li>
                     </ul>
                 </div>
             </div>
             
-            <!-- Contact Form - Updated with FormSubmit.co to send to kmngomezulu82@gmail.com -->
+            <!-- Contact Form -->
             <div class="contact-form-container">
                 <h3>Send Us a Message</h3>
-                <form id="contactForm" action="https://formsubmit.co/nkadimenagri@gmail.com" method="POST" enctype="multipart/form-data">
-                    <!-- FormSubmit.co configuration -->
+                <form id="contactForm" action="https://formsubmit.co/nkadimenagri@gmail.com" method="POST">
                     <input type="hidden" name="_subject" value="Nkadimeng Agri - New Contact Form Submission">
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_template" value="table">
                     <input type="hidden" name="_replyto" value="email">
-                    <input type="hidden" name="_next" value="https://nkadimengagri.co.za/thankyou.html">
-                    
-                    <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" name="Full Name" class="form-control" placeholder="Your Name" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="Email" class="form-control" placeholder="Your Email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="Phone Number" class="form-control" placeholder="Your Phone Number">
-                    </div>
-                    
+                    <div class="form-group"><label for="name">Full Name</label><input type="text" id="name" name="Full Name" class="form-control" placeholder="Your Name" required></div>
+                    <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" name="Email" class="form-control" placeholder="Your Email" required></div>
+                    <div class="form-group"><label for="phone">Phone Number</label><input type="tel" id="phone" name="Phone Number" class="form-control" placeholder="Your Phone Number"></div>
                     <div class="form-group">
                         <label for="subject">Subject</label>
                         <select id="subject" name="Subject" class="form-control" required>
@@ -972,12 +906,7 @@
                             <option value="Other">Other</option>
                         </select>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="message">Your Message</label>
-                        <textarea id="message" name="Message" class="form-control" placeholder="How can we help you?" required></textarea>
-                    </div>
-                    
+                    <div class="form-group"><label for="message">Your Message</label><textarea id="message" name="Message" class="form-control" placeholder="How can we help you?" required></textarea></div>
                     <button type="submit" class="submit-btn">Send Message</button>
                 </form>
             </div>
@@ -992,11 +921,9 @@
             <p class="section-description">Come see our sustainable farming practices firsthand and purchase fresh poultry directly from the source.</p>
         </div>
         <div class="map-container">
-            <div class="map-placeholder">
-                <i class="fas fa-map-marked-alt"></i>
-            </div>
+            <div class="map-placeholder"><i class="fas fa-map-marked-alt"></i></div>
             <h3>Visit Our Farm in Lynnville</h3>
-            <p>We're located in the heart of Lynnville, Emalahleni. Our farm is open for visitors during business hours. Experience our organic farming practices and see how we raise our chickens with care and respect for the environment.</p>
+            <p>We're located in the heart of Lynnville, Emalahleni. Our farm is open for visitors during business hours. Experience our organic farming practices and see how we raise our chickens with care.</p>
         </div>
     </section>
 
@@ -1008,55 +935,10 @@
             <p class="section-description">Find answers to common questions about our products, ordering process, and farm visits.</p>
         </div>
         <div class="faq-container">
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>How do I place an order?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>You can place an order by calling us at <a href="tel:0606110490">060 611 0490</a>, sending us an email at <a href="mailto:nkadimenagri@gmail.com">nkadimenagri@gmail.com</a>, or by visiting our farm directly during business hours.</p>
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>Do you deliver?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>We currently offer delivery within the Emalahleni area for larger orders. For smaller purchases, we encourage customers to visit our farm to ensure maximum freshness.</p>
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>What makes your chickens organic?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>Our chickens are raised without antibiotics, hormones, or harmful chemicals. They have access to outdoor spaces, are fed organic feed, and are raised following sustainable farming practices.</p>
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>Can I visit your farm?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>Yes! We welcome visitors to our farm during business hours. It's a great opportunity to see our sustainable farming practices firsthand and purchase fresh products directly.</p>
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">
-                    <span>Do you offer wholesale prices?</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="faq-answer">
-                    <p>Yes, we offer competitive wholesale pricing for restaurants, retailers, and other businesses. Please contact us directly to discuss your needs and pricing options.</p>
-                </div>
-            </div>
+            <div class="faq-item"><div class="faq-question"><span>How do I place an order?</span><i class="fas fa-chevron-down"></i></div><div class="faq-answer"><p>You can place an order by calling us at <a href="tel:0606110490">060 611 0490</a>, sending us an email, or by visiting our farm directly during business hours.</p></div></div>
+            <div class="faq-item"><div class="faq-question"><span>Do you deliver?</span><i class="fas fa-chevron-down"></i></div><div class="faq-answer"><p>We currently offer delivery within the Emalahleni area for larger orders. For smaller purchases, we encourage customers to visit our farm to ensure maximum freshness.</p></div></div>
+            <div class="faq-item"><div class="faq-question"><span>What makes your chickens organic?</span><i class="fas fa-chevron-down"></i></div><div class="faq-answer"><p>Our chickens are raised without antibiotics, hormones, or harmful chemicals. They have access to outdoor spaces, are fed organic feed, and follow sustainable farming practices.</p></div></div>
+            <div class="faq-item"><div class="faq-question"><span>Can I visit your farm?</span><i class="fas fa-chevron-down"></i></div><div class="faq-answer"><p>Yes! We welcome visitors to our farm during business hours. It's a great opportunity to see our sustainable farming practices firsthand.</p></div></div>
         </div>
     </section>
 
@@ -1066,12 +948,8 @@
             <h2>Ready to Experience Fresh, Organic Poultry?</h2>
             <p>Join our community of satisfied customers who appreciate quality, freshness, and sustainable farming.</p>
             <div class="cta-buttons">
-                <a href="tel:0606110490" class="cta-button">
-                    <i class="fas fa-phone"></i> Call Us Now
-                </a>
-                <a href="mailto:nkadimenagri@gmail.com" class="cta-button secondary">
-                    <i class="fas fa-envelope"></i> Send an Email
-                </a>
+                <a href="tel:0606110490" class="cta-button"><i class="fas fa-phone"></i> Call Us Now</a>
+                <a href="mailto:nkadimenagri@gmail.com" class="cta-button secondary"><i class="fas fa-envelope"></i> Send an Email</a>
             </div>
         </div>
     </section>
@@ -1082,133 +960,75 @@
             <div class="footer-logo">Nkadimeng Agri</div>
             <div class="footer-tagline">Simply Farming, Simply Better.</div>
             <div class="footer-divider"></div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Nkadimeng Agri. All rights reserved.</p>
-                <p>Proudly serving the Emalahleni community and beyond.</p>
-            </div>
+            <div class="footer-bottom"><p>&copy; 2024 Nkadimeng Agri. All rights reserved.</p><p>Proudly serving the Emalahleni community and beyond.</p></div>
         </div>
     </footer>
 
     <!-- Back to Top Button -->
-    <a href="#" class="back-to-top">
-        <i class="fas fa-chevron-up"></i>
-    </a>
+    <a href="#" class="back-to-top"><i class="fas fa-chevron-up"></i></a>
 
     <script>
-        // Mobile Menu Toggle
-        const mobileMenu = document.querySelector('.mobile-menu');
-        const navLinks = document.querySelector('.nav-links');
-        
-        if (mobileMenu) {
-            mobileMenu.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-                const icon = mobileMenu.querySelector('i');
-                if (icon.classList.contains('fa-bars')) {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
-                } else {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
-            });
-        }
+        // Hamburger Menu Logic
+        const hamburger = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const overlay = document.getElementById('menuOverlay');
+
+        function closeMenu() { mobileMenu.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = ''; }
+        function openMenu() { mobileMenu.classList.add('active'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+
+        hamburger.addEventListener('click', () => { mobileMenu.classList.contains('active') ? closeMenu() : openMenu(); });
+        overlay.addEventListener('click', closeMenu);
+        document.querySelectorAll('.mobile-menu-links a').forEach(link => link.addEventListener('click', closeMenu));
 
         // Back to Top Button
-        const backToTopButton = document.querySelector('.back-to-top');
-        
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTopButton.classList.add('active');
-            } else {
-                backToTopButton.classList.remove('active');
-            }
-        });
+        const backToTop = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', () => { window.pageYOffset > 300 ? backToTop.classList.add('active') : backToTop.classList.remove('active'); });
 
-        // Smooth scrolling for navigation links
+        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 70,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    if (navLinks && navLinks.classList.contains('active')) {
-                        navLinks.classList.remove('active');
-                        const icon = mobileMenu.querySelector('i');
-                        icon.classList.remove('fa-times');
-                        icon.classList.add('fa-bars');
-                    }
-                }
+                const target = document.querySelector(targetId);
+                if (target) { closeMenu(); window.scrollTo({ top: target.offsetTop - 70, behavior: 'smooth' }); }
             });
         });
 
         // Navbar background on scroll
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                document.querySelector('nav').style.background = 'rgba(45, 80, 22, 0.98)';
-            } else {
-                document.querySelector('nav').style.background = 'rgba(45, 80, 22, 0.95)';
-            }
+            const nav = document.querySelector('nav');
+            nav.style.background = window.scrollY > 50 ? 'rgba(45, 80, 22, 0.98)' : 'rgba(45, 80, 22, 0.95)';
         });
 
         // FAQ Accordion
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const item = question.parentNode;
-                item.classList.toggle('active');
-            });
-        });
+        document.querySelectorAll('.faq-question').forEach(q => q.addEventListener('click', () => q.parentNode.classList.toggle('active')));
 
-        // FormSubmit handles the submission automatically
-        // Add visual feedback for form submission
+        // Form submission feedback
         const contactForm = document.getElementById('contactForm');
-        contactForm.addEventListener('submit', function(e) {
-            const submitBtn = contactForm.querySelector('.submit-btn');
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            submitBtn.disabled = true;
-            
-            // Re-enable after 3 seconds (form will redirect to thank you page)
-            setTimeout(() => {
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-            }, 3000);
+        contactForm.addEventListener('submit', function() {
+            const btn = contactForm.querySelector('.submit-btn');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            btn.disabled = true;
+            setTimeout(() => { btn.innerHTML = 'Send Message'; btn.disabled = false; }, 3000);
         });
 
-        // Animation on scroll
+        // Scroll animations
         function animateOnScroll() {
-            const elements = document.querySelectorAll('.info-card, .hours-card, .contact-form-container');
-            
-            elements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 150;
-                
-                if (elementTop < window.innerHeight - elementVisible) {
-                    element.style.opacity = "1";
-                    element.style.transform = "translateY(0)";
+            document.querySelectorAll('.info-card, .hours-card, .contact-form-container').forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 150) {
+                    el.style.opacity = "1";
+                    el.style.transform = "translateY(0)";
                 }
             });
         }
-
-        // Set initial state for animated elements
-        document.addEventListener('DOMContentLoaded', function() {
-            const elements = document.querySelectorAll('.info-card, .hours-card, .contact-form-container');
-            elements.forEach(element => {
-                element.style.opacity = "0";
-                element.style.transform = "translateY(20px)";
-                element.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.info-card, .hours-card, .contact-form-container').forEach(el => {
+                el.style.opacity = "0";
+                el.style.transform = "translateY(20px)";
+                el.style.transition = "opacity 0.6s ease, transform 0.6s ease";
             });
-            
             window.addEventListener('scroll', animateOnScroll);
-            // Trigger once on load
             animateOnScroll();
         });
     </script>

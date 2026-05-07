@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>About Us - Nkadimeng Agri</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -55,6 +55,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
 
         .logo-section {
@@ -104,6 +105,7 @@
             letter-spacing: 1px;
         }
 
+        /* Desktop Navigation */
         .nav-links {
             display: flex;
             gap: 2.5rem;
@@ -140,18 +142,96 @@
             width: 100%;
         }
 
-        .mobile-menu {
+        /* Hamburger Menu (Mobile) */
+        .hamburger {
             display: none;
-            color: white;
-            font-size: 1.5rem;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
             cursor: pointer;
+            background: transparent;
+            border: none;
+            z-index: 1002;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: white;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        /* Mobile Menu Panel */
+        .mobile-menu-panel {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 320px;
+            height: 100vh;
+            background: rgba(45, 80, 22, 0.98);
+            backdrop-filter: blur(20px);
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            padding: 6rem 2rem 2rem;
+            transition: right 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid rgba(139, 195, 74, 0.3);
+        }
+
+        .mobile-menu-panel.active {
+            right: 0;
+        }
+
+        .mobile-menu-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .mobile-menu-links li a {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease, transform 0.2s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .mobile-menu-links li a:hover {
+            color: var(--accent);
+            transform: translateX(8px);
+        }
+
+        /* Overlay */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none;
+            backdrop-filter: blur(2px);
+        }
+
+        .menu-overlay.active {
+            display: block;
         }
 
         /* Page Header */
         .page-header {
             margin-top: 70px;
             height: 50vh;
-            background:  url('./assets/Nkadimeng7.jpeg') no-repeat center center/cover;
+            background: url('./assets/Nkadimeng7.jpeg') no-repeat center center/cover;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -270,18 +350,20 @@
             color: var(--text-light);
         }
 
-       .story-image {
-    width: 100%; /* or specific width */
-    height: auto; /* or specific height */
-    overflow: hidden; /* prevents image from overflowing */
-}
+        .story-image {
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
 
-.story-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* or 'cover' based on your needs */
-    display: block;
-}
+        .story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
 
         /* Mission & Vision Section */
         .mission-vision {
@@ -701,35 +783,29 @@
             transform: translateY(-5px);
         }
 
-        /* Responsive */
+        /* Responsive Styles */
         @media (max-width: 968px) {
             .page-header h1 {
                 font-size: 2.8rem;
             }
-
             .section-title {
                 font-size: 2.3rem;
             }
-
             .story-content {
                 grid-template-columns: 1fr;
                 gap: 3rem;
             }
-
             .timeline-container::before {
                 left: 30px;
             }
-
             .timeline-item {
                 width: 100%;
                 padding-left: 70px;
                 padding-right: 25px;
             }
-
             .timeline-item:nth-child(even) {
                 left: 0;
             }
-
             .timeline-item:nth-child(odd) .timeline-content::after,
             .timeline-item:nth-child(even) .timeline-content::after {
                 left: -10px;
@@ -738,45 +814,43 @@
 
         @media (max-width: 768px) {
             .nav-links {
-                position: fixed;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: var(--primary);
-                flex-direction: column;
-                align-items: center;
-                padding: 2rem 0;
-                transform: translateY(-100%);
-                transition: var(--transition);
-                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                display: none;
             }
-
-            .nav-links.active {
-                transform: translateY(0);
+            .hamburger {
+                display: flex;
             }
-
-            .mobile-menu {
-                display: block;
-            }
-
             .page-header {
                 height: 40vh;
             }
-
             .page-header h1 {
                 font-size: 2.3rem;
             }
-
             section {
                 padding: 4rem 5%;
             }
-
             .section-title {
                 font-size: 2rem;
             }
-
             .cta-section h2 {
                 font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .brand-name {
+                font-size: 1.3rem;
+            }
+            .tagline {
+                font-size: 0.7rem;
+            }
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            .section-title {
+                font-size: 1.6rem;
+            }
+            .mv-card h3 {
+                font-size: 1.4rem;
             }
         }
     </style>
@@ -786,19 +860,37 @@
     <nav>
         <div class="nav-container">
             <div class="logo-section">
-               
+                <div class="logo-text">
+                    <span class="brand-name"><img src="./assets/Nkadimeng Agri Final.png" style="width: 100px; height:100px" alt="Nkadimeng Agri Logo"></span>
+                    <!--<span class="tagline">Simply Farming</span>-->
+                </div>
             </div>
-            <div class="mobile-menu">
-                <i class="fas fa-bars"></i>
-            </div>
+            <!-- Desktop Navigation -->
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="about.html">About</a></li>
                 <li><a href="products.html">Products</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
+            <!-- Hamburger Button (Mobile) -->
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
+
+    <!-- Mobile Menu Panel & Overlay -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="mobile-menu-panel" id="mobileMenu">
+        <ul class="mobile-menu-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </div>
 
     <!-- Page Header -->
     <section class="page-header">
@@ -821,9 +913,7 @@
                 <p>Based in the heart of Lynnville, Emalahleni, we recognized the pressing need for reliable, high-quality food sources in our community. With food security challenges affecting many households, we positioned ourselves not just as suppliers, but as active contributors to building sustainable local food systems.</p>
                 <p>Our journey reflects our values: starting small, thinking locally, and always prioritizing the well-being of our community and environment. Every chicken we raise represents our commitment to ethical practices, quality products, and the people we serve.</p>
             </div>
-            <div class="story-image"><img src="./assets/agriabout.jpeg" alt="Nkadimeng Agri Farm Image" height="auto" width="auto"></div>
-                 
-            </div>
+            <div class="story-image"><img src="./assets/agriabout.jpeg" alt="Nkadimeng Agri Farm Image"></div>
         </div>
     </section>
 
@@ -836,17 +926,13 @@
         </div>
         <div class="mv-container">
             <div class="mv-card">
-                <div class="mv-icon">
-                    <i class="fas fa-bullseye"></i>
-                </div>
+                <div class="mv-icon"><i class="fas fa-bullseye"></i></div>
                 <h3>Our Mission</h3>
                 <p>To produce and supply premium-quality organic chickens that meet the nutritional needs of our community while promoting sustainable, ethical farming methods that protect the environment and support animal welfare.</p>
                 <p>We foster strong relationships with local customers by delivering fresh, healthy, and affordable products directly from our farm to their tables.</p>
             </div>
             <div class="mv-card">
-                <div class="mv-icon">
-                    <i class="fas fa-eye"></i>
-                </div>
+                <div class="mv-icon"><i class="fas fa-eye"></i></div>
                 <h3>Our Vision</h3>
                 <p>To become a leading provider of organic poultry products in Mpumalanga and beyond, empowering communities through food security and sustainable farming practices.</p>
                 <p>We envision a future where every household has access to healthy, locally-produced food that supports both personal wellness and community economic growth.</p>
@@ -862,34 +948,10 @@
             <p class="section-description">Our commitment to excellence is built on a foundation of core values that shape every aspect of our operations.</p>
         </div>
         <div class="values-grid">
-            <div class="value-card">
-                <div class="value-icon">
-                    <i class="fas fa-leaf"></i>
-                </div>
-                <h3>Sustainability</h3>
-                <p>We champion farming methods that protect natural resources for future generations, ensuring our practices leave the land healthier than we found it.</p>
-            </div>
-            <div class="value-card">
-                <div class="value-icon">
-                    <i class="fas fa-handshake"></i>
-                </div>
-                <h3>Community</h3>
-                <p>We exist to serve and uplift the people of Emalahleni and surrounding areas, building relationships that extend beyond business transactions.</p>
-            </div>
-            <div class="value-card">
-                <div class="value-icon">
-                    <i class="fas fa-star"></i>
-                </div>
-                <h3>Quality</h3>
-                <p>Our commitment is to consistently provide products that are fresh, healthy, and ethically sourced, never compromising on standards.</p>
-            </div>
-            <div class="value-card">
-                <div class="value-icon">
-                    <i class="fas fa-heart"></i>
-                </div>
-                <h3>Integrity</h3>
-                <p>We operate with honesty, transparency, and a customer-first attitude in all our interactions and business decisions.</p>
-            </div>
+            <div class="value-card"><div class="value-icon"><i class="fas fa-leaf"></i></div><h3>Sustainability</h3><p>We champion farming methods that protect natural resources for future generations, ensuring our practices leave the land healthier than we found it.</p></div>
+            <div class="value-card"><div class="value-icon"><i class="fas fa-handshake"></i></div><h3>Community</h3><p>We exist to serve and uplift the people of Emalahleni and surrounding areas, building relationships that extend beyond business transactions.</p></div>
+            <div class="value-card"><div class="value-icon"><i class="fas fa-star"></i></div><h3>Quality</h3><p>Our commitment is to consistently provide products that are fresh, healthy, and ethically sourced, never compromising on standards.</p></div>
+            <div class="value-card"><div class="value-icon"><i class="fas fa-heart"></i></div><h3>Integrity</h3><p>We operate with honesty, transparency, and a customer-first attitude in all our interactions and business decisions.</p></div>
         </div>
     </section>
 
@@ -901,34 +963,10 @@
             <p class="section-description">From humble beginnings to a thriving agricultural enterprise, our journey reflects our commitment to excellence.</p>
         </div>
         <div class="timeline-container">
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <span class="timeline-year">2021</span>
-                    <h3>Humble Beginnings</h3>
-                    <p>Started as an informal farming operation with a small flock of chickens, serving the local Lynnville community.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <span class="timeline-year">2022</span>
-                    <h3>Growing Demand</h3>
-                    <p>Expanded operations to meet increasing community demand for fresh, organic poultry products.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <span class="timeline-year">2023</span>
-                    <h3>Sustainable Practices</h3>
-                    <p>Implemented comprehensive organic farming methods and established relationships with local suppliers.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <span class="timeline-year">2024</span>
-                    <h3>Official Registration</h3>
-                    <p>Registered as an official company, solidifying our commitment to professional service and community development.</p>
-                </div>
-            </div>
+            <div class="timeline-item"><div class="timeline-content"><span class="timeline-year">2021</span><h3>Humble Beginnings</h3><p>Started as an informal farming operation with a small flock of chickens, serving the local Lynnville community.</p></div></div>
+            <div class="timeline-item"><div class="timeline-content"><span class="timeline-year">2022</span><h3>Growing Demand</h3><p>Expanded operations to meet increasing community demand for fresh, organic poultry products.</p></div></div>
+            <div class="timeline-item"><div class="timeline-content"><span class="timeline-year">2023</span><h3>Sustainable Practices</h3><p>Implemented comprehensive organic farming methods and established relationships with local suppliers.</p></div></div>
+            <div class="timeline-item"><div class="timeline-content"><span class="timeline-year">2024</span><h3>Official Registration</h3><p>Registered as an official company, solidifying our commitment to professional service and community development.</p></div></div>
         </div>
     </section>
 
@@ -940,36 +978,9 @@
             <p class="section-description">Our commitment to excellence extends to every aspect of how we raise and deliver our products.</p>
         </div>
         <div class="team-grid">
-            <div class="team-card">
-                <div class="team-image" style="background-image: url('./assets/Nkadimeng1.jpeg');">
-                    <!-- Background image shows black farmers working -->
-                </div>
-                <div class="team-content">
-                    <h3>Organic Practices</h3>
-                    <p>Natural & Chemical-Free</p>
-                    <p class="description">We raise our chickens without harmful chemicals, antibiotics, or artificial growth promoters, ensuring pure, healthy poultry.</p>
-                </div>
-            </div>
-            <div class="team-card">
-                <div class="team-image" style="background-image: url('./assets/raise.jpeg');">
-                    <!-- Background image shows black farmers working -->
-                </div>
-                <div class="team-content">
-                    <h3>Animal Welfare</h3>
-                    <p>Ethical Treatment</p>
-                    <p class="description">Our birds are raised in spacious, clean environments with access to natural light and proper nutrition throughout their lives.</p>
-                </div>
-            </div>
-            <div class="team-card">
-                <div class="team-image" style="background-image: url('./assets/Nkadimeng3.jpeg');">
-                    <!-- Background image shows black farmers working -->
-                </div>
-                <div class="team-content">
-                    <h3>Farm to Table</h3>
-                    <p>Direct & Fresh</p>
-                    <p class="description">We minimize handling and transportation time, ensuring our products reach customers at peak freshness and quality.</p>
-                </div>
-            </div>
+            <div class="team-card"><div class="team-image" style="background-image: url('./assets/Nkadimeng1.jpeg');"></div><div class="team-content"><h3>Organic Practices</h3><p>Natural & Chemical-Free</p><p class="description">We raise our chickens without harmful chemicals, antibiotics, or artificial growth promoters, ensuring pure, healthy poultry.</p></div></div>
+            <div class="team-card"><div class="team-image" style="background-image: url('./assets/raise.jpeg');"></div><div class="team-content"><h3>Animal Welfare</h3><p>Ethical Treatment</p><p class="description">Our birds are raised in spacious, clean environments with access to natural light and proper nutrition throughout their lives.</p></div></div>
+            <div class="team-card"><div class="team-image" style="background-image: url('./assets/Nkadimeng3.jpeg');"></div><div class="team-content"><h3>Farm to Table</h3><p>Direct & Fresh</p><p class="description">We minimize handling and transportation time, ensuring our products reach customers at peak freshness and quality.</p></div></div>
         </div>
     </section>
 
@@ -988,32 +999,51 @@
             <div class="footer-logo">Nkadimeng Agri</div>
             <div class="footer-tagline">Simply Farming, Simply Better.</div>
             <div class="footer-divider"></div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Nkadimeng Agri. All rights reserved.</p>
-                <p>Proudly serving the Emalahleni community and beyond.</p>
-            </div>
+            <div class="footer-bottom"><p>&copy; 2024 Nkadimeng Agri. All rights reserved.</p><p>Proudly serving the Emalahleni community and beyond.</p></div>
         </div>
     </footer>
 
     <!-- Back to Top Button -->
-    <a href="#" class="back-to-top">
-        <i class="fas fa-chevron-up"></i>
-    </a>
+    <a href="#" class="back-to-top"><i class="fas fa-chevron-up"></i></a>
 
     <script>
-        // Mobile Menu Toggle
-        const mobileMenu = document.querySelector('.mobile-menu');
-        const navLinks = document.querySelector('.nav-links');
-        
-        mobileMenu.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            mobileMenu.querySelector('i').classList.toggle('fa-bars');
-            mobileMenu.querySelector('i').classList.toggle('fa-times');
+        // Hamburger Menu Logic
+        const hamburger = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const overlay = document.getElementById('menuOverlay');
+
+        function closeMenu() {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function openMenu() {
+            mobileMenu.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        hamburger.addEventListener('click', () => {
+            if (mobileMenu.classList.contains('active')) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
+
+        overlay.addEventListener('click', closeMenu);
+
+        // Close mobile menu when a link is clicked
+        const mobileLinks = document.querySelectorAll('.mobile-menu-links a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                closeMenu();
+            });
         });
 
         // Back to Top Button
         const backToTopButton = document.querySelector('.back-to-top');
-        
         window.addEventListener('scroll', () => {
             if (window.pageYOffset > 300) {
                 backToTopButton.classList.add('active');
@@ -1022,48 +1052,39 @@
             }
         });
 
-        // Smooth scrolling for navigation links
+        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
-                
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
+                    closeMenu();
                     window.scrollTo({
                         top: targetElement.offsetTop - 70,
                         behavior: 'smooth'
                     });
-                    
-                    // Close mobile menu if open
-                    if (navLinks.classList.contains('active')) {
-                        navLinks.classList.remove('active');
-                        mobileMenu.querySelector('i').classList.remove('fa-times');
-                        mobileMenu.querySelector('i').classList.add('fa-bars');
-                    }
                 }
             });
         });
 
         // Navbar background on scroll
         window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
             if (window.scrollY > 50) {
-                document.querySelector('nav').style.background = 'rgba(45, 80, 22, 0.98)';
+                nav.style.background = 'rgba(45, 80, 22, 0.98)';
             } else {
-                document.querySelector('nav').style.background = 'rgba(45, 80, 22, 0.95)';
+                nav.style.background = 'rgba(45, 80, 22, 0.95)';
             }
         });
 
         // Animation on scroll
         function animateOnScroll() {
             const elements = document.querySelectorAll('.mv-card, .value-card, .team-card, .timeline-content');
-            
             elements.forEach(element => {
                 const elementTop = element.getBoundingClientRect().top;
                 const elementVisible = 150;
-                
                 if (elementTop < window.innerHeight - elementVisible) {
                     element.style.opacity = "1";
                     element.style.transform = "translateY(0)";
@@ -1071,7 +1092,6 @@
             });
         }
 
-        // Set initial state for animated elements
         document.addEventListener('DOMContentLoaded', function() {
             const elements = document.querySelectorAll('.mv-card, .value-card, .team-card, .timeline-content');
             elements.forEach(element => {
@@ -1079,9 +1099,7 @@
                 element.style.transform = "translateY(20px)";
                 element.style.transition = "opacity 0.6s ease, transform 0.6s ease";
             });
-            
             window.addEventListener('scroll', animateOnScroll);
-            // Trigger once on load
             animateOnScroll();
         });
     </script>
