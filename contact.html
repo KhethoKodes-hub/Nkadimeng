@@ -840,7 +840,7 @@
 </head>
 <body>
     <!-- Navigation -->
-      <nav>
+    <nav>
         <div class="nav-container">
             <div class="logo-section">
                
@@ -850,13 +850,14 @@
             </div>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="about.html">About</a></li>
                 <li><a href="products.html">Products</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="admin.html">admin</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="admin.html">Admin</a></li>
             </ul>
         </div>
     </nav>
+
     <!-- Page Header -->
     <section class="page-header">
         <div class="page-header-content">
@@ -901,7 +902,7 @@
                     </div>
                     <div class="info-content">
                         <h3>Email Address</h3>
-                        <p><a href="mailto:Nkadimeng.agri@gmail.com">Nkadimeng.agri@gmail.com</a></p>
+                        <p><a href="mailto:Nkadimeng.agri@gmail.com">nkadimenagri@gmail.com</a></p>
                     </div>
                 </div>
                 
@@ -934,28 +935,35 @@
                 </div>
             </div>
             
-            <!-- Contact Form -->
+            <!-- Contact Form - Updated with FormSubmit.co to send to kmngomezulu82@gmail.com -->
             <div class="contact-form-container">
                 <h3>Send Us a Message</h3>
-                <form id="contactForm">
+                <form id="contactForm" action="https://formsubmit.co/nkadimenagri@gmail.com" method="POST" enctype="multipart/form-data">
+                    <!-- FormSubmit.co configuration -->
+                    <input type="hidden" name="_subject" value="Nkadimeng Agri - New Contact Form Submission">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_replyto" value="email">
+                    <input type="hidden" name="_next" value="https://nkadimengagri.co.za/thankyou.html">
+                    
                     <div class="form-group">
                         <label for="name">Full Name</label>
-                        <input type="text" id="name" class="form-control" placeholder="Your Name" required>
+                        <input type="text" id="name" name="Full Name" class="form-control" placeholder="Your Name" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="email">Email Address</label>
-                        <input type="email" id="email" class="form-control" placeholder="Your Email" required>
+                        <input type="email" id="email" name="Email" class="form-control" placeholder="Your Email" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" class="form-control" placeholder="Your Phone Number">
+                        <input type="tel" id="phone" name="Phone Number" class="form-control" placeholder="Your Phone Number">
                     </div>
                     
                     <div class="form-group">
                         <label for="subject">Subject</label>
-                        <select id="subject" class="form-control" required>
+                        <select id="subject" name="Subject" class="form-control" required>
                             <option value="">Select a subject</option>
                             <option value="General Inquiry">General Inquiry</option>
                             <option value="Product Order">Product Order</option>
@@ -967,7 +975,7 @@
                     
                     <div class="form-group">
                         <label for="message">Your Message</label>
-                        <textarea id="message" class="form-control" placeholder="How can we help you?" required></textarea>
+                        <textarea id="message" name="Message" class="form-control" placeholder="How can we help you?" required></textarea>
                     </div>
                     
                     <button type="submit" class="submit-btn">Send Message</button>
@@ -1006,7 +1014,7 @@
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="faq-answer">
-                    <p>You can place an order by calling us at <a href="tel:0606110490">060 611 0490</a>, sending us an email at <a href="mailto:Nkadimeng.agri@gmail.com">Nkadimeng.agri@gmail.com</a>, or by visiting our farm directly during business hours.</p>
+                    <p>You can place an order by calling us at <a href="tel:0606110490">060 611 0490</a>, sending us an email at <a href="mailto:nkadimenagri@gmail.com">nkadimenagri@gmail.com</a>, or by visiting our farm directly during business hours.</p>
                 </div>
             </div>
             
@@ -1061,7 +1069,7 @@
                 <a href="tel:0606110490" class="cta-button">
                     <i class="fas fa-phone"></i> Call Us Now
                 </a>
-                <a href="mailto:Nkadimeng.agri@gmail.com" class="cta-button secondary">
+                <a href="mailto:nkadimenagri@gmail.com" class="cta-button secondary">
                     <i class="fas fa-envelope"></i> Send an Email
                 </a>
             </div>
@@ -1091,11 +1099,19 @@
         const mobileMenu = document.querySelector('.mobile-menu');
         const navLinks = document.querySelector('.nav-links');
         
-        mobileMenu.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            mobileMenu.querySelector('i').classList.toggle('fa-bars');
-            mobileMenu.querySelector('i').classList.toggle('fa-times');
-        });
+        if (mobileMenu) {
+            mobileMenu.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const icon = mobileMenu.querySelector('i');
+                if (icon.classList.contains('fa-bars')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        }
 
         // Back to Top Button
         const backToTopButton = document.querySelector('.back-to-top');
@@ -1124,10 +1140,11 @@
                     });
                     
                     // Close mobile menu if open
-                    if (navLinks.classList.contains('active')) {
+                    if (navLinks && navLinks.classList.contains('active')) {
                         navLinks.classList.remove('active');
-                        mobileMenu.querySelector('i').classList.remove('fa-times');
-                        mobileMenu.querySelector('i').classList.add('fa-bars');
+                        const icon = mobileMenu.querySelector('i');
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
                     }
                 }
             });
@@ -1150,21 +1167,20 @@
             });
         });
 
-        // Contact Form Submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // FormSubmit handles the submission automatically
+        // Add visual feedback for form submission
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', function(e) {
+            const submitBtn = contactForm.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
             
-            // Get form values
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            
-            // In a real application, you would send this data to a server
-            // For this example, we'll just show an alert
-            alert(`Thank you, ${name}! Your message about "${subject}" has been sent. We'll respond to ${email} as soon as possible.`);
-            
-            // Reset the form
-            this.reset();
+            // Re-enable after 3 seconds (form will redirect to thank you page)
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 3000);
         });
 
         // Animation on scroll

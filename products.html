@@ -921,7 +921,7 @@
 </head>
 <body>
     <!-- Navigation -->
-      <nav>
+    <nav>
         <div class="nav-container">
             <div class="logo-section">
                
@@ -931,8 +931,8 @@
             </div>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="about.html" class="active">About</a></li>
-                <li><a href="products.html">Products</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="products.html" class="active">Products</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </div>
@@ -969,9 +969,9 @@
                         <li><i class="fas fa-check"></i> Organic feed diet</li>
                         <li><i class="fas fa-check"></i> 12-14 weeks growth cycle</li>
                     </ul>
-                    <div class="product-price">From R95 per bird</div>
+                    <div class="product-price">From R110 per bird</div>
                     <div class="product-actions">
-                        <button class="btn btn-primary order-btn" data-product="Live Organic Chickens" data-price="95">
+                        <button class="btn btn-primary order-btn" data-product="Live Organic Chickens" data-price="110">
                             <i class="fas fa-shopping-cart"></i> Order Now
                         </button>
                         <button class="btn btn-outline info-btn" data-product="live">
@@ -996,9 +996,9 @@
                         <li><i class="fas fa-check"></i> Vacuum-packed options</li>
                         <li><i class="fas fa-check"></i> Custom cutting available</li>
                     </ul>
-                    <div class="product-price">From R115 per bird</div>
+                    <div class="product-price">From R130 per bird</div>
                     <div class="product-actions">
-                        <button class="btn btn-primary order-btn" data-product="Freshly Slaughtered Chickens" data-price="115">
+                        <button class="btn btn-primary order-btn" data-product="Freshly Slaughtered Chickens" data-price="130">
                             <i class="fas fa-shopping-cart"></i> Order Now
                         </button>
                         <button class="btn btn-outline info-btn" data-product="slaughtered">
@@ -1209,7 +1209,15 @@
         <div class="modal-content">
             <button class="close-modal">&times;</button>
             <h2>Place Your Order</h2>
-            <form class="order-form" id="orderForm">
+            <!-- FormSubmit.co Integration - sends to nkadimenagri@gmail.com with subject "Orders" -->
+            <form class="order-form" id="orderForm" action="https://formsubmit.co/nkadimenagri@gmail.com" method="POST" enctype="multipart/form-data">
+                <!-- FormSubmit.co configuration - subject set to "Orders" to differentiate from normal messages -->
+                <input type="hidden" name="_subject" value="Orders - Nkadimeng Agri Order">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_replyto" value="email">
+                <input type="hidden" name="_next" value="https://nkadimengagri.co.za/thankyou.html">
+                
                 <div class="order-summary">
                     <h3>Order Summary</h3>
                     <div class="summary-item">
@@ -1228,7 +1236,7 @@
                 
                 <div class="form-group">
                     <label for="product">Product</label>
-                    <select id="product" class="form-control" required>
+                    <select id="product" name="Product" class="form-control" required>
                         <option value="">Select a product</option>
                         <option value="Live Organic Chickens">Live Organic Chickens</option>
                         <option value="Freshly Slaughtered Chickens">Freshly Slaughtered Chickens</option>
@@ -1237,27 +1245,27 @@
                 
                 <div class="form-group">
                     <label for="quantity">Quantity</label>
-                    <input type="number" id="quantity" class="form-control" min="1" value="1" required>
+                    <input type="number" id="quantity" name="Quantity" class="form-control" min="1" value="1" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="name">Full Name</label>
-                    <input type="text" id="name" class="form-control" placeholder="Your Name" required>
+                    <input type="text" id="name" name="Full Name" class="form-control" placeholder="Your Name" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" class="form-control" placeholder="Your Phone Number" required>
+                    <input type="tel" id="phone" name="Phone Number" class="form-control" placeholder="Your Phone Number" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="email">Email Address</label>
-                    <input type="email" id="email" class="form-control" placeholder="Your Email">
+                    <input type="email" id="email" name="Email" class="form-control" placeholder="Your Email">
                 </div>
                 
                 <div class="form-group">
                     <label for="notes">Special Instructions</label>
-                    <textarea id="notes" class="form-control" placeholder="Any special requests or instructions"></textarea>
+                    <textarea id="notes" name="Special Instructions" class="form-control" placeholder="Any special requests or instructions"></textarea>
                 </div>
                 
                 <button type="submit" class="btn btn-primary" style="width: 100%;">
@@ -1345,8 +1353,8 @@
         
         // Product details for modal
         const productDetails = {
-            'Live Organic Chickens': { price: 95 },
-            'Freshly Slaughtered Chickens': { price: 115 }
+            'Live Organic Chickens': { price: 110 },
+            'Freshly Slaughtered Chickens': { price: 130 }
         };
         
         // Open modal when order button is clicked
@@ -1388,32 +1396,25 @@
             const price = productDetails[product] ? productDetails[product].price : 0;
             const total = price * quantity;
             
-            document.getElementById('summary-product').textContent = product;
-            document.getElementById('summary-price').textContent = `R${price}`;
+            document.getElementById('summary-product').textContent = product || 'Select a product';
+            document.getElementById('summary-price').textContent = price ? `R${price}` : 'R0.00';
             document.getElementById('summary-quantity').textContent = quantity;
             document.getElementById('summary-total').textContent = `R${total}`;
         }
         
-        // Form submission
-        document.getElementById('orderForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // Order form submission - visual feedback (FormSubmit handles actual send)
+        const orderForm = document.getElementById('orderForm');
+        orderForm.addEventListener('submit', function(e) {
+            const submitBtn = orderForm.querySelector('.btn-primary');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting Order...';
+            submitBtn.disabled = true;
             
-            // Get form values
-            const product = productSelect.value;
-            const quantity = quantityInput.value;
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            
-            // In a real application, you would send this data to a server
-            // For this example, we'll just show an alert
-            alert(`Thank you, ${name}! Your order for ${quantity} ${product} has been received. We'll contact you at ${phone} to confirm your order.`);
-            
-            // Reset the form and close modal
-            this.reset();
-            orderModal.style.display = 'none';
-            
-            // Reset summary
-            updateOrderSummary();
+            // Re-enable after 3 seconds (form will redirect to thank you page)
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 3000);
         });
 
         // Product info buttons
