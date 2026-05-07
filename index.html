@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Nkadimeng Agri - Organic Poultry Excellence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,400;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,43 +13,60 @@
         }
 
         :root {
-            --primary: #2d5016;
-            --primary-dark: #1a3008;
-            --secondary: #4a7c2c;
-            --accent: #8bc34a;
-            --accent-light: #c5e1a5;
-            --earth: #8d6e63;
-            --sky: #87ceeb;
-            --light: #f9faf7;
+            --primary: #1e4d0f;
+            --primary-dark: #0f2a06;
+            --primary-mid: #2d6b18;
+            --secondary: #3a6b1e;
+            --accent: #7db83a;
+            --accent-light: #b8d98a;
+            --accent-pale: #e8f4d0;
+            --soil: #6b4c2a;
+            --soil-mid: #8d6540;
+            --soil-light: #c4a47a;
+            --soil-pale: #f0e4d2;
+            --bark: #4a3520;
             --white: #ffffff;
-            --text: #2c3e2f;
-            --text-light: #5a6c5d;
+            --off-white: #fafdf7;
+            --light: #f2f8ec;
+            --text: #1c2e14;
+            --text-light: #4a5e3a;
+            --glass-bg: rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --glass-shadow: 0 8px 32px rgba(15, 42, 6, 0.18);
+            --glass-dark-bg: rgba(15, 42, 6, 0.55);
+            --glass-dark-border: rgba(255, 255, 255, 0.12);
         }
 
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
             color: var(--text);
             overflow-x: hidden;
             background: var(--white);
         }
 
-        /* Navigation */
+        /* ═══════════════════════════════════════
+           NAVIGATION
+        ═══════════════════════════════════════ */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             padding: 1rem 8%;
             z-index: 1000;
-            border-bottom: 1px solid rgba(45, 80, 22, 0.1);
-            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(107, 76, 42, 0.12);
+            transition: all 0.4s ease;
         }
 
         nav.scrolled {
-            padding: 0.7rem 8%;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+            padding: 0.65rem 8%;
+            box-shadow: 0 4px 40px rgba(15, 42, 6, 0.1), 0 1px 0 rgba(107,76,42,0.08);
+            background: rgba(255,255,255,0.97);
         }
 
         .nav-container {
@@ -72,22 +90,23 @@
         }
 
         .brand-name {
+            font-family: 'Playfair Display', serif;
             font-size: 1.6rem;
             font-weight: 800;
             color: var(--primary);
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             line-height: 1.2;
+            text-decoration: none;
         }
 
         .tagline {
-            font-size: 0.85rem;
-            color: var(--accent);
+            font-size: 0.78rem;
+            color: var(--soil-mid);
             font-weight: 500;
             font-style: italic;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
 
-        /* Desktop Navigation */
         .nav-links {
             display: flex;
             gap: 2.5rem;
@@ -99,38 +118,41 @@
             color: var(--text);
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            letter-spacing: 0.4px;
             position: relative;
             transition: color 0.3s ease;
         }
 
-        .nav-links a::after {
+        .nav-links a::before {
             content: '';
             position: absolute;
-            bottom: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
+            bottom: -6px;
+            left: 0;
+            width: 100%;
             height: 2px;
-            background: var(--accent);
-            transition: width 0.3s ease;
+            background: linear-gradient(90deg, var(--accent), var(--soil-light));
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .nav-links a:hover {
             color: var(--primary);
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
+        .nav-links a:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
         }
 
-        /* Hamburger Menu (Mobile) */
+        /* Hamburger */
         .hamburger {
             display: none;
             flex-direction: column;
             justify-content: space-between;
-            width: 30px;
-            height: 21px;
+            width: 28px;
+            height: 20px;
             cursor: pointer;
             z-index: 1002;
             background: transparent;
@@ -140,80 +162,91 @@
         .hamburger span {
             display: block;
             width: 100%;
-            height: 3px;
+            height: 2px;
             background-color: var(--primary);
-            border-radius: 3px;
+            border-radius: 2px;
             transition: all 0.3s ease;
         }
 
-        /* Mobile Menu Overlay */
         .mobile-menu {
             position: fixed;
             top: 0;
             right: -100%;
-            width: 80%;
+            width: 78%;
             max-width: 320px;
             height: 100vh;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
+            background: rgba(255,255,255,0.97);
+            backdrop-filter: blur(24px);
+            box-shadow: -5px 0 40px rgba(15,42,6,0.15);
             z-index: 1001;
-            padding: 6rem 2rem 2rem;
-            transition: right 0.3s ease-in-out;
+            padding: 6rem 2.5rem 2rem;
+            transition: right 0.38s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
-            border-left: 1px solid rgba(45, 80, 22, 0.1);
+            border-left: 1px solid rgba(107,76,42,0.1);
         }
 
-        .mobile-menu.active {
-            right: 0;
-        }
+        .mobile-menu.active { right: 0; }
 
         .mobile-menu-links {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 0;
         }
 
         .mobile-menu-links li a {
-            font-size: 1.4rem;
-            font-weight: 600;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
             color: var(--primary);
             text-decoration: none;
             display: block;
-            padding: 0.5rem 0;
-            transition: color 0.3s ease, transform 0.2s ease;
-            border-bottom: 1px solid rgba(45, 80, 22, 0.1);
+            padding: 1.2rem 0;
+            transition: color 0.3s ease, padding-left 0.3s ease;
+            border-bottom: 1px solid rgba(107,76,42,0.1);
         }
 
         .mobile-menu-links li a:hover {
             color: var(--accent);
-            transform: translateX(8px);
+            padding-left: 10px;
         }
 
-        /* Overlay background when menu is open */
         .menu-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(15,42,6,0.45);
             z-index: 1000;
             display: none;
-            backdrop-filter: blur(2px);
+            backdrop-filter: blur(3px);
         }
 
-        .menu-overlay.active {
-            display: block;
+        .menu-overlay.active { display: block; }
+
+        /* ═══════════════════════════════════════
+           SVG ICON SYSTEM
+        ═══════════════════════════════════════ */
+        .icon {
+            display: inline-block;
+            vertical-align: middle;
         }
 
-        /* Hero Section */
+        /* ═══════════════════════════════════════
+           HERO SECTION
+        ═══════════════════════════════════════ */
         .hero {
             margin-top: 80px;
             min-height: 95vh;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background-image:
+                linear-gradient(160deg,
+                    rgba(14, 38, 6, 0.82) 0%,
+                    rgba(30, 77, 15, 0.65) 45%,
+                    rgba(107, 76, 42, 0.55) 100%),
+                url('./assets/hero2.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -222,171 +255,207 @@
             overflow: hidden;
         }
 
-        .hero::before {
+        /* Grain texture overlay */
+        .hero::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(139, 195, 74, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-            animation: pulse 8s ease-in-out infinite;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            opacity: 0.4;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
+        /* Decorative soil stripe at bottom */
+        .hero-soil-stripe {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 6px;
+            background: linear-gradient(90deg,
+                var(--soil) 0%,
+                var(--accent) 35%,
+                var(--soil-light) 65%,
+                var(--soil) 100%);
         }
 
         .floating-leaves {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
+            width: 100%; height: 100%;
+            top: 0; left: 0;
             overflow: hidden;
             pointer-events: none;
+            z-index: 1;
         }
 
-        .leaf {
+        /* Decorative geometric shape */
+        .hero-decor {
             position: absolute;
-            font-size: 2rem;
-            opacity: 0.15;
-            animation: float-leaf 20s infinite ease-in-out;
+            top: 15%;
+            right: 8%;
+            width: 260px;
+            height: 260px;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 50%;
+            z-index: 1;
         }
-
-        .leaf:nth-child(1) { left: 10%; animation-delay: 0s; }
-        .leaf:nth-child(2) { left: 30%; animation-delay: 4s; }
-        .leaf:nth-child(3) { left: 50%; animation-delay: 8s; }
-        .leaf:nth-child(4) { left: 70%; animation-delay: 12s; }
-        .leaf:nth-child(5) { left: 90%; animation-delay: 16s; }
-
-        @keyframes float-leaf {
-            0% { 
-                transform: translateY(120vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% { opacity: 0.15; }
-            90% { opacity: 0.15; }
-            100% { 
-                transform: translateY(-20vh) rotate(360deg);
-                opacity: 0;
-            }
+        .hero-decor::before {
+            content: '';
+            position: absolute;
+            inset: 20px;
+            border: 1px solid rgba(139,195,74,0.12);
+            border-radius: 50%;
+        }
+        .hero-decor::after {
+            content: '';
+            position: absolute;
+            inset: 45px;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 50%;
         }
 
         .hero-content {
             position: relative;
-            z-index: 1;
-            max-width: 900px;
+            z-index: 2;
+            max-width: 880px;
             text-align: center;
             color: white;
         }
 
         .hero-badge {
-            display: inline-block;
-            padding: 0.6rem 1.8rem;
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.55rem 1.6rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
             border-radius: 50px;
             color: var(--accent-light);
-            font-size: 0.85rem;
+            font-size: 0.78rem;
             font-weight: 600;
-            letter-spacing: 2px;
+            letter-spacing: 2.5px;
             text-transform: uppercase;
             margin-bottom: 2rem;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
         }
 
         .hero h1 {
+            font-family: 'Playfair Display', serif;
             font-size: 5rem;
             font-weight: 900;
             margin-bottom: 1rem;
-            letter-spacing: -2px;
-            line-height: 1.1;
-            animation: fadeInUp 0.8s ease;
+            letter-spacing: -1px;
+            line-height: 1.05;
+            animation: fadeInUp 0.9s ease;
+        }
+
+        .hero h1 em {
+            color: var(--accent-light);
+            font-style: italic;
         }
 
         .hero .slogan {
-            font-size: 2rem;
-            color: var(--accent-light);
+            font-size: 1.3rem;
+            color: var(--soil-light);
             font-style: italic;
             font-weight: 300;
             margin-bottom: 2rem;
-            animation: fadeInUp 0.8s ease 0.2s backwards;
+            letter-spacing: 1px;
+            animation: fadeInUp 0.9s ease 0.2s backwards;
         }
 
         .hero-description {
-            font-size: 1.2rem;
-            line-height: 1.8;
+            font-size: 1.1rem;
+            line-height: 1.85;
             margin-bottom: 3rem;
-            opacity: 0.95;
-            max-width: 700px;
+            opacity: 0.93;
+            max-width: 680px;
             margin-left: auto;
             margin-right: auto;
-            animation: fadeInUp 0.8s ease 0.4s backwards;
+            animation: fadeInUp 0.9s ease 0.4s backwards;
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(28px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .cta-buttons {
             display: flex;
-            gap: 1.5rem;
+            gap: 1.2rem;
             justify-content: center;
             flex-wrap: wrap;
-            animation: fadeInUp 0.8s ease 0.6s backwards;
+            animation: fadeInUp 0.9s ease 0.6s backwards;
         }
 
         .cta-button {
-            padding: 1.1rem 2.5rem;
+            padding: 1rem 2.4rem;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 6px;
             font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.6rem;
+            position: relative;
+            overflow: hidden;
         }
 
         .cta-primary {
-            background: var(--accent);
+            background: linear-gradient(135deg, var(--accent) 0%, #5a9420 100%);
             color: var(--primary-dark);
-            box-shadow: 0 10px 30px rgba(139, 195, 74, 0.3);
+            box-shadow: 0 8px 28px rgba(125, 184, 58, 0.35);
         }
 
+        .cta-primary::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-primary:hover::before { left: 100%; }
+
         .cta-primary:hover {
-            background: var(--accent-light);
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(139, 195, 74, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(125, 184, 58, 0.45);
         }
 
         .cta-secondary {
-            background: transparent;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
             color: white;
-            border: 2px solid white;
+            border: 1.5px solid rgba(255,255,255,0.4);
         }
 
         .cta-secondary:hover {
-            background: white;
-            color: var(--primary);
+            background: rgba(255,255,255,0.22);
+            border-color: rgba(255,255,255,0.7);
+            transform: translateY(-4px);
         }
 
-        /* Stats Section */
+        /* ═══════════════════════════════════════
+           STATS SECTION
+        ═══════════════════════════════════════ */
         .stats {
             padding: 4rem 8%;
-            background: white;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            background: linear-gradient(135deg, var(--white) 0%, var(--soil-pale) 100%);
+            border-bottom: 1px solid rgba(107,76,42,0.1);
+            position: relative;
+        }
+
+        .stats::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg,
+                var(--primary) 0%,
+                var(--accent) 40%,
+                var(--soil-mid) 70%,
+                var(--primary) 100%);
         }
 
         .stats-grid {
@@ -399,62 +468,126 @@
 
         .stat-item {
             text-align: center;
+            position: relative;
+            padding: 2rem 1rem;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.6);
+            border: 1px solid rgba(107,76,42,0.12);
+            backdrop-filter: blur(8px);
+            transition: all 0.35s ease;
+            cursor: default;
         }
 
+        .stat-item:hover {
+            background: white;
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(107,76,42,0.12), 0 0 0 1px rgba(125,184,58,0.3);
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--soil-mid));
+            border-radius: 3px;
+            transition: transform 0.35s ease;
+        }
+
+        .stat-item:hover::before { transform: translateX(-50%) scaleX(1); }
+
         .stat-number {
-            font-size: 3.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
             font-weight: 900;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--soil-mid) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.4rem;
             line-height: 1;
         }
 
         .stat-label {
             color: var(--text-light);
-            font-size: 0.95rem;
-            font-weight: 500;
+            font-size: 0.8rem;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
 
-        /* Section Styles */
+        /* ═══════════════════════════════════════
+           SECTION DEFAULTS
+        ═══════════════════════════════════════ */
         section {
             padding: 8rem 8%;
         }
 
         .section-header {
             text-align: center;
-            max-width: 700px;
+            max-width: 680px;
             margin: 0 auto 5rem;
         }
 
         .section-tag {
-            display: inline-block;
-            font-size: 0.85rem;
-            color: var(--accent);
-            font-weight: 600;
-            letter-spacing: 2px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.78rem;
+            color: var(--soil-mid);
+            font-weight: 700;
+            letter-spacing: 2.5px;
             text-transform: uppercase;
             margin-bottom: 1rem;
         }
 
+        .section-tag::before,
+        .section-tag::after {
+            content: '';
+            display: block;
+            width: 24px;
+            height: 1px;
+            background: var(--soil-light);
+        }
+
         .section-title {
-            font-size: 3rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
             font-weight: 800;
             color: var(--primary);
             margin-bottom: 1.5rem;
-            letter-spacing: -1px;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
         }
 
         .section-description {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--text-light);
-            line-height: 1.8;
+            line-height: 1.85;
         }
 
-        /* About Section */
+        /* ═══════════════════════════════════════
+           ABOUT SECTION
+        ═══════════════════════════════════════ */
         .about {
-            background: var(--light);
+            background:
+                linear-gradient(160deg, var(--light) 0%, var(--soil-pale) 60%, var(--off-white) 100%);
+            position: relative;
+        }
+
+        /* Subtle soil texture line */
+        .about::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg,
+                transparent,
+                var(--soil-light) 30%,
+                var(--accent) 60%,
+                transparent);
         }
 
         .about-grid {
@@ -466,59 +599,106 @@
         }
 
         .about-card {
-            background: white;
+            background: rgba(255,255,255,0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             padding: 3rem;
-            border-radius: 16px;
-            border: 1px solid rgba(45, 80, 22, 0.1);
-            transition: all 0.4s ease;
+            border-radius: 20px;
+            border: 1px solid rgba(107,76,42,0.12);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 20px rgba(15,42,6,0.06);
         }
 
+        /* Left soil stripe accent */
         .about-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent), var(--secondary));
-            transform: scaleX(0);
+            top: 0; left: 0;
+            width: 4px; height: 100%;
+            background: linear-gradient(180deg, var(--accent) 0%, var(--soil-mid) 100%);
+            transform: scaleY(0);
+            transform-origin: bottom;
             transition: transform 0.4s ease;
+            border-radius: 0 0 0 20px;
         }
 
-        .about-card:hover::before {
-            transform: scaleX(1);
+        /* Warm glow on hover */
+        .about-card::after {
+            content: '';
+            position: absolute;
+            top: -50%; right: -50%;
+            width: 120%; height: 120%;
+            background: radial-gradient(circle, rgba(125,184,58,0.06) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
         }
+
+        .about-card:hover::before { transform: scaleY(1); }
+        .about-card:hover::after { opacity: 1; }
 
         .about-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 60px rgba(45, 80, 22, 0.12);
-            border-color: var(--accent);
+            transform: translateY(-12px) translateX(4px);
+            box-shadow: 0 28px 70px rgba(15,42,6,0.14), 0 0 0 1px rgba(125,184,58,0.2);
+            border-color: rgba(125,184,58,0.3);
+            background: rgba(255,255,255,0.92);
         }
 
         .about-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            display: block;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--light) 0%, var(--soil-pale) 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.8rem;
+            border: 1px solid rgba(107,76,42,0.15);
+            transition: all 0.35s ease;
         }
 
+        .about-card:hover .about-icon {
+            background: linear-gradient(135deg, var(--accent-pale) 0%, var(--soil-pale) 100%);
+            transform: rotate(-5deg) scale(1.08);
+        }
+
+        .about-icon svg { color: var(--primary); }
+
         .about-card h3 {
+            font-family: 'Playfair Display', serif;
             color: var(--primary);
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
         }
 
         .about-card p {
             color: var(--text-light);
-            line-height: 1.8;
+            line-height: 1.85;
             font-size: 0.95rem;
         }
 
-        /* Values Section */
+        /* ═══════════════════════════════════════
+           VALUES SECTION
+        ═══════════════════════════════════════ */
         .values {
             background: white;
+            position: relative;
+        }
+
+        /* Decorative soil bar */
+        .values::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 5px;
+            background: linear-gradient(90deg,
+                var(--soil) 0%,
+                var(--soil-light) 25%,
+                var(--accent) 50%,
+                var(--soil-light) 75%,
+                var(--soil) 100%);
         }
 
         .values-grid {
@@ -530,179 +710,254 @@
         }
 
         .value-card {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(155deg,
+                var(--primary-dark) 0%,
+                var(--primary-mid) 55%,
+                var(--secondary) 100%);
             color: white;
-            padding: 3rem 2rem;
-            border-radius: 16px;
+            padding: 3rem 2.2rem;
+            border-radius: 20px;
             text-align: center;
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            border: 2px solid transparent;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 8px 30px rgba(15,42,6,0.2);
         }
 
+        /* Soil tint sweep */
         .value-card::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-            transform: scale(0);
-            transition: transform 0.6s ease;
+            inset: 0;
+            background: linear-gradient(160deg,
+                transparent 50%,
+                rgba(107,76,42,0.18) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
-        .value-card:hover::before {
-            transform: scale(1);
+        /* Shine sweep */
+        .value-card::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -60%;
+            width: 60%;
+            height: 300%;
+            background: linear-gradient(105deg,
+                transparent,
+                rgba(255,255,255,0.08),
+                transparent);
+            transform: rotate(35deg);
+            transition: left 0.6s ease;
         }
+
+        .value-card:hover::before { opacity: 1; }
+
+        .value-card:hover::after { left: 140%; }
 
         .value-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 50px rgba(45, 80, 22, 0.3);
-            border-color: var(--accent);
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 28px 60px rgba(15,42,6,0.35), 0 0 0 1px rgba(125,184,58,0.4);
+            border-color: rgba(125,184,58,0.3);
         }
 
-        .value-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+        .value-icon-wrap {
+            width: 68px;
+            height: 68px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.4rem;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(6px);
+        }
+
+        .value-card:hover .value-icon-wrap {
+            background: rgba(125,184,58,0.2);
+            border-color: rgba(125,184,58,0.5);
+            transform: rotate(8deg) scale(1.1);
         }
 
         .value-card h3 {
-            font-size: 1.4rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
             font-weight: 700;
             margin-bottom: 1rem;
+            position: relative;
         }
 
         .value-card p {
-            line-height: 1.7;
-            opacity: 0.95;
-            font-size: 0.95rem;
+            line-height: 1.8;
+            opacity: 0.9;
+            font-size: 0.93rem;
+            position: relative;
         }
 
-        /* Products Section */
+        /* ═══════════════════════════════════════
+           PRODUCTS SECTION
+        ═══════════════════════════════════════ */
         .products {
-            background: linear-gradient(180deg, var(--light) 0%, white 100%);
+            background:
+                linear-gradient(180deg,
+                    var(--light) 0%,
+                    var(--off-white) 60%,
+                    var(--soil-pale) 100%);
         }
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2.5rem;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .product-card {
             background: white;
-            border-radius: 20px;
+            border-radius: 22px;
             overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            transition: all 0.4s ease;
-            border: 1px solid rgba(45, 80, 22, 0.1);
+            box-shadow: 0 8px 36px rgba(15,42,6,0.08);
+            transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(107,76,42,0.1);
+            position: relative;
         }
 
+        /* Soil line hover reveal at bottom */
+        .product-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--soil-mid) 0%, var(--accent) 50%, var(--soil-mid) 100%);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover::after { transform: scaleX(1); }
+
         .product-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 25px 70px rgba(45, 80, 22, 0.15);
-            border-color: var(--accent);
+            transform: translateY(-16px);
+            box-shadow: 0 32px 80px rgba(15,42,6,0.16), 0 0 0 1px rgba(125,184,58,0.25);
+            border-color: rgba(125,184,58,0.25);
         }
 
         .product-image {
             height: 280px;
-            background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 5rem;
-            position: relative;
             overflow: hidden;
+            position: relative;
         }
 
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.08);
+        }
+
+        /* Image overlay on hover */
         .product-image::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), transparent);
+            inset: 0;
+            background: linear-gradient(180deg,
+                transparent 50%,
+                rgba(15,42,6,0.4) 100%);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
-        .product-card:hover .product-image {
-            transform: scale(1.05);
-        }
+        .product-card:hover .product-image::before { opacity: 1; }
 
         .product-content {
-            padding: 2.5rem;
+            padding: 2.4rem;
         }
 
         .product-tag {
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            background: var(--accent-light);
-            color: var(--primary);
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 0.9rem;
+            background: linear-gradient(135deg, var(--accent-pale) 0%, var(--soil-pale) 100%);
+            color: var(--soil);
+            border-radius: 4px;
+            font-size: 0.72rem;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             margin-bottom: 1rem;
+            border: 1px solid rgba(107,76,42,0.15);
         }
 
         .product-content h3 {
+            font-family: 'Playfair Display', serif;
             color: var(--primary);
-            font-size: 1.6rem;
+            font-size: 1.55rem;
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 0.9rem;
         }
 
         .product-content p {
             color: var(--text-light);
-            line-height: 1.8;
-            font-size: 0.95rem;
+            line-height: 1.85;
+            font-size: 0.93rem;
         }
 
-        /* Features Section */
+        /* ═══════════════════════════════════════
+           FEATURES SECTION
+        ═══════════════════════════════════════ */
         .features {
-            background: var(--primary);
+            background:
+                linear-gradient(150deg,
+                    var(--primary-dark) 0%,
+                    var(--primary) 45%,
+                    var(--bark) 100%);
             color: white;
             position: relative;
             overflow: hidden;
         }
 
+        /* Background texture pattern */
         .features::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                radial-gradient(circle at 20% 50%, rgba(139, 195, 74, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 15% 30%, rgba(125,184,58,0.1) 0%, transparent 40%),
+                radial-gradient(circle at 85% 70%, rgba(107,76,42,0.2) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.03) 0%, transparent 60%);
+            pointer-events: none;
         }
 
-        .features .section-header {
-            position: relative;
-            z-index: 1;
-        }
+        .features .section-tag { color: var(--soil-light); }
+        .features .section-title { color: var(--white); }
+        .features .section-description { color: rgba(255,255,255,0.85); }
 
-        .features .section-tag {
-            color: var(--accent-light);
-        }
-
-        .features .section-title {
-            color: white;
-        }
-
-        .features .section-description {
-            color: rgba(255, 255, 255, 0.9);
+        /* Soil line accent */
+        .features::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 5px;
+            background: linear-gradient(90deg,
+                var(--soil) 0%,
+                var(--accent) 50%,
+                var(--soil) 100%);
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
             gap: 2rem;
             max-width: 1200px;
             margin: 0 auto;
@@ -711,43 +966,92 @@
         }
 
         .feature-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 2.5rem;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: var(--glass-dark-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 2.8rem 2rem;
+            border-radius: 18px;
+            border: 1px solid var(--glass-dark-border);
             text-align: center;
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
+
+        /* Corner soil accent */
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 60px; height: 60px;
+            background: linear-gradient(225deg, rgba(107,76,42,0.3) 0%, transparent 60%);
+            border-radius: 0 18px 0 0;
+        }
+
+        /* Hover shimmer */
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 18px;
+            background: radial-gradient(circle at 50% 0%, rgba(125,184,58,0.12) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .feature-card:hover::after { opacity: 1; }
 
         .feature-card:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: var(--accent);
-            transform: translateY(-8px);
+            background: rgba(15,42,6,0.7);
+            border-color: rgba(125,184,58,0.4);
+            transform: translateY(-10px);
+            box-shadow: 0 24px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(125,184,58,0.2);
         }
 
-        .feature-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            display: block;
+        .feature-icon-wrap {
+            width: 72px;
+            height: 72px;
+            background: rgba(125,184,58,0.12);
+            border: 1px solid rgba(125,184,58,0.25);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.6rem;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card:hover .feature-icon-wrap {
+            background: rgba(125,184,58,0.22);
+            border-color: rgba(125,184,58,0.6);
+            transform: scale(1.12) rotate(-8deg);
         }
 
         .feature-card h3 {
-            font-size: 1.4rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 0.9rem;
             color: var(--accent-light);
+            position: relative;
+            z-index: 1;
         }
 
         .feature-card p {
             line-height: 1.8;
-            opacity: 0.95;
-            font-size: 0.95rem;
+            opacity: 0.9;
+            font-size: 0.93rem;
+            position: relative;
+            z-index: 1;
         }
 
-        /* Process Section */
+        /* ═══════════════════════════════════════
+           PROCESS SECTION
+        ═══════════════════════════════════════ */
         .process {
-            background: white;
+            background: linear-gradient(180deg, white 0%, var(--light) 100%);
         }
 
         .process-timeline {
@@ -760,10 +1064,12 @@
             content: '';
             position: absolute;
             left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: linear-gradient(180deg, var(--accent), var(--secondary));
+            top: 0; bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg,
+                var(--accent) 0%,
+                var(--soil-mid) 50%,
+                var(--secondary) 100%);
             transform: translateX(-50%);
         }
 
@@ -771,7 +1077,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 3rem;
-            margin-bottom: 4rem;
+            margin-bottom: 4.5rem;
             position: relative;
         }
 
@@ -783,278 +1089,383 @@
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            width: 58px;
+            height: 58px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--secondary) 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
             font-weight: 800;
             color: white;
-            box-shadow: 0 5px 20px rgba(139, 195, 74, 0.4);
+            box-shadow: 0 6px 24px rgba(125,184,58,0.4), 0 0 0 4px rgba(125,184,58,0.12);
             z-index: 2;
+            border: 2px solid white;
+            transition: all 0.35s ease;
+        }
+
+        .process-step:hover .process-number {
+            background: linear-gradient(135deg, var(--soil-mid) 0%, var(--soil) 100%);
+            box-shadow: 0 8px 28px rgba(107,76,42,0.4), 0 0 0 4px rgba(107,76,42,0.12);
+            transform: translateX(-50%) scale(1.08);
         }
 
         .process-content {
-            background: var(--light);
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(12px);
             padding: 2.5rem;
-            border-radius: 16px;
-            border: 1px solid rgba(45, 80, 22, 0.1);
-            transition: all 0.3s ease;
+            border-radius: 18px;
+            border: 1px solid rgba(107,76,42,0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(15,42,6,0.06);
+            position: relative;
+            overflow: hidden;
         }
 
+        /* Step accent line */
+        .process-content::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--soil-mid));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .process-content:hover::after { transform: scaleX(1); }
+
         .process-content:hover {
-            transform: translateX(-10px);
-            box-shadow: 0 15px 40px rgba(45, 80, 22, 0.1);
+            transform: translateX(-8px);
+            box-shadow: 0 20px 50px rgba(15,42,6,0.12), 0 0 0 1px rgba(125,184,58,0.2);
+            background: rgba(255,255,255,0.95);
         }
 
         .process-step:nth-child(even) .process-content:hover {
-            transform: translateX(10px);
+            transform: translateX(8px);
         }
 
         .process-content h3 {
+            font-family: 'Playfair Display', serif;
             color: var(--primary);
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             font-weight: 700;
             margin-bottom: 0.8rem;
         }
 
         .process-content p {
             color: var(--text-light);
-            line-height: 1.7;
-            font-size: 0.95rem;
+            line-height: 1.8;
+            font-size: 0.93rem;
         }
 
-        /* Contact Section */
+        /* ═══════════════════════════════════════
+           CONTACT SECTION
+        ═══════════════════════════════════════ */
         .contact {
-            background: var(--light);
+            background:
+                linear-gradient(155deg,
+                    var(--soil-pale) 0%,
+                    var(--light) 50%,
+                    var(--soil-pale) 100%);
+            position: relative;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 5px;
+            background: linear-gradient(90deg,
+                var(--soil) 0%,
+                var(--accent) 50%,
+                var(--soil) 100%);
         }
 
         .contact-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
             gap: 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .contact-card {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 16px;
-            border: 1px solid rgba(45, 80, 22, 0.1);
+            background: rgba(255,255,255,0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 2.8rem 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(107,76,42,0.12);
             text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(15,42,6,0.06);
+        }
+
+        /* Diagonal soil swipe on hover */
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            bottom: -100%;
+            left: -20%;
+            width: 140%;
+            height: 100%;
+            background: linear-gradient(160deg,
+                transparent 40%,
+                rgba(125,184,58,0.06) 60%,
+                rgba(107,76,42,0.05) 100%);
+            transition: bottom 0.5s ease;
+        }
+
+        .contact-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--soil-mid));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .contact-card:hover::before { bottom: 0; }
+        .contact-card:hover::after { transform: scaleX(1); }
+
+        .contact-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 28px 70px rgba(15,42,6,0.14), 0 0 0 1px rgba(125,184,58,0.25);
+            border-color: rgba(125,184,58,0.25);
+            background: rgba(255,255,255,0.92);
+        }
+
+        .contact-icon-wrap {
+            width: 62px;
+            height: 62px;
+            background: linear-gradient(135deg, var(--accent-pale) 0%, var(--soil-pale) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            border: 1px solid rgba(107,76,42,0.15);
             transition: all 0.4s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-card:hover .contact-icon-wrap {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            transform: scale(1.1) rotate(-8deg);
+        }
+
+        .contact-card:hover .contact-icon-wrap svg {
+            color: white;
+        }
+
+        .contact-icon-wrap svg {
+            color: var(--primary);
+            transition: color 0.3s ease;
+        }
+
+        .contact-card h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-card p,
+        .contact-card a {
+            color: var(--text-light);
+            line-height: 1.8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.93rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-card a:hover { color: var(--accent); }
+
+        /* ═══════════════════════════════════════
+           FOOTER
+        ═══════════════════════════════════════ */
+        footer {
+            background:
+                linear-gradient(150deg,
+                    var(--primary-dark) 0%,
+                    var(--bark) 50%,
+                    var(--primary-dark) 100%);
+            color: white;
+            padding: 5rem 8% 2.5rem;
             position: relative;
             overflow: hidden;
         }
 
-        .contact-card::before {
+        footer::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent), var(--secondary));
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
+            top: 0; left: 0; right: 0;
+            height: 5px;
+            background: linear-gradient(90deg,
+                var(--soil) 0%,
+                var(--accent) 35%,
+                var(--soil-light) 65%,
+                var(--soil) 100%);
         }
 
-        .contact-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .contact-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(45, 80, 22, 0.12);
-            border-color: var(--accent);
-        }
-
-        .contact-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            display: block;
-        }
-
-        .contact-card h3 {
-            color: var(--primary);
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .contact-card p, .contact-card a {
-            color: var(--text-light);
-            line-height: 1.7;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .contact-card a:hover {
-            color: var(--accent);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--primary-dark);
-            color: white;
-            padding: 4rem 8% 2rem;
+        /* Decorative circles */
+        footer::after {
+            content: '';
+            position: absolute;
+            bottom: -80px; right: -80px;
+            width: 280px; height: 280px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.04);
         }
 
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
             text-align: center;
+            position: relative;
+            z-index: 1;
         }
 
         .footer-logo {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 0.4rem;
+            background: linear-gradient(135deg, white 0%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .footer-tagline {
-            color: var(--accent-light);
+            color: var(--soil-light);
             font-style: italic;
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        footer p {
+            color: rgba(255,255,255,0.75);
+            font-size: 0.95rem;
+            line-height: 1.8;
         }
 
         .footer-divider {
             height: 1px;
-            background: rgba(255, 255, 255, 0.1);
-            margin: 2rem 0;
+            background: linear-gradient(90deg,
+                transparent,
+                rgba(107,76,42,0.4) 30%,
+                rgba(125,184,58,0.3) 60%,
+                transparent);
+            margin: 2.5rem 0;
         }
 
         .footer-bottom {
-            font-size: 0.9rem;
-            opacity: 0.8;
+            font-size: 0.85rem;
+            opacity: 0.7;
         }
 
-        /* Responsive - MOBILE FIRST HAMBURGER */
+        /* ═══════════════════════════════════════
+           RESPONSIVE
+        ═══════════════════════════════════════ */
         @media (max-width: 968px) {
-            .hero h1 {
-                font-size: 3.5rem;
-            }
+            .hero h1 { font-size: 3.5rem; }
+            .section-title { font-size: 2.3rem; }
 
-            .section-title {
-                font-size: 2.5rem;
-            }
-
-            .process-timeline::before {
-                left: 30px;
-            }
-
-            .process-step {
-                grid-template-columns: 1fr;
-            }
-
+            .process-timeline::before { left: 28px; }
+            .process-step { grid-template-columns: 1fr; }
             .process-number {
-                left: 30px;
+                left: 28px;
+                top: -28px;
+                position: relative;
+                margin-bottom: 1rem;
             }
-
-            .process-content {
-                margin-left: 90px;
-            }
-
-            .process-step:nth-child(even) .process-content {
-                order: 1;
-            }
+            .process-content { margin-left: 0; }
+            .process-step:nth-child(even) .process-content { order: 1; }
         }
 
         @media (max-width: 640px) {
-            nav {
-                padding: 1rem 5%;
-            }
-
-            /* Hide desktop nav links on mobile, show hamburger */
-            .nav-links {
-                display: none;
-            }
-
-            .hamburger {
-                display: flex;
-            }
+            nav { padding: 1rem 5%; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
 
             .hero {
                 margin-top: 70px;
                 padding: 3rem 5%;
+                background-attachment: scroll;
             }
 
-            .hero h1 {
-                font-size: 2.5rem;
-            }
+            .hero h1 { font-size: 2.6rem; }
+            .hero .slogan { font-size: 1.3rem; }
+            .hero-decor { display: none; }
 
-            .hero .slogan {
-                font-size: 1.5rem;
-            }
-
-            section {
-                padding: 5rem 5%;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-            }
-
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .about-card {
-                padding: 2rem;
-            }
+            section { padding: 5rem 5%; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .products-grid { grid-template-columns: 1fr; }
+            .about-card { padding: 2rem; }
         }
 
-        /* Extra small devices */
         @media (max-width: 480px) {
-            .brand-name {
-                font-size: 1.3rem;
-            }
-            .tagline {
-                font-size: 0.7rem;
-            }
-            .hero h1 {
-                font-size: 2rem;
-            }
-            .section-title {
-                font-size: 1.8rem;
-            }
-            .stat-number {
-                font-size: 2.5rem;
-            }
+            .brand-name { font-size: 1.3rem; }
+            .tagline { font-size: 0.7rem; }
+            .hero h1 { font-size: 2rem; }
+            .section-title { font-size: 1.9rem; }
+            .stat-number { font-size: 2.6rem; }
+        }
+
+        /* ═══════════════════════════════════════
+           SCROLL ANIMATION SETUP
+        ═══════════════════════════════════════ */
+        .animate-in {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.65s ease, transform 0.65s ease;
+        }
+
+        .animate-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
+
     <nav id="navbar">
         <div class="nav-container">
             <div class="logo-section">
-                <div class="logo-placeholder"><img src="assets/Nkadimeng Agri Final.png" height="100" width="100" alt="Nkadimeng Agri Logo"></div>
+                <a class="brand-name" href="index.html">
+                    <img src="./assets/Nkadimeng Agri Final.png" style="width: 80px; height: 80px;" alt="Nkadimeng Agri Logo">
+                </a>
                 <div class="logo-text">
                     <span class="brand-name">Nkadimeng</span>
                     <span class="tagline">Simply Farming</span>
                 </div>
             </div>
-            <!-- Desktop Navigation -->
             <ul class="nav-links">
                 <li><a href="about.html">About</a></li>
                 <li><a href="products.html">Products</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
-            <!-- Hamburger Button (Mobile) -->
             <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </button>
         </div>
     </nav>
 
-    <!-- Mobile Menu Overlay & Panel -->
     <div class="menu-overlay" id="menuOverlay"></div>
     <div class="mobile-menu" id="mobileMenu">
         <ul class="mobile-menu-links">
@@ -1064,52 +1475,55 @@
         </ul>
     </div>
 
-    <section class="hero" style="background-image: url('./assets/hero2.png'); background-size: cover; background-position: center;">
-        <div class="floating-leaves">
-            <div class="leaf">🌿</div>
-            <div class="leaf">🌾</div>
-            <div class="leaf">🌿</div>
-            <div class="leaf">🍃</div>
-            <div class="leaf">🌿</div>
-        </div>
+    <!-- ═══════════ HERO ═══════════ -->
+    <section class="hero">
+        <div class="hero-decor"></div>
+        <div class="floating-leaves" aria-hidden="true"></div>
         <div class="hero-content">
-            <div class="hero-badge">Certified Organic Poultry</div>
-            <h1>Farm Fresh Excellence</h1>
+            <div class="hero-badge">
+                <!-- Leaf icon -->
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+                Certified Organic Poultry
+            </div>
+            <h1>Farm Fresh<br><em>Excellence</em></h1>
             <p class="slogan">Simply Farming</p>
             <p class="hero-description">Proudly South African organic poultry from the heart of Lynnville, Emalahleni. Delivering premium, ethically-raised chickens that support sustainable local food systems and community prosperity.</p>
             <div class="cta-buttons">
                 <a href="#contact" class="cta-button cta-primary">
-                    <span>Get In Touch</span>
-                    <span>→</span>
+                    Get In Touch
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
                 <a href="#products" class="cta-button cta-secondary">
-                    <span>Our Products</span>
+                    Our Products
                 </a>
             </div>
         </div>
+        <div class="hero-soil-stripe"></div>
     </section>
 
+    <!-- ═══════════ STATS ═══════════ -->
     <section class="stats">
         <div class="stats-grid">
-            <div class="stat-item">
+            <div class="stat-item animate-in">
                 <div class="stat-number">2021</div>
                 <div class="stat-label">Established</div>
             </div>
-            <div class="stat-item">
+            <div class="stat-item animate-in">
                 <div class="stat-number">100%</div>
                 <div class="stat-label">Organic</div>
             </div>
-            <div class="stat-item">
+            <div class="stat-item animate-in">
                 <div class="stat-number">Local</div>
-                <div class="stat-label">Sourced & Supplied</div>
+                <div class="stat-label">Sourced &amp; Supplied</div>
             </div>
-            <div class="stat-item">
+            <div class="stat-item animate-in">
                 <div class="stat-number">0</div>
                 <div class="stat-label">Antibiotics</div>
             </div>
         </div>
     </section>
 
+    <!-- ═══════════ ABOUT ═══════════ -->
     <section id="about" class="about">
         <div class="section-header">
             <div class="section-tag">Who We Are</div>
@@ -1117,24 +1531,34 @@
             <p class="section-description">From humble beginnings to certified excellence, we're committed to sustainable farming practices that nourish our community.</p>
         </div>
         <div class="about-grid">
-            <div class="about-card">
-                <span class="about-icon">📖</span>
+            <div class="about-card animate-in">
+                <div class="about-icon">
+                    <!-- Book icon -->
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                </div>
                 <h3>Our Story</h3>
                 <p>Founded on a passion for farming and community empowerment, Nkadimeng Agri began operations in 2021 and achieved official company registration in 2024. Rooted in Lynnville, Emalahleni, we're dedicated to producing premium organic poultry while creating sustainable opportunities for our community.</p>
             </div>
-            <div class="about-card">
-                <span class="about-icon">🎯</span>
+            <div class="about-card animate-in">
+                <div class="about-icon">
+                    <!-- Target icon -->
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                </div>
                 <h3>Our Mission</h3>
                 <p>To provide the highest quality organic poultry products while promoting sustainable agriculture, supporting local economies, and maintaining the highest standards of animal welfare and environmental stewardship.</p>
             </div>
-            <div class="about-card">
-                <span class="about-icon">👁️</span>
+            <div class="about-card animate-in">
+                <div class="about-icon">
+                    <!-- Eye icon -->
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </div>
                 <h3>Our Vision</h3>
                 <p>To become South Africa's leading provider of organic poultry, setting new standards for quality, sustainability, and community impact while inspiring a new generation of farmers.</p>
             </div>
         </div>
     </section>
 
+    <!-- ═══════════ VALUES ═══════════ -->
     <section id="values" class="values">
         <div class="section-header">
             <div class="section-tag">Our Values</div>
@@ -1142,29 +1566,42 @@
             <p class="section-description">Our commitment to excellence is built on a foundation of core values that shape every aspect of our operations.</p>
         </div>
         <div class="values-grid">
-            <div class="value-card">
-                <span class="value-icon">🌱</span>
+            <div class="value-card animate-in">
+                <div class="value-icon-wrap">
+                    <!-- Leaf icon -->
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-light)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+                </div>
                 <h3>Sustainability</h3>
                 <p>We practice regenerative farming methods that enrich our land, protect natural resources, and ensure long-term viability for future generations.</p>
             </div>
-            <div class="value-card">
-                <span class="value-icon">🤝</span>
+            <div class="value-card animate-in">
+                <div class="value-icon-wrap">
+                    <!-- Handshake icon -->
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-light)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 11l-5-5-5 5"/><path d="M7 13l5 5 5-5"/></svg>
+                </div>
                 <h3>Community</h3>
                 <p>We believe in empowering local communities through job creation, skills development, and supporting local businesses and suppliers.</p>
             </div>
-            <div class="value-card">
-                <span class="value-icon">🐔</span>
+            <div class="value-card animate-in">
+                <div class="value-icon-wrap">
+                    <!-- Heart icon -->
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-light)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </div>
                 <h3>Animal Welfare</h3>
                 <p>Our chickens are raised with care, provided ample space to roam, and never given antibiotics or growth hormones.</p>
             </div>
-            <div class="value-card">
-                <span class="value-icon">⭐</span>
+            <div class="value-card animate-in">
+                <div class="value-icon-wrap">
+                    <!-- Star icon -->
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-light)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
                 <h3>Quality</h3>
                 <p>From farm to table, we maintain the highest standards to deliver poultry products that are nutritious, delicious, and responsibly produced.</p>
             </div>
         </div>
     </section>
 
+    <!-- ═══════════ PRODUCTS ═══════════ -->
     <section id="products" class="products">
         <div class="section-header">
             <div class="section-tag">Our Products</div>
@@ -1172,9 +1609,9 @@
             <p class="section-description">Discover our range of carefully raised, certified organic poultry products that deliver exceptional taste and quality.</p>
         </div>
         <div class="products-grid">
-            <div class="product-card">
+            <div class="product-card animate-in">
                 <div class="product-image">
-                    <img src="assets/wholechick.jpeg" alt="Whole Chickens" style="width:100%; height:100%; object-fit:cover; display:block;">
+                    <img src="assets/wholechick.jpeg" alt="Whole Chickens">
                 </div>
                 <div class="product-content">
                     <span class="product-tag">Most Popular</span>
@@ -1182,9 +1619,9 @@
                     <p>Our signature free-range, organic whole chickens are raised with care and processed to the highest standards. Perfect for family meals and special occasions.</p>
                 </div>
             </div>
-            <div class="product-card">
+            <div class="product-card animate-in">
                 <div class="product-image">
-                    <img src="assets/Nkadimeng3.jpeg" alt="Chicken Portions" style="width:100%; height:100%; object-fit:cover; display:block;">
+                    <img src="assets/Nkadimeng3.jpeg" alt="Chicken Portions">
                 </div>
                 <div class="product-content">
                     <span class="product-tag">Value Pack</span>
@@ -1192,9 +1629,9 @@
                     <p>Conveniently portioned cuts including breasts, thighs, wings, and drumsticks. All from our organically raised chickens with no additives or preservatives.</p>
                 </div>
             </div>
-            <div class="product-card">
+            <div class="product-card animate-in">
                 <div class="product-image">
-                    <img src="assets/eggs.jpeg" alt="Organic Eggs" style="width:100%; height:100%; object-fit:cover; display:block;">
+                    <img src="assets/eggs.jpeg" alt="Organic Eggs">
                 </div>
                 <div class="product-content">
                     <span class="product-tag">Coming Soon</span>
@@ -1205,6 +1642,7 @@
         </div>
     </section>
 
+    <!-- ═══════════ FEATURES ═══════════ -->
     <section class="features">
         <div class="section-header">
             <div class="section-tag">Why Choose Us</div>
@@ -1212,29 +1650,42 @@
             <p class="section-description">Our commitment to excellence sets us apart in every aspect of our operations.</p>
         </div>
         <div class="features-grid">
-            <div class="feature-card">
-                <span class="feature-icon">🏆</span>
+            <div class="feature-card animate-in">
+                <div class="feature-icon-wrap">
+                    <!-- Award icon -->
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-light)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+                </div>
                 <h3>Certified Organic</h3>
                 <p>All our products meet strict organic certification standards, ensuring you receive the highest quality poultry.</p>
             </div>
-            <div class="feature-card">
-                <span class="feature-icon">🌍</span>
-                <h3>Local & Sustainable</h3>
+            <div class="feature-card animate-in">
+                <div class="feature-icon-wrap">
+                    <!-- Globe icon -->
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-light)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                </div>
+                <h3>Local &amp; Sustainable</h3>
                 <p>We support the local economy and practice sustainable farming methods that protect our environment.</p>
             </div>
-            <div class="feature-card">
-                <span class="feature-icon">❤️</span>
+            <div class="feature-card animate-in">
+                <div class="feature-icon-wrap">
+                    <!-- Shield icon -->
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-light)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
                 <h3>Ethically Raised</h3>
                 <p>Our chickens enjoy a natural lifestyle with ample space, fresh air, and a diet free from antibiotics and hormones.</p>
             </div>
-            <div class="feature-card">
-                <span class="feature-icon">🚚</span>
+            <div class="feature-card animate-in">
+                <div class="feature-icon-wrap">
+                    <!-- Truck icon -->
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--accent-light)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                </div>
                 <h3>Fresh Delivery</h3>
                 <p>We ensure prompt delivery of fresh products to maintain quality and flavor from our farm to your table.</p>
             </div>
         </div>
     </section>
 
+    <!-- ═══════════ PROCESS ═══════════ -->
     <section class="process">
         <div class="section-header">
             <div class="section-tag">Our Process</div>
@@ -1242,13 +1693,38 @@
             <p class="section-description">Transparency in our farming practices ensures you know exactly where your food comes from and how it's produced.</p>
         </div>
         <div class="process-timeline">
-            <div class="process-step"><div class="process-number">1</div><div class="process-content"><h3>Organic Breeding</h3><p>We start with carefully selected breeds raised in natural environments with access to pasture and organic feed.</p></div></div>
-            <div class="process-step"><div class="process-number">2</div><div class="process-content"><h3>Natural Growth</h3><p>Our chickens grow at their natural pace with no antibiotics or growth hormones, ensuring healthy development.</p></div></div>
-            <div class="process-step"><div class="process-number">3</div><div class="process-content"><h3>Ethical Processing</h3><p>We follow humane processing methods in our certified facilities, maintaining the highest standards of food safety.</p></div></div>
-            <div class="process-step"><div class="process-number">4</div><div class="process-content"><h3>Quality Delivery</h3><p>Fresh products are carefully packaged and delivered promptly to ensure optimal quality and flavor.</p></div></div>
+            <div class="process-step">
+                <div class="process-number">1</div>
+                <div class="process-content">
+                    <h3>Organic Breeding</h3>
+                    <p>We start with carefully selected breeds raised in natural environments with access to pasture and organic feed.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="process-number">2</div>
+                <div class="process-content">
+                    <h3>Natural Growth</h3>
+                    <p>Our chickens grow at their natural pace with no antibiotics or growth hormones, ensuring healthy development.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="process-number">3</div>
+                <div class="process-content">
+                    <h3>Ethical Processing</h3>
+                    <p>We follow humane processing methods in our certified facilities, maintaining the highest standards of food safety.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="process-number">4</div>
+                <div class="process-content">
+                    <h3>Quality Delivery</h3>
+                    <p>Fresh products are carefully packaged and delivered promptly to ensure optimal quality and flavor.</p>
+                </div>
+            </div>
         </div>
     </section>
 
+    <!-- ═══════════ CONTACT ═══════════ -->
     <section id="contact" class="contact">
         <div class="section-header">
             <div class="section-tag">Get In Touch</div>
@@ -1256,20 +1732,47 @@
             <p class="section-description">We'd love to hear from you. Reach out to learn more about our products or discuss partnership opportunities.</p>
         </div>
         <div class="contact-grid">
-            <div class="contact-card"><span class="contact-icon">📍</span><h3>Visit Us</h3><p>Lynnville, Emalahleni<br>Mpumalanga, South Africa</p></div>
-            <div class="contact-card"><span class="contact-icon">📞</span><h3>Call Us</h3><p><a href="tel:+27123456789">+27 12 345 6789</a><br>Mon-Fri: 8am-5pm</p></div>
-            <div class="contact-card"><span class="contact-icon">✉️</span><h3>Email Us</h3><p><a href="mailto:nkadimengagri@gmail.com">nkadimengagri@gmail.com</a><br>We respond within 24 hours</p></div>
-            <div class="contact-card"><span class="contact-icon">🔄</span><h3>Follow Us</h3><p>Stay updated on our latest products and farming practices through our social media channels.</p></div>
+            <div class="contact-card animate-in">
+                <div class="contact-icon-wrap">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <h3>Visit Us</h3>
+                <p>Lynnville, Emalahleni<br>Mpumalanga, South Africa</p>
+            </div>
+            <div class="contact-card animate-in">
+                <div class="contact-icon-wrap">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.49 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+                <h3>Call Us</h3>
+                <p><a href="tel:+27123456789">+27 12 345 6789</a><br>Mon–Fri: 8am–5pm</p>
+            </div>
+            <div class="contact-card animate-in">
+                <div class="contact-icon-wrap">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </div>
+                <h3>Email Us</h3>
+                <p><a href="mailto:nkadimengagri@gmail.com">nkadimengagri@gmail.com</a><br>We respond within 24 hours</p>
+            </div>
+            <div class="contact-card animate-in">
+                <div class="contact-icon-wrap">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                </div>
+                <h3>Follow Us</h3>
+                <p>Stay updated on our latest products and farming practices through our social media channels.</p>
+            </div>
         </div>
     </section>
 
+    <!-- ═══════════ FOOTER ═══════════ -->
     <footer>
         <div class="footer-content">
             <div class="footer-logo">Nkadimeng Agri</div>
             <div class="footer-tagline">Simply Farming</div>
             <p>Proudly South African organic poultry from the heart of Lynnville, Emalahleni.</p>
             <div class="footer-divider"></div>
-            <div class="footer-bottom"><p>&copy; 2024 Nkadimeng Agri. All rights reserved. | Proudly serving the Emalahleni community and beyond.</p></div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Nkadimeng Agri. All rights reserved. | Proudly serving the Emalahleni community and beyond.</p>
+            </div>
         </div>
     </footer>
 
@@ -1277,14 +1780,10 @@
         // Navbar scroll effect
         window.addEventListener('scroll', function() {
             const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
         });
 
-        // Hamburger Menu Logic
+        // Hamburger Menu
         const hamburger = document.getElementById('hamburgerBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         const overlay = document.getElementById('menuOverlay');
@@ -1302,61 +1801,63 @@
         }
 
         hamburger.addEventListener('click', () => {
-            if (mobileMenu.classList.contains('active')) {
-                closeMenu();
-            } else {
-                openMenu();
-            }
+            mobileMenu.classList.contains('active') ? closeMenu() : openMenu();
         });
 
         overlay.addEventListener('click', closeMenu);
 
-        // Close menu when a link is clicked (smooth navigation)
-        const mobileLinks = document.querySelectorAll('.mobile-menu-links a');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                closeMenu();
-            });
+        document.querySelectorAll('.mobile-menu-links a').forEach(link => {
+            link.addEventListener('click', closeMenu);
         });
 
-        // Smooth scrolling for anchor links (existing)
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
                 if (targetId && targetId.startsWith('#')) {
                     e.preventDefault();
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        closeMenu(); // close mobile menu if open
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        closeMenu();
+                        window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
                     }
                 }
             });
         });
 
-        // Scroll animations (unchanged but ensure menu close on anchor)
+        // Scroll-triggered animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, 80 * i);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+
+        // Also animate cards that aren't tagged animate-in
         function animateOnScroll() {
-            const elements = document.querySelectorAll('.about-card, .value-card, .product-card, .feature-card, .process-content');
+            const elements = document.querySelectorAll('.about-card, .value-card, .product-card, .feature-card, .process-content, .contact-card');
             elements.forEach(element => {
                 const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 150;
-                if (elementTop < window.innerHeight - elementVisible) {
-                    element.style.opacity = "1";
-                    element.style.transform = "translateY(0)";
+                if (elementTop < window.innerHeight - 120) {
+                    element.style.opacity = '1';
+                    element.style.transform = element.style.transform || 'translateY(0)';
                 }
             });
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            const elements = document.querySelectorAll('.about-card, .value-card, .product-card, .feature-card, .process-content');
+            const elements = document.querySelectorAll('.about-card, .value-card, .product-card, .feature-card, .process-content, .contact-card');
             elements.forEach(element => {
-                element.style.opacity = "0";
-                element.style.transform = "translateY(20px)";
-                element.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(22px)';
+                element.style.transition = 'opacity 0.65s ease, transform 0.65s ease';
             });
             window.addEventListener('scroll', animateOnScroll);
             animateOnScroll();
